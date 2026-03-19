@@ -812,50 +812,28 @@ function renderPresentes() {
     if (p.rendered) return;
     p.rendered = true;
 
-    const imagemPresente = p.imagem && p.imagem.trim() !== "" ? `<img src="${p.imagem}" alt="${p.nome}">` : gerarArtePresenteHTML(p.nome, p.emoji || "🎁");
+    const imagemHTML = p.imagem && p.imagem.trim() !== ""
+      ? `<img src="${p.imagem}" alt="${p.nome}">`
+      : gerarArtePresenteHTML(p.nome, p.emoji || "🎁");
+
+    const valorNormalizado = normalizarValor(p.valor);
+    const textoValor = p.tipo === "livre" || !valorNormalizado
+      ? "Valor livre"
+      : "R$ " + valorNormalizado.replace(".", ",");
+
+    const botao = p.status === "finalizado"
+      ? ""
+      : `<button onclick="abrirModal('${p.nome}','${p.valor}','${p.tipo}')">Presentear</button>`;
 
     cont.insertAdjacentHTML("beforeend", `
       <div class="card ${p.status === "finalizado" ? "escolhido" : ""} ${p.destaque ? "destaque" : ""}">
-        ${imagemPresente}
+        ${imagemHTML}
         <h3>${p.nome}</h3>
         <p class="valor-presente"><strong>${textoValor}</strong></p>
-        ${p.status === "finalizado" ? "" : `<button onclick="abrirModal('${p.nome}','${p.valor}','${p.tipo}')">Presentear</button>`}
+        ${botao}
       </div>
     `);
   });
-}
-
-document.getElementById("ordenarSelect").addEventListener("change", function(e) {
-  const tipoOrdenacao = e.target.value;
-  presentes.forEach(p => p.rendered = false);
-  pagina = 0;
-  document.getElementById("listaPresentes").innerHTML = "";
-  document.getElementById("verMais").style.display = "inline-block";
-
-  function valorSeguro(v) {
-    const n = parseFloat(v);
-    return isNaN(n) ? Infinity : n;
-  }
-
-  if (tipoOrdenacao === "original") {
-    presentes = [...presentesOriginal].sort((a, b) => a.ordem - b.ordem);
-  } else if (tipoOrdenacao === "menor") {
-    presentes = [...presentesOriginal].sort((a, b) => valorSeguro(a.valor) - valorSeguro(b.valor));
-  } else if (tipoOrdenacao === "maior") {
-    presentes = [...presentesOriginal].sort((a, b) => valorSeguro(b.valor) - valorSeguro(a.valor));
-  } else if (tipoOrdenacao === "az") {
-    presentes = [...presentesOriginal].sort((a, b) => a.nome.localeCompare(b.nome));
-  }
-
-  renderPresentes();
-});
-
-document.getElementById("verMais").onclick = () => {
-  pagina++;
-  renderPresentes();
-  if ((pagina + 1) * porPagina >= presentes.length) {
-    document.getElementById("verMais").style.display = "none";
-  }
 };
 
 function crc16(payload) {
