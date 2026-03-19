@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chá de Cozinha Renan & Laislla</title>
-  <meta name="description" content="Site premium do chá de cozinha de Renan & Laislla" />
-
+  <meta name="description" content="Site premium do chá de cozinha de Renan & Laislla com contagem regressiva, localização e lista de presentes por categoria." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -23,6 +22,11 @@
       --branco:#ffffff;
       --borda:rgba(0,0,0,0.06);
       --sombra:0 14px 40px rgba(0,0,0,0.08);
+      --sombra-forte:0 22px 60px rgba(0,0,0,0.16);
+      --verde:#1f9d66;
+      --azul:#118ad3;
+      --fundo-card:rgba(255,255,255,0.92);
+      --gradiente-principal:linear-gradient(135deg, #f7eef2 0%, #fff9f4 48%, #fff 100%);
     }
 
     *{box-sizing:border-box}
@@ -30,105 +34,320 @@
 
     body{
       margin:0;
-      font-family:"Montserrat",sans-serif;
+      font-family:"Montserrat", sans-serif;
       color:var(--texto);
-      background:radial-gradient(circle at top left,#fffdfc 0%,#fff8f4 40%,#fff 100%);
+      background:
+        radial-gradient(circle at top left, #fffdfc 0%, #fff8f4 40%, #fff 100%);
       line-height:1.7;
       overflow-x:hidden;
     }
 
-    h1,h2,h3{font-family:"Cormorant Garamond",serif}
+    h1,h2,h3,h4{
+      font-family:"Cormorant Garamond", serif;
+      margin:0;
+    }
+
+    a{color:inherit}
+
+    body.convite-fechado{
+      overflow:hidden;
+    }
+
+    body.convite-fechado > *:not(#conviteOverlay){
+      visibility:hidden;
+      opacity:0;
+    }
+
+    #conviteOverlay{
+      position:fixed;
+      inset:0;
+      background:
+        linear-gradient(135deg, rgba(255,250,247,0.99), rgba(249,239,242,0.99));
+      z-index:999999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+    }
+
+    .convite-card{
+      width:100%;
+      max-width:480px;
+      background:#fff;
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:0 24px 60px rgba(0,0,0,0.18);
+      border:1px solid rgba(0,0,0,0.05);
+      animation:fadeZoomIn .9s ease;
+    }
+
+    .convite-arte{
+      min-height:520px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.95), transparent 20%),
+        radial-gradient(circle at 85% 22%, rgba(255,255,255,.8), transparent 18%),
+        radial-gradient(circle at 15% 85%, rgba(255,255,255,.65), transparent 18%),
+        linear-gradient(145deg, #f3dde5 0%, #f8e9df 55%, #fff9f4 100%);
+      position:relative;
+      padding:34px 28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+    }
+
+    .convite-arte::before,
+    .convite-arte::after{
+      content:"";
+      position:absolute;
+      border-radius:50%;
+      filter:blur(6px);
+    }
+
+    .convite-arte::before{
+      width:180px;
+      height:180px;
+      top:-55px;
+      right:-40px;
+      background:rgba(217,163,176,.22);
+    }
+
+    .convite-arte::after{
+      width:160px;
+      height:160px;
+      bottom:-50px;
+      left:-35px;
+      background:rgba(216,179,106,.18);
+    }
+
+    .convite-miolo{
+      position:relative;
+      z-index:2;
+      width:100%;
+      border:1px solid rgba(255,255,255,.95);
+      background:rgba(255,255,255,.72);
+      backdrop-filter:blur(8px);
+      border-radius:26px;
+      padding:42px 26px;
+      box-shadow:0 12px 34px rgba(153,112,127,.12);
+    }
+
+    .convite-topo{
+      display:inline-block;
+      font-size:12px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:#8d737c;
+      margin-bottom:16px;
+    }
+
+    .convite-miolo h1{
+      font-size:56px;
+      color:var(--rosa-escuro);
+      line-height:0.95;
+      margin-bottom:8px;
+    }
+
+    .convite-miolo h2{
+      font-size:34px;
+      color:var(--dourado);
+      margin-bottom:16px;
+      font-weight:600;
+    }
+
+    .convite-linha{
+      width:80px;
+      height:2px;
+      margin:0 auto 18px;
+      background:linear-gradient(90deg, transparent, var(--dourado), transparent);
+    }
+
+    .convite-info{
+      font-size:16px;
+      color:#6f6666;
+      margin-bottom:8px;
+    }
+
+    .convite-destaque{
+      display:inline-block;
+      margin-top:14px;
+      padding:10px 16px;
+      border-radius:999px;
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(0,0,0,.05);
+      font-size:13px;
+      color:#7a6f6f;
+      box-shadow:0 8px 20px rgba(0,0,0,.05);
+    }
+
+    .convite-footer{
+      padding:22px;
+      text-align:center;
+      background:linear-gradient(135deg, #f7e8d7, #f6dfe6);
+    }
+
+    .btn-primario,
+    .btn-secundario,
+    .btn-acao{
+      border:none;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:14px;
+      letter-spacing:.4px;
+      transition:.25s ease;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+
+    .btn-primario{
+      background:linear-gradient(135deg, var(--rosa), var(--rosa-escuro));
+      color:#fff;
+      padding:14px 30px;
+      box-shadow:0 10px 24px rgba(0,0,0,0.12);
+    }
+
+    .btn-secundario{
+      background:#fff;
+      color:#7a666f;
+      padding:12px 22px;
+      border:1px solid rgba(0,0,0,0.06);
+    }
+
+    .btn-acao{
+      background:linear-gradient(135deg, var(--rosa), var(--rosa-escuro));
+      color:#fff;
+      padding:12px 20px;
+      width:100%;
+    }
+
+    .btn-primario:hover,
+    .btn-secundario:hover,
+    .btn-acao:hover{
+      transform:translateY(-2px);
+      filter:brightness(1.02);
+    }
+
+    @keyframes fadeZoomIn{
+      from{opacity:0;transform:scale(.94) translateY(20px)}
+      to{opacity:1;transform:scale(1) translateY(0)}
+    }
 
     nav{
       position:sticky;
       top:0;
       z-index:1000;
-      background:rgba(255,255,255,.92);
-      backdrop-filter:blur(12px);
+      background:rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
       border-bottom:1px solid var(--borda);
       text-align:center;
     }
 
     nav a{
       display:inline-block;
-      padding:16px 12px;
+      padding:18px 14px;
       text-decoration:none;
       color:#6e6666;
-      font-size:13px;
+      font-size:14px;
       font-weight:600;
       letter-spacing:1px;
       text-transform:uppercase;
+      position:relative;
+    }
+
+    nav a::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      bottom:8px;
+      width:0;
+      height:2px;
+      background:var(--dourado);
+      transform:translateX(-50%);
+      transition:.3s ease;
+    }
+
+    nav a:hover::after{
+      width:58%;
     }
 
     .hero{
-      min-height:78vh;
+      min-height:92vh;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:60px 20px 30px;
+      padding:72px 20px 50px;
       position:relative;
       overflow:hidden;
     }
 
-    .hero::before,
-    .hero::after{
+    .hero::before{
       content:"";
       position:absolute;
-      border-radius:50%;
-      filter:blur(12px);
-    }
-
-    .hero::before{
       width:520px;
       height:520px;
       top:-170px;
       left:-170px;
-      background:rgba(216,163,176,.16);
+      border-radius:50%;
+      background:rgba(216,163,176,0.16);
+      filter:blur(12px);
     }
 
     .hero::after{
+      content:"";
+      position:absolute;
       width:430px;
       height:430px;
       bottom:-140px;
       right:-120px;
-      background:rgba(214,176,106,.12);
+      border-radius:50%;
+      background:rgba(214,176,106,0.12);
+      filter:blur(12px);
     }
 
     .hero-box{
       position:relative;
       z-index:2;
       width:100%;
-      max-width:1120px;
+      max-width:1140px;
       display:grid;
-      grid-template-columns:1.05fr .95fr;
+      grid-template-columns:1.08fr .92fr;
       gap:34px;
       align-items:center;
     }
 
+    .hero-texto{
+      text-align:left;
+    }
+
     .hero-tag{
       display:inline-block;
-      background:rgba(255,255,255,.84);
-      border:1px solid var(--borda);
+      background:rgba(255,255,255,0.82);
+      border:1px solid rgba(0,0,0,0.05);
       border-radius:999px;
       padding:8px 16px;
-      font-size:12px;
+      font-size:13px;
       letter-spacing:1px;
       text-transform:uppercase;
       color:#7c6c6c;
-      margin-bottom:16px;
+      margin-bottom:18px;
     }
 
     .hero h1{
-      font-size:78px;
+      font-size:82px;
       color:var(--rosa-escuro);
-      line-height:.95;
       margin:0 0 8px;
+      font-weight:600;
+      line-height:.95;
     }
 
     .hero .subtitulo{
-      font-size:30px;
+      font-size:31px;
       color:var(--dourado);
-      margin-bottom:18px;
+      margin-bottom:20px;
     }
 
     .hero p{
@@ -138,25 +357,34 @@
     }
 
     .hero-info{
+      font-size:17px;
+      color:#6c6363;
+      background:rgba(255,255,255,0.74);
       display:inline-block;
       padding:12px 18px;
       border-radius:18px;
-      background:rgba(255,255,255,.78);
       box-shadow:var(--sombra);
-      color:#6c6363;
+      margin-bottom:24px;
+    }
+
+    .hero-botoes{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
     }
 
     .hero-img{
-      min-height:520px;
+      background:#fff;
       border-radius:30px;
       overflow:hidden;
-      border:1px solid var(--borda);
       box-shadow:var(--sombra);
+      border:1px solid var(--borda);
+      min-height:560px;
+      position:relative;
       background:
         linear-gradient(160deg, rgba(255,255,255,.35), rgba(255,255,255,.1)),
         radial-gradient(circle at top right, rgba(255,255,255,.8), transparent 35%),
         linear-gradient(135deg,#edd5dd 0%, #f6e6d1 100%);
-      position:relative;
     }
 
     .hero-img::before{
@@ -184,23 +412,26 @@
 
     .hero-img-inner strong{
       display:block;
-      font-size:42px;
+      font-size:44px;
       margin-bottom:10px;
     }
 
     .hero-img-inner span{
       font-size:18px;
+      display:block;
+      max-width:360px;
+      margin:0 auto;
     }
 
     main section{
       max-width:1150px;
-      margin:0 auto 86px;
+      margin:0 auto 90px;
       padding:0 20px;
     }
 
     .section-box{
       position:relative;
-      background:rgba(255,255,255,.95);
+      background:rgba(255,255,255,0.94);
       border:1px solid var(--borda);
       border-radius:32px;
       padding:58px 34px;
@@ -209,27 +440,26 @@
       overflow:hidden;
     }
 
-    .section-box::before,
+    .section-box::before{
+      content:"";
+      position:absolute;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      background:rgba(216,163,176,0.08);
+      top:-60px;
+      left:-60px;
+    }
+
     .section-box::after{
       content:"";
       position:absolute;
-      border-radius:50%;
-    }
-
-    .section-box::before{
-      width:180px;
-      height:180px;
-      top:-60px;
-      left:-60px;
-      background:rgba(216,163,176,.08);
-    }
-
-    .section-box::after{
       width:160px;
       height:160px;
+      border-radius:50%;
+      background:rgba(214,176,106,0.08);
       bottom:-50px;
       right:-50px;
-      background:rgba(214,176,106,.08);
     }
 
     .section-content{
@@ -241,7 +471,7 @@
       font-size:48px;
       color:#584b4b;
       font-weight:600;
-      margin:0 0 26px;
+      margin:0 0 28px;
       letter-spacing:2px;
     }
 
@@ -250,15 +480,19 @@
       display:block;
       width:86px;
       height:2px;
-      background:linear-gradient(90deg,transparent,var(--dourado),transparent);
+      background:linear-gradient(90deg, transparent, var(--dourado), transparent);
       margin:14px auto 0;
     }
 
     .texto{
-      max-width:840px;
+      max-width:860px;
       margin:0 auto;
       font-size:18px;
       color:var(--texto-suave);
+    }
+
+    .texto strong{
+      color:#675a5a;
     }
 
     .countdown{
@@ -268,21 +502,49 @@
     }
 
     .countdown-box{
-      background:linear-gradient(135deg,#f7ecdf 0%,#f1dccd 100%);
+      position:relative;
+      background:linear-gradient(135deg, #f7ecdf 0%, #f1dccd 100%);
       border-radius:32px;
       padding:58px 24px;
       text-align:center;
       box-shadow:var(--sombra);
+      overflow:hidden;
+    }
+
+    .countdown-box::before{
+      content:"";
+      position:absolute;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      left:-60px;
+      top:-70px;
+      background:rgba(255,255,255,.14);
+    }
+
+    .countdown-box::after{
+      content:"";
+      position:absolute;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      right:-40px;
+      bottom:-60px;
+      background:rgba(255,255,255,.16);
     }
 
     .countdown h2{
+      position:relative;
+      z-index:2;
       font-size:48px;
-      margin:0 0 28px;
+      margin:0 0 30px;
       color:#5d4c4c;
       letter-spacing:3px;
     }
 
     .time{
+      position:relative;
+      z-index:2;
       display:flex;
       justify-content:center;
       flex-wrap:wrap;
@@ -293,9 +555,9 @@
       min-width:135px;
       padding:24px 18px;
       border-radius:24px;
-      background:rgba(255,255,255,.76);
-      border:1px solid rgba(255,255,255,.8);
-      box-shadow:0 8px 20px rgba(0,0,0,.05);
+      background:rgba(255,255,255,0.74);
+      border:1px solid rgba(255,255,255,0.8);
+      box-shadow:0 8px 20px rgba(0,0,0,0.05);
     }
 
     .time span{
@@ -303,135 +565,452 @@
       font-size:46px;
       font-weight:700;
       color:var(--rosa-escuro);
-      font-family:"Cormorant Garamond",serif;
+      font-family:"Cormorant Garamond", serif;
       line-height:1;
       margin-bottom:6px;
     }
 
-    .grid{
+    .casal-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      gap:22px;
+      grid-template-columns:1fr 1.08fr;
+      gap:34px;
+      align-items:center;
+      text-align:left;
+      margin-top:20px;
     }
 
-    .card{
-      background:#fff;
-      border:1px solid #f2eaea;
-      border-radius:24px;
-      padding:18px;
-      box-shadow:0 10px 24px rgba(0,0,0,.05);
-      transition:.25s ease;
-    }
-
-    .card:hover{
-      transform:translateY(-5px);
-      box-shadow:0 16px 28px rgba(0,0,0,.08);
-    }
-
-    .card-art{
-      height:220px;
-      border-radius:18px;
-      position:relative;
+    .casal-arte{
+      width:100%;
+      max-width:430px;
+      margin:0 auto;
+      border-radius:28px;
       overflow:hidden;
-      background:linear-gradient(135deg,#fffafc 0%,#f8edf1 58%,#f5e6dc 100%);
-      border:1px solid #f0dfe6;
+      box-shadow:var(--sombra);
+      background:
+        linear-gradient(145deg, #f2dde4 0%, #f6e8de 55%, #fffaf6 100%);
+      border:1px solid var(--borda);
+      min-height:470px;
+      position:relative;
     }
 
-    .card-art::before{
+    .casal-arte::before{
       content:"";
       position:absolute;
-      width:180px;
-      height:180px;
+      width:160px;
+      height:160px;
       border-radius:50%;
-      top:-55px;
-      right:-45px;
-      background:rgba(217,163,176,.18);
+      top:-36px;
+      right:-36px;
+      background:rgba(255,255,255,.48);
     }
 
-    .card-art::after{
+    .casal-arte::after{
       content:"";
       position:absolute;
-      width:150px;
-      height:150px;
+      width:170px;
+      height:170px;
       border-radius:50%;
-      bottom:-65px;
-      left:-45px;
-      background:rgba(216,179,106,.14);
+      bottom:-44px;
+      left:-44px;
+      background:rgba(255,255,255,.4);
     }
 
-    .card-art-inner{
+    .casal-arte-inner{
       position:absolute;
-      inset:18px;
-      border-radius:22px;
-      z-index:2;
-      background:rgba(255,255,255,.84);
-      border:1px solid rgba(255,255,255,.95);
-      box-shadow:0 10px 30px rgba(137,98,112,.1);
+      inset:24px;
+      background:rgba(255,255,255,.72);
+      border:1px solid rgba(255,255,255,.88);
+      border-radius:24px;
       display:flex;
       flex-direction:column;
       align-items:center;
       justify-content:center;
       text-align:center;
-      padding:18px;
+      padding:28px;
+      color:#735d66;
     }
 
-    .card-photo{
-      width:128px;
-      height:128px;
-      border-radius:22px;
-      margin-bottom:14px;
+    .casal-icone{
+      width:132px;
+      height:132px;
+      border-radius:28px;
       background:linear-gradient(145deg,#f6dfe6,#f8ede4);
       display:flex;
       align-items:center;
       justify-content:center;
+      font-size:60px;
+      margin-bottom:18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 10px 26px rgba(185,120,138,.13);
+    }
+
+    .casal-arte-inner h3{
+      font-size:34px;
+      margin-bottom:10px;
+      color:#6c5560;
+    }
+
+    .casal-arte-inner p{
+      font-size:16px;
+      max-width:280px;
+      margin:0;
+      color:#7f7171;
+    }
+
+    .casal-texto{
+      font-size:18px;
+      color:var(--texto-suave);
+    }
+
+    .casal-texto strong{
+      display:block;
+      font-size:32px;
+      font-family:"Cormorant Garamond", serif;
+      color:#5e5151;
+      margin-bottom:16px;
+      line-height:1.2;
+    }
+
+    .mapa-container{
+      margin-top:28px;
+      overflow:hidden;
+      border-radius:26px;
+      box-shadow:var(--sombra);
+      border:1px solid var(--borda);
+    }
+
+    .mapa-container iframe{
+      width:100%;
+      height:420px;
+      border:0;
+    }
+
+    .filtros{
+      display:grid;
+      grid-template-columns:1.4fr .8fr .8fr;
+      gap:14px;
+      margin-bottom:28px;
+      text-align:left;
+    }
+
+    .campo{
+      background:#fff;
+      border:1px solid rgba(0,0,0,.08);
+      border-radius:16px;
+      padding:14px 16px;
+      font-size:15px;
+      color:#675d5d;
+      outline:none;
+      width:100%;
+      box-shadow:0 6px 14px rgba(0,0,0,.03);
+    }
+
+    .resumo-categorias{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:14px;
+      margin:0 0 28px;
+    }
+
+    .resumo-item{
+      background:linear-gradient(135deg,#fff8fb,#fffdfb);
+      border:1px solid #f2e6ea;
+      border-radius:20px;
+      padding:18px 14px;
+      box-shadow:0 10px 20px rgba(0,0,0,.04);
+    }
+
+    .resumo-item strong{
+      display:block;
+      font-size:28px;
+      color:#6c5a61;
+      font-family:"Cormorant Garamond", serif;
+      line-height:1;
+      margin-bottom:6px;
+    }
+
+    .resumo-item span{
+      font-size:13px;
+      color:#8b7f7f;
+      text-transform:uppercase;
+      letter-spacing:.6px;
+    }
+
+    .categorias-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:22px;
+    }
+
+    .categoria-card{
+      background:#fff;
+      border:1px solid #f2eaea;
+      border-radius:24px;
+      padding:20px;
+      transition:.28s ease;
+      box-shadow:0 10px 24px rgba(0,0,0,0.05);
+      text-align:left;
+    }
+
+    .categoria-card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 16px 30px rgba(0,0,0,0.08);
+    }
+
+    .categoria-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:18px;
+    }
+
+    .categoria-info{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+    }
+
+    .categoria-icone{
+      width:58px;
+      height:58px;
+      flex:0 0 58px;
+      border-radius:18px;
+      background:linear-gradient(145deg,#f6dfe6,#f8ede4);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 8px 22px rgba(185,120,138,.13);
     }
 
-    .card-photo span{
-      font-size:60px;
+    .categoria-card h3{
+      font-size:28px;
+      color:#5a4d4d;
+      margin:0 0 4px;
+      font-weight:600;
+    }
+
+    .categoria-subtitulo{
+      font-size:14px;
+      color:#918484;
+      line-height:1.45;
+    }
+
+    .categoria-count{
+      min-width:72px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#faf2f5;
+      border:1px solid #f0dfe6;
+      font-size:12px;
+      font-weight:700;
+      color:#9a7a86;
+      text-align:center;
+      white-space:nowrap;
+    }
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:18px;
+    }
+
+    .chip{
+      padding:7px 11px;
+      border-radius:999px;
+      background:#fbf3f6;
+      border:1px solid #f2dfe6;
+      font-size:12px;
+      color:#8b7881;
       line-height:1;
     }
 
-    .card-mini-title{
-      font-size:13px;
-      font-weight:700;
-      color:#7d6670;
-      line-height:1.35;
+    .lista-itens{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      margin:0 0 18px;
     }
 
-    .card-mini-subtitle{
-      font-size:11px;
-      color:#b38d98;
-      margin-top:6px;
-      text-transform:uppercase;
-      letter-spacing:.4px;
+    .item-presente{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      background:#fffafc;
+      border:1px solid #f3e6eb;
+      border-radius:16px;
+      padding:12px 14px;
     }
 
-    .card h3{
-      font-size:20px;
-      color:#5a4d4d;
-      margin:14px 0 6px;
-      text-align:center;
+    .item-bullet{
+      width:28px;
+      height:28px;
+      flex:0 0 28px;
+      border-radius:50%;
+      background:linear-gradient(145deg,#f6dfe6,#f8ede4);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      color:#826a72;
+      margin-top:1px;
     }
 
-    .valor-presente{
-      font-size:17px;
-      color:#444;
-      margin:0 0 12px;
-      text-align:center;
-    }
-
-    button{
-      background:linear-gradient(135deg,var(--rosa),var(--rosa-escuro));
-      color:#fff;
-      border:none;
-      padding:12px 22px;
-      border-radius:999px;
-      cursor:pointer;
+    .item-texto{
       font-size:15px;
-      font-weight:600;
+      color:#645a5a;
+      line-height:1.45;
+    }
+
+    .card-footer{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      border-top:1px dashed #f0dee5;
+      padding-top:16px;
+    }
+
+    .footer-info{
+      font-size:13px;
+      color:#958888;
+      line-height:1.4;
+    }
+
+    .footer-info strong{
       display:block;
-      margin:0 auto;
+      color:#7a656e;
+      font-size:14px;
+    }
+
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.84);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:999999;
+      padding:16px;
+    }
+
+    .modal-content{
+      background:#fff;
+      width:100%;
+      max-width:460px;
+      border-radius:24px;
+      padding:30px;
+      text-align:center;
+      position:relative;
+      box-shadow:var(--sombra-forte);
+    }
+
+    .close{
+      position:absolute;
+      top:10px;
+      right:14px;
+      font-size:28px;
+      cursor:pointer;
+      color:#8a7d7d;
+      user-select:none;
+    }
+
+    body.modal-aberto{
+      overflow:hidden;
+    }
+
+    .modal-content h3{
+      font-size:34px;
+      margin-bottom:6px;
+      color:#5f5050;
+    }
+
+    .modal-content p{
+      color:#7a7272;
+      margin:0 0 14px;
+      font-size:15px;
+    }
+
+    .modal-box{
+      background:#fffafc;
+      border:1px solid #f3e6eb;
+      border-radius:20px;
+      padding:18px;
+      margin:18px 0;
+      text-align:left;
+    }
+
+    .modal-box strong{
+      color:#685c5c;
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .modal-acoes{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .btn-pix{
+      background:#19a56f;
+      color:#fff;
+      padding:14px 18px;
+      border-radius:999px;
+      border:none;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    .btn-cartao{
+      background:#1295d8;
+      color:#fff;
+      padding:14px 18px;
+      border-radius:999px;
+      border:none;
+      font-weight:700;
+      cursor:pointer;
+      text-decoration:none;
+      display:block;
+    }
+
+    .pix-area{
+      display:none;
+      margin-top:18px;
+      border-top:1px dashed #ead9e1;
+      padding-top:18px;
+    }
+
+    .pix-tag{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#eefbf5;
+      color:#1f8e61;
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:10px;
+    }
+
+    textarea{
+      width:100%;
+      min-height:96px;
+      border-radius:14px;
+      border:1px solid #e6d9df;
+      padding:12px;
+      font-family:inherit;
+      font-size:12px;
+      resize:vertical;
+      color:#5f5656;
+      background:#fff;
+    }
+
+    .nota-final{
+      margin-top:20px;
+      font-size:13px;
+      color:#8d8181;
     }
 
     footer{
@@ -441,9 +1020,24 @@
       font-size:14px;
     }
 
+    .escondido{
+      display:none !important;
+    }
+
+    @media(max-width:1100px){
+      .resumo-categorias{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+    }
+
     @media(max-width:980px){
-      .hero-box{
+      .hero-box,
+      .casal-grid{
         grid-template-columns:1fr;
+        text-align:center;
+      }
+
+      .hero-texto{
         text-align:center;
       }
 
@@ -452,7 +1046,19 @@
       }
 
       .hero-img{
-        min-height:360px;
+        min-height:380px;
+      }
+
+      .hero-botoes{
+        justify-content:center;
+      }
+
+      .filtros{
+        grid-template-columns:1fr;
+      }
+
+      .categoria-info{
+        align-items:center;
       }
     }
 
@@ -462,11 +1068,6 @@
         padding:12px 8px;
       }
 
-      .countdown h2,
-      section h2{
-        font-size:36px;
-      }
-
       .hero .subtitulo{
         font-size:24px;
       }
@@ -474,14 +1075,57 @@
       .hero p{
         font-size:18px;
       }
+
+      .countdown h2,
+      section h2{
+        font-size:36px;
+      }
+
+      .time div{
+        min-width:120px;
+      }
+
+      .resumo-categorias{
+        grid-template-columns:1fr;
+      }
+
+      .categoria-head{
+        flex-direction:column;
+      }
+
+      .categoria-count{
+        align-self:flex-start;
+      }
     }
   </style>
 </head>
-<body>
+<body class="convite-fechado">
+
+  <div id="conviteOverlay">
+    <div class="convite-card">
+      <div class="convite-arte">
+        <div class="convite-miolo">
+          <div class="convite-topo">Convite Especial</div>
+          <h1>Chá de<br>Cozinha</h1>
+          <h2>Renan &amp; Laislla</h2>
+          <div class="convite-linha"></div>
+          <div class="convite-info">02 de maio de 2026 • 14h</div>
+          <div class="convite-info">Rua Baltazar Nunes, 600 • Apto 82 • Bloco 3</div>
+          <div class="convite-destaque">Feito com carinho para esse dia especial</div>
+        </div>
+      </div>
+      <div class="convite-footer">
+        <button class="btn-primario" onclick="abrirConvite()">Abrir convite</button>
+      </div>
+    </div>
+  </div>
+
   <nav>
     <a href="#inicio">Início</a>
-    <a href="#encontro">Nosso Encontro</a>
-    <a href="#categorias">Categorias</a>
+    <a href="#nosso-encontro">Nosso Encontro</a>
+    <a href="#o-casal">O Casal</a>
+    <a href="#localizacao">Localização</a>
+    <a href="#presentes">Presentes</a>
   </nav>
 
   <div class="hero" id="inicio">
@@ -492,13 +1136,17 @@
         <div class="subtitulo">Renan &amp; Laislla</div>
         <p>02 de maio de 2026 • 14h</p>
         <div class="hero-info">Rua Baltazar Nunes, 600 • Apto 82 • Bloco 3</div>
+        <div class="hero-botoes">
+          <a href="#presentes" class="btn-primario">Ver lista de presentes</a>
+          <a href="#localizacao" class="btn-secundario">Ver localização</a>
+        </div>
       </div>
 
-      <div class="hero-img">
+      <div class="hero-img" aria-label="Espaço para foto do casal">
         <div class="hero-img-inner">
           <div>
             <strong>Renan &amp; Laislla</strong>
-            <span>Um site delicado, elegante e pronto para você colocar os presentes depois.</span>
+            <span>Espaço premium para você trocar depois pela foto real do casal sem mudar o restante do site.</span>
           </div>
         </div>
       </div>
@@ -506,14 +1154,16 @@
   </div>
 
   <main>
-    <section id="encontro">
+    <section id="nosso-encontro">
       <div class="section-box">
         <div class="section-content">
           <h2>Nosso Encontro</h2>
           <p class="texto">
+            <strong>Um momento especial para celebrar essa nova fase</strong><br><br>
             Criamos esse site para compartilhar com vocês todos os detalhes do nosso chá de cozinha.
-            Estamos muito felizes em viver esse momento ao lado de pessoas queridas.
-            Preparamos tudo com carinho para que esse dia seja leve, bonito e inesquecível.
+            Estamos muito felizes em viver esse momento tão especial ao lado de pessoas queridas.
+            Preparamos tudo com muito carinho para que este dia seja leve, bonito e inesquecível.
+            Vai ser uma alegria enorme ter vocês conosco.
           </p>
         </div>
       </div>
@@ -531,111 +1181,425 @@
       </div>
     </div>
 
-    <section id="categorias">
+    <section id="o-casal">
       <div class="section-box">
         <div class="section-content">
-          <h2>Lista de Presentes</h2>
-
-          <div class="grid">
-            <div class="card">
-              <div class="card-art">
-                <div class="card-art-inner">
-                  <div class="card-photo"><span>📦</span></div>
-                  <div class="card-mini-title">Organização &amp; Armazenamento</div>
-                  <div class="card-mini-subtitle">Potes • Organizadores • Mantimentos</div>
-                </div>
+          <h2>Renan &amp; Laislla</h2>
+          <div class="casal-grid">
+            <div class="casal-arte">
+              <div class="casal-arte-inner">
+                <div class="casal-icone">💗</div>
+                <h3>Foto do Casal</h3>
+                <p>Esse bloco já está pronto para receber a foto real de vocês sem desmontar o design premium do site.</p>
               </div>
-              <h3>Organização &amp; Armazenamento</h3>
-              <p class="valor-presente"><strong>Preencha depois</strong></p>
-              <button type="button">Categoria</button>
             </div>
 
-            <div class="card">
-              <div class="card-art">
-                <div class="card-art-inner">
-                  <div class="card-photo"><span>🔪</span></div>
-                  <div class="card-mini-title">Preparação de Alimentos</div>
-                  <div class="card-mini-subtitle">Facas • Tábuas • Raladores</div>
-                </div>
-              </div>
-              <h3>Preparação de Alimentos</h3>
-              <p class="valor-presente"><strong>Preencha depois</strong></p>
-              <button type="button">Categoria</button>
-            </div>
-
-            <div class="card">
-              <div class="card-art">
-                <div class="card-art-inner">
-                  <div class="card-photo"><span>🍳</span></div>
-                  <div class="card-mini-title">Utensílios de Cozinha</div>
-                  <div class="card-mini-subtitle">Colheres • Conchas • Silicone</div>
-                </div>
-              </div>
-              <h3>Utensílios de Cozinha</h3>
-              <p class="valor-presente"><strong>Preencha depois</strong></p>
-              <button type="button">Categoria</button>
-            </div>
-
-            <div class="card">
-              <div class="card-art">
-                <div class="card-art-inner">
-                  <div class="card-photo"><span>🔥</span></div>
-                  <div class="card-mini-title">Panelas &amp; Formas</div>
-                  <div class="card-mini-subtitle">Panelas • Assadeiras • Formas</div>
-                </div>
-              </div>
-              <h3>Panelas &amp; Formas</h3>
-              <p class="valor-presente"><strong>Preencha depois</strong></p>
-              <button type="button">Categoria</button>
-            </div>
-
-            <div class="card">
-              <div class="card-art">
-                <div class="card-art-inner">
-                  <div class="card-photo"><span>🍽️</span></div>
-                  <div class="card-mini-title">Mesa &amp; Servir</div>
-                  <div class="card-mini-subtitle">Pratos • Copos • Taças</div>
-                </div>
-              </div>
-              <h3>Mesa &amp; Servir</h3>
-              <p class="valor-presente"><strong>Preencha depois</strong></p>
-              <button type="button">Categoria</button>
-            </div>
-
-            <div class="card">
-              <div class="card-art">
-                <div class="card-art-inner">
-                  <div class="card-photo"><span>🧼</span></div>
-                  <div class="card-mini-title">Limpeza da Cozinha</div>
-                  <div class="card-mini-subtitle">Panos • Lixeira • Escorredor</div>
-                </div>
-              </div>
-              <h3>Limpeza da Cozinha</h3>
-              <p class="valor-presente"><strong>Preencha depois</strong></p>
-              <button type="button">Categoria</button>
+            <div class="casal-texto">
+              <strong>Uma nova fase merece ser celebrada com muito amor, alegria e carinho</strong>
+              O chá de cozinha é um momento especial para reunir pessoas queridas,
+              compartilhar risadas, memórias e viver a expectativa dessa nova etapa que está chegando.<br><br>
+              Preparamos tudo com carinho para que este dia seja leve, bonito e inesquecível.
+              Esperamos vocês para celebrar conosco.
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <section id="localizacao">
+      <div class="section-box">
+        <div class="section-content">
+          <h2>Localização</h2>
+          <p class="texto">
+            Rua Baltazar Nunes, 600, Apto 82, Bloco 3<br>
+            CEP 08290-220
+          </p>
+
+          <div class="mapa-container">
+            <iframe
+              src="https://www.google.com/maps?q=Rua%20Baltazar%20Nunes%20600%20CEP%2008290220&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="presentes">
+      <div class="section-box">
+        <div class="section-content">
+          <h2>Lista de Presentes</h2>
+
+          <div class="resumo-categorias" id="resumoCategorias"></div>
+
+          <div class="filtros">
+            <input type="text" id="busca" class="campo" placeholder="Buscar presente ou categoria">
+            <select id="filtroCategoria" class="campo">
+              <option value="todas">Todas as categorias</option>
+            </select>
+            <select id="ordenar" class="campo">
+              <option value="categoria">Ordenar por categoria</option>
+              <option value="az">Categoria A–Z</option>
+              <option value="quantidade">Maior quantidade</option>
+            </select>
+          </div>
+
+          <div class="categorias-grid" id="categoriasGrid"></div>
+
+          <p class="nota-final">
+            Esse layout já está pronto para você trocar depois por presentes individuais com o mesmo padrão que você usou no código do casamento.
+          </p>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer>Feito com carinho para esse dia especial ✨</footer>
+  <footer>
+    Feito com carinho para esse dia especial ✨
+  </footer>
+
+  <div class="modal" id="categoriaModal">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal()">✕</span>
+      <h3 id="modalTitulo">Categoria</h3>
+      <p id="modalDescricao">Detalhes da categoria</p>
+
+      <div class="modal-box">
+        <strong>Itens dessa categoria</strong>
+        <div id="modalLista"></div>
+      </div>
+
+      <div class="modal-acoes">
+        <button class="btn-pix" type="button" onclick="mostrarPix()">🟢 Mostrar exemplo de Pix</button>
+        <a href="#" class="btn-cartao" onclick="return false;">💳 Botão de cartão para você integrar depois</a>
+      </div>
+
+      <div class="pix-area" id="areaPix">
+        <div class="pix-tag">Exemplo de integração</div>
+        <p>Você pode substituir esses dados depois pelo mesmo esquema que usou no site do casamento.</p>
+        <textarea id="pixCopiaCola" readonly>00020126580014BR.GOV.BCB.PIX0136exemplo@pix.com520400005303986540510.005802BR5913CHA COZINHA6009SAO PAULO62070503***6304ABCD</textarea>
+      </div>
+    </div>
+  </div>
 
   <script>
-    const data = new Date("2026-05-02T14:00:00").getTime();
+    const categoriasOriginais = [
+      {
+        id: "organizacao",
+        nome: "Organização & Armazenamento",
+        icone: "📦",
+        subtitulo: "Potes • Organizadores • Mantimentos",
+        descricao: "Itens para guardar, organizar e manter a cozinha funcional no dia a dia.",
+        destaque: ["Potes", "Temperos", "Organizadores"],
+        itens: [
+          "Vasilhas plásticas e potes herméticos (tamanhos variados)",
+          "Porta-condimentos e temperos",
+          "Porta-frios",
+          "Açucareiro",
+          "Saleiro",
+          "Pimenteiro",
+          "Organizador de gaveta",
+          "Organizador de talheres",
+          "Cestos organizadores",
+          "Potes para mantimentos",
+          "Suporte para papel toalha",
+          "Galheteiro"
+        ]
+      },
+      {
+        id: "preparo",
+        nome: "Preparação de Alimentos",
+        icone: "🔪",
+        subtitulo: "Tábuas • Raladores • Cortadores",
+        descricao: "Itens úteis para cortar, preparar e agilizar o preparo das receitas.",
+        destaque: ["Tábuas", "Facas", "Raladores"],
+        itens: [
+          "Tábua de corte",
+          "Ralador de queijo",
+          "Espremedor de batata",
+          "Espremedor de alho",
+          "Peneira",
+          "Descascador de legumes",
+          "Tesoura de cozinha",
+          "Abridor de latas",
+          "Cortador de pizza",
+          "Jogo de facas",
+          "Faca de pão",
+          "Faca de legumes"
+        ]
+      },
+      {
+        id: "utensilios",
+        nome: "Utensílios de Cozinha",
+        icone: "🍳",
+        subtitulo: "Silicone • Conchas • Colheres",
+        descricao: "Utensílios essenciais para mexer, servir e cozinhar com praticidade.",
+        destaque: ["Silicone", "Concha", "Colher de pau"],
+        itens: [
+          "Utensílios em silicone (colher, espátula, pegador)",
+          "Concha",
+          "Escumadeira",
+          "Colher de pau",
+          "Espátula",
+          "Batedor de claras (fouet)",
+          "Pegador de massa",
+          "Pegador de salada",
+          "Descanso de panela",
+          "Descanso para talheres",
+          "Saca-rolhas",
+          "Pregadores de cozinha"
+        ]
+      },
+      {
+        id: "panelas",
+        nome: "Panelas & Formas",
+        icone: "🔥",
+        subtitulo: "Assadeiras • Formas • Refratários",
+        descricao: "Itens para forno e fogão, perfeitos para o uso diário da cozinha.",
+        destaque: ["Assadeiras", "Formas", "Panelas"],
+        itens: [
+          "Assadeiras de vidro",
+          "Forma de bolo",
+          "Forma de pudim",
+          "Forma quadrada",
+          "Forma redonda",
+          "Refratários",
+          "Travessas",
+          "Jogo de panelas",
+          "Frigideira",
+          "Panela de pressão",
+          "Leiteira",
+          "Bule de café"
+        ]
+      },
+      {
+        id: "mesa",
+        nome: "Mesa & Servir",
+        icone: "🍽️",
+        subtitulo: "Pratos • Copos • Taças",
+        descricao: "Peças para montar a mesa, servir bem e receber visitas com charme.",
+        destaque: ["Pratos", "Copos", "Taças"],
+        itens: [
+          "Jarra para água e sucos",
+          "Jogo de copos",
+          "Jogo de taças",
+          "Xícaras de café",
+          "Xícaras de chá",
+          "Pratos rasos",
+          "Pratos fundos",
+          "Pratos de sobremesa",
+          "Bowls",
+          "Bandeja",
+          "Petisqueira",
+          "Toalha de mesa"
+        ]
+      },
+      {
+        id: "limpeza",
+        nome: "Limpeza da Cozinha",
+        icone: "🧼",
+        subtitulo: "Panos • Pia • Escorredor",
+        descricao: "Itens indispensáveis para manter a cozinha limpa e organizada.",
+        destaque: ["Panos", "Pia", "Escorredor"],
+        itens: [
+          "Panos de prato",
+          "Rodo de pia",
+          "Lixo de pia",
+          "Escorredor de louça",
+          "Centrífuga de salada",
+          "Escorredor de macarrão",
+          "Porta-detergente",
+          "Porta-esponja",
+          "Lixeira de cozinha",
+          "Esponjeira",
+          "Luvas de limpeza",
+          "Balde pequeno"
+        ]
+      }
+    ];
 
+    let categorias = [...categoriasOriginais];
+
+    function abrirConvite() {
+      const overlay = document.getElementById("conviteOverlay");
+      overlay.style.transition = "opacity .8s ease, transform .8s ease";
+      overlay.style.opacity = "0";
+      overlay.style.transform = "scale(1.02)";
+      setTimeout(() => {
+        document.body.classList.remove("convite-fechado");
+        overlay.style.display = "none";
+      }, 700);
+    }
+
+    const dataEvento = new Date("2026-05-02T14:00:00").getTime();
     setInterval(() => {
       const agora = new Date().getTime();
-      const dif = data - agora;
-
-      if (dif < 0) return;
-
-      document.getElementById("d").innerText = Math.floor(dif / (1000 * 60 * 60 * 24));
-      document.getElementById("h").innerText = Math.floor((dif / (1000 * 60 * 60)) % 24);
-      document.getElementById("m").innerText = Math.floor((dif / (1000 * 60)) % 60);
-      document.getElementById("s").innerText = Math.floor((dif / 1000) % 60);
+      const diferenca = dataEvento - agora;
+      if (diferenca < 0) return;
+      document.getElementById("d").innerText = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+      document.getElementById("h").innerText = Math.floor((diferenca / (1000 * 60 * 60)) % 24);
+      document.getElementById("m").innerText = Math.floor((diferenca / (1000 * 60)) % 60);
+      document.getElementById("s").innerText = Math.floor((diferenca / 1000) % 60);
     }, 1000);
+
+    function preencherSelectCategorias() {
+      const select = document.getElementById("filtroCategoria");
+      categoriasOriginais.forEach(categoria => {
+        const option = document.createElement("option");
+        option.value = categoria.id;
+        option.textContent = categoria.nome;
+        select.appendChild(option);
+      });
+    }
+
+    function renderResumo() {
+      const totalCategorias = categoriasOriginais.length;
+      const totalItens = categoriasOriginais.reduce((acc, categoria) => acc + categoria.itens.length, 0);
+      const mediaItens = Math.round(totalItens / totalCategorias);
+      const maiorCategoria = [...categoriasOriginais].sort((a,b) => b.itens.length - a.itens.length)[0];
+
+      const resumo = [
+        { valor: totalCategorias, label: "Categorias" },
+        { valor: totalItens, label: "Itens sugeridos" },
+        { valor: mediaItens, label: "Média por categoria" },
+        { valor: maiorCategoria.itens.length, label: "Maior categoria" }
+      ];
+
+      const container = document.getElementById("resumoCategorias");
+      container.innerHTML = resumo.map(item => `
+        <div class="resumo-item">
+          <strong>${item.valor}</strong>
+          <span>${item.label}</span>
+        </div>
+      `).join("");
+    }
+
+    function obterCategoriasFiltradas() {
+      const busca = document.getElementById("busca").value.trim().toLowerCase();
+      const filtroCategoria = document.getElementById("filtroCategoria").value;
+      const ordenar = document.getElementById("ordenar").value;
+
+      let resultado = categoriasOriginais.filter(categoria => {
+        const matchCategoria = filtroCategoria === "todas" || categoria.id === filtroCategoria;
+        const textoBase = [
+          categoria.nome,
+          categoria.subtitulo,
+          categoria.descricao,
+          ...categoria.itens,
+          ...categoria.destaque
+        ].join(" ").toLowerCase();
+
+        const matchBusca = busca === "" || textoBase.includes(busca);
+        return matchCategoria && matchBusca;
+      });
+
+      if (ordenar === "az") {
+        resultado.sort((a, b) => a.nome.localeCompare(b.nome));
+      } else if (ordenar === "quantidade") {
+        resultado.sort((a, b) => b.itens.length - a.itens.length);
+      } else {
+        resultado.sort((a, b) => categoriasOriginais.findIndex(c => c.id === a.id) - categoriasOriginais.findIndex(c => c.id === b.id));
+      }
+
+      return resultado;
+    }
+
+    function renderCategorias() {
+      const grid = document.getElementById("categoriasGrid");
+      const filtradas = obterCategoriasFiltradas();
+
+      if (filtradas.length === 0) {
+        grid.innerHTML = `
+          <div class="categoria-card" style="grid-column:1/-1;text-align:center;">
+            <div class="categoria-head" style="justify-content:center;">
+              <div>
+                <h3>Nenhum resultado encontrado</h3>
+                <div class="categoria-subtitulo">Tente mudar o termo da busca ou selecionar outra categoria.</div>
+              </div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = filtradas.map(categoria => `
+        <div class="categoria-card">
+          <div class="categoria-head">
+            <div class="categoria-info">
+              <div class="categoria-icone">${categoria.icone}</div>
+              <div>
+                <h3>${categoria.nome}</h3>
+                <div class="categoria-subtitulo">${categoria.subtitulo}</div>
+              </div>
+            </div>
+            <div class="categoria-count">${categoria.itens.length} itens</div>
+          </div>
+
+          <div class="chips">
+            ${categoria.destaque.map(chip => `<span class="chip">${chip}</span>`).join("")}
+          </div>
+
+          <div class="lista-itens">
+            ${categoria.itens.slice(0, 6).map(item => `
+              <div class="item-presente">
+                <div class="item-bullet">✓</div>
+                <div class="item-texto">${item}</div>
+              </div>
+            `).join("")}
+          </div>
+
+          <div class="card-footer">
+            <div class="footer-info">
+              <strong>Pronto para editar depois</strong>
+              Você poderá substituir por presentes individuais.
+            </div>
+            <button class="btn-acao" type="button" onclick="abrirModal('${categoria.id}')">Ver categoria</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function abrirModal(categoriaId) {
+      const categoria = categoriasOriginais.find(item => item.id === categoriaId);
+      if (!categoria) return;
+
+      document.body.classList.add("modal-aberto");
+      document.getElementById("categoriaModal").style.display = "flex";
+      document.getElementById("modalTitulo").innerText = categoria.nome;
+      document.getElementById("modalDescricao").innerText = categoria.descricao;
+      document.getElementById("modalLista").innerHTML = categoria.itens.map(item => `
+        <div class="item-presente" style="margin-bottom:10px;">
+          <div class="item-bullet">${categoria.icone}</div>
+          <div class="item-texto">${item}</div>
+        </div>
+      `).join("");
+      document.getElementById("areaPix").style.display = "none";
+    }
+
+    function fecharModal() {
+      document.body.classList.remove("modal-aberto");
+      document.getElementById("categoriaModal").style.display = "none";
+    }
+
+    function mostrarPix() {
+      document.getElementById("areaPix").style.display = "block";
+    }
+
+    document.getElementById("busca").addEventListener("input", renderCategorias);
+    document.getElementById("filtroCategoria").addEventListener("change", renderCategorias);
+    document.getElementById("ordenar").addEventListener("change", renderCategorias);
+
+    preencherSelectCategorias();
+    renderResumo();
+    renderCategorias();
+
+    window.addEventListener("click", function(event) {
+      const modal = document.getElementById("categoriaModal");
+      if (event.target === modal) {
+        fecharModal();
+      }
+    });
   </script>
 </body>
 </html>
