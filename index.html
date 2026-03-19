@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chá de Cozinha Renan & Laislla</title>
-  <meta name="description" content="Site premium do chá de cozinha de Renan & Laislla com contagem regressiva, localização e lista de presentes por categoria." />
+  <meta name="description" content="Site premium do chá de cozinha de Renan & Laislla com contagem regressiva, localização e lista de presentes." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -23,10 +23,6 @@
       --borda:rgba(0,0,0,0.06);
       --sombra:0 14px 40px rgba(0,0,0,0.08);
       --sombra-forte:0 22px 60px rgba(0,0,0,0.16);
-      --verde:#1f9d66;
-      --azul:#118ad3;
-      --fundo-card:rgba(255,255,255,0.92);
-      --gradiente-principal:linear-gradient(135deg, #f7eef2 0%, #fff9f4 48%, #fff 100%);
     }
 
     *{box-sizing:border-box}
@@ -36,8 +32,7 @@
       margin:0;
       font-family:"Montserrat", sans-serif;
       color:var(--texto);
-      background:
-        radial-gradient(circle at top left, #fffdfc 0%, #fff8f4 40%, #fff 100%);
+      background:radial-gradient(circle at top left, #fffdfc 0%, #fff8f4 40%, #fff 100%);
       line-height:1.7;
       overflow-x:hidden;
     }
@@ -61,8 +56,7 @@
     #conviteOverlay{
       position:fixed;
       inset:0;
-      background:
-        linear-gradient(135deg, rgba(255,250,247,0.99), rgba(249,239,242,0.99));
+      background:linear-gradient(135deg, rgba(255,250,247,0.99), rgba(249,239,242,0.99));
       z-index:999999;
       display:flex;
       align-items:center;
@@ -226,7 +220,9 @@
 
     .btn-primario:hover,
     .btn-secundario:hover,
-    .btn-acao:hover{
+    .btn-acao:hover,
+    .btn-pix:hover,
+    .btn-cartao:hover{
       transform:translateY(-2px);
       filter:brightness(1.02);
     }
@@ -586,8 +582,7 @@
       border-radius:28px;
       overflow:hidden;
       box-shadow:var(--sombra);
-      background:
-        linear-gradient(145deg, #f2dde4 0%, #f6e8de 55%, #fffaf6 100%);
+      background:linear-gradient(145deg, #f2dde4 0%, #f6e8de 55%, #fffaf6 100%);
       border:1px solid var(--borda);
       min-height:470px;
       position:relative;
@@ -684,11 +679,11 @@
       border:0;
     }
 
-    .filtros{
+    .presentes-topo{
       display:grid;
-      grid-template-columns:1.4fr .8fr .8fr;
+      grid-template-columns:1.3fr .7fr .7fr;
       gap:14px;
-      margin-bottom:28px;
+      margin-bottom:24px;
       text-align:left;
     }
 
@@ -704,184 +699,147 @@
       box-shadow:0 6px 14px rgba(0,0,0,.03);
     }
 
-    .resumo-categorias{
+    .grid-presentes{
       display:grid;
-      grid-template-columns:repeat(4, minmax(0, 1fr));
-      gap:14px;
-      margin:0 0 28px;
-    }
-
-    .resumo-item{
-      background:linear-gradient(135deg,#fff8fb,#fffdfb);
-      border:1px solid #f2e6ea;
-      border-radius:20px;
-      padding:18px 14px;
-      box-shadow:0 10px 20px rgba(0,0,0,.04);
-    }
-
-    .resumo-item strong{
-      display:block;
-      font-size:28px;
-      color:#6c5a61;
-      font-family:"Cormorant Garamond", serif;
-      line-height:1;
-      margin-bottom:6px;
-    }
-
-    .resumo-item span{
-      font-size:13px;
-      color:#8b7f7f;
-      text-transform:uppercase;
-      letter-spacing:.6px;
-    }
-
-    .categorias-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
       gap:22px;
     }
 
-    .categoria-card{
+    .presente-card{
       background:#fff;
       border:1px solid #f2eaea;
       border-radius:24px;
-      padding:20px;
+      padding:18px;
       transition:.28s ease;
       box-shadow:0 10px 24px rgba(0,0,0,0.05);
       text-align:left;
     }
 
-    .categoria-card:hover{
-      transform:translateY(-5px);
+    .presente-card:hover{
+      transform:translateY(-6px);
       box-shadow:0 16px 30px rgba(0,0,0,0.08);
     }
 
-    .categoria-head{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:14px;
-      margin-bottom:18px;
-    }
-
-    .categoria-info{
-      display:flex;
-      gap:14px;
-      align-items:flex-start;
-    }
-
-    .categoria-icone{
-      width:58px;
-      height:58px;
-      flex:0 0 58px;
+    .presente-arte{
+      height:220px;
       border-radius:18px;
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(135deg,#fffafc 0%,#f8edf1 58%,#f5e6dc 100%);
+      border:1px solid #f0dfe6;
+      margin-bottom:14px;
+    }
+
+    .presente-arte::before{
+      content:"";
+      position:absolute;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      top:-55px;
+      right:-45px;
+      background:rgba(217,163,176,.18);
+    }
+
+    .presente-arte::after{
+      content:"";
+      position:absolute;
+      width:150px;
+      height:150px;
+      border-radius:50%;
+      bottom:-65px;
+      left:-45px;
+      background:rgba(216,179,106,.14);
+    }
+
+    .presente-arte-inner{
+      position:absolute;
+      inset:18px;
+      border-radius:22px;
+      z-index:2;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(255,255,255,.95);
+      box-shadow:0 10px 30px rgba(137,98,112,.1);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:18px;
+    }
+
+    .presente-icone{
+      width:110px;
+      height:110px;
+      border-radius:24px;
+      margin-bottom:14px;
       background:linear-gradient(145deg,#f6dfe6,#f8ede4);
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:28px;
       box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 8px 22px rgba(185,120,138,.13);
+      font-size:52px;
     }
 
-    .categoria-card h3{
-      font-size:28px;
+    .presente-categoria{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.7px;
+      color:#b38d98;
+      margin-bottom:6px;
+    }
+
+    .presente-card h3{
+      font-size:24px;
       color:#5a4d4d;
-      margin:0 0 4px;
+      margin:0 0 6px;
       font-weight:600;
     }
 
-    .categoria-subtitulo{
+    .presente-desc{
       font-size:14px;
-      color:#918484;
+      color:#8a7f7f;
+      margin-bottom:12px;
       line-height:1.45;
+      min-height:40px;
     }
 
-    .categoria-count{
-      min-width:72px;
-      padding:8px 12px;
-      border-radius:999px;
-      background:#faf2f5;
-      border:1px solid #f0dfe6;
-      font-size:12px;
-      font-weight:700;
-      color:#9a7a86;
-      text-align:center;
-      white-space:nowrap;
-    }
-
-    .chips{
+    .presente-rodape{
       display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-bottom:18px;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
     }
 
-    .chip{
-      padding:7px 11px;
-      border-radius:999px;
-      background:#fbf3f6;
-      border:1px solid #f2dfe6;
-      font-size:12px;
-      color:#8b7881;
+    .valor{
+      font-size:22px;
+      color:#6b5960;
+      font-family:"Cormorant Garamond", serif;
+      font-weight:700;
       line-height:1;
     }
 
-    .lista-itens{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
-      margin:0 0 18px;
+    .tag-status{
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:700;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+      white-space:nowrap;
     }
 
-    .item-presente{
-      display:flex;
-      align-items:flex-start;
-      gap:10px;
-      background:#fffafc;
-      border:1px solid #f3e6eb;
-      border-radius:16px;
-      padding:12px 14px;
+    .livre{
+      background:#f7eef2;
+      color:#9c7481;
+      border:1px solid #efdce4;
     }
 
-    .item-bullet{
-      width:28px;
-      height:28px;
-      flex:0 0 28px;
-      border-radius:50%;
-      background:linear-gradient(145deg,#f6dfe6,#f8ede4);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:14px;
-      color:#826a72;
-      margin-top:1px;
-    }
-
-    .item-texto{
-      font-size:15px;
-      color:#645a5a;
-      line-height:1.45;
-    }
-
-    .card-footer{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      border-top:1px dashed #f0dee5;
-      padding-top:16px;
-    }
-
-    .footer-info{
-      font-size:13px;
-      color:#958888;
-      line-height:1.4;
-    }
-
-    .footer-info strong{
-      display:block;
-      color:#7a656e;
-      font-size:14px;
+    .destaque{
+      background:#fff7e9;
+      color:#a37a2e;
+      border:1px solid #f0deaf;
     }
 
     .modal{
@@ -1007,27 +965,11 @@
       background:#fff;
     }
 
-    .nota-final{
-      margin-top:20px;
-      font-size:13px;
-      color:#8d8181;
-    }
-
     footer{
       text-align:center;
       color:#988d8d;
       padding:10px 20px 45px;
       font-size:14px;
-    }
-
-    .escondido{
-      display:none !important;
-    }
-
-    @media(max-width:1100px){
-      .resumo-categorias{
-        grid-template-columns:repeat(2, minmax(0, 1fr));
-      }
     }
 
     @media(max-width:980px){
@@ -1053,12 +995,8 @@
         justify-content:center;
       }
 
-      .filtros{
+      .presentes-topo{
         grid-template-columns:1fr;
-      }
-
-      .categoria-info{
-        align-items:center;
       }
     }
 
@@ -1083,18 +1021,6 @@
 
       .time div{
         min-width:120px;
-      }
-
-      .resumo-categorias{
-        grid-template-columns:1fr;
-      }
-
-      .categoria-head{
-        flex-direction:column;
-      }
-
-      .categoria-count{
-        align-self:flex-start;
       }
     }
   </style>
@@ -1231,25 +1157,20 @@
         <div class="section-content">
           <h2>Lista de Presentes</h2>
 
-          <div class="resumo-categorias" id="resumoCategorias"></div>
-
-          <div class="filtros">
-            <input type="text" id="busca" class="campo" placeholder="Buscar presente ou categoria">
+          <div class="presentes-topo">
+            <input type="text" id="busca" class="campo" placeholder="Buscar presente">
             <select id="filtroCategoria" class="campo">
               <option value="todas">Todas as categorias</option>
             </select>
             <select id="ordenar" class="campo">
-              <option value="categoria">Ordenar por categoria</option>
-              <option value="az">Categoria A–Z</option>
-              <option value="quantidade">Maior quantidade</option>
+              <option value="original">Ordem original</option>
+              <option value="az">A–Z</option>
+              <option value="menor">Menor preço</option>
+              <option value="maior">Maior preço</option>
             </select>
           </div>
 
-          <div class="categorias-grid" id="categoriasGrid"></div>
-
-          <p class="nota-final">
-            Esse layout já está pronto para você trocar depois por presentes individuais com o mesmo padrão que você usou no código do casamento.
-          </p>
+          <div class="grid-presentes" id="listaPresentes"></div>
         </div>
       </div>
     </section>
@@ -1259,167 +1180,64 @@
     Feito com carinho para esse dia especial ✨
   </footer>
 
-  <div class="modal" id="categoriaModal">
+  <div class="modal" id="presenteModal">
     <div class="modal-content">
       <span class="close" onclick="fecharModal()">✕</span>
-      <h3 id="modalTitulo">Categoria</h3>
-      <p id="modalDescricao">Detalhes da categoria</p>
+      <h3 id="modalTitulo">Presente</h3>
+      <p id="modalDescricao">Detalhes do presente</p>
 
       <div class="modal-box">
-        <strong>Itens dessa categoria</strong>
-        <div id="modalLista"></div>
+        <strong id="modalCategoria">Categoria</strong>
+        <div id="modalValor">Valor</div>
       </div>
 
       <div class="modal-acoes">
         <button class="btn-pix" type="button" onclick="mostrarPix()">🟢 Mostrar exemplo de Pix</button>
-        <a href="#" class="btn-cartao" onclick="return false;">💳 Botão de cartão para você integrar depois</a>
+        <a href="#" class="btn-cartao" onclick="return false;">💳 Botão de cartão para integrar depois</a>
       </div>
 
       <div class="pix-area" id="areaPix">
         <div class="pix-tag">Exemplo de integração</div>
-        <p>Você pode substituir esses dados depois pelo mesmo esquema que usou no site do casamento.</p>
-        <textarea id="pixCopiaCola" readonly>00020126580014BR.GOV.BCB.PIX0136exemplo@pix.com520400005303986540510.005802BR5913CHA COZINHA6009SAO PAULO62070503***6304ABCD</textarea>
+        <p>Depois você troca isso pelo mesmo sistema do site do casamento.</p>
+        <textarea readonly>00020126580014BR.GOV.BCB.PIX0136exemplo@pix.com520400005303986540510.005802BR5913CHA COZINHA6009SAO PAULO62070503***6304ABCD</textarea>
       </div>
     </div>
   </div>
 
   <script>
-    const categoriasOriginais = [
-      {
-        id: "organizacao",
-        nome: "Organização & Armazenamento",
-        icone: "📦",
-        subtitulo: "Potes • Organizadores • Mantimentos",
-        descricao: "Itens para guardar, organizar e manter a cozinha funcional no dia a dia.",
-        destaque: ["Potes", "Temperos", "Organizadores"],
-        itens: [
-          "Vasilhas plásticas e potes herméticos (tamanhos variados)",
-          "Porta-condimentos e temperos",
-          "Porta-frios",
-          "Açucareiro",
-          "Saleiro",
-          "Pimenteiro",
-          "Organizador de gaveta",
-          "Organizador de talheres",
-          "Cestos organizadores",
-          "Potes para mantimentos",
-          "Suporte para papel toalha",
-          "Galheteiro"
-        ]
-      },
-      {
-        id: "preparo",
-        nome: "Preparação de Alimentos",
-        icone: "🔪",
-        subtitulo: "Tábuas • Raladores • Cortadores",
-        descricao: "Itens úteis para cortar, preparar e agilizar o preparo das receitas.",
-        destaque: ["Tábuas", "Facas", "Raladores"],
-        itens: [
-          "Tábua de corte",
-          "Ralador de queijo",
-          "Espremedor de batata",
-          "Espremedor de alho",
-          "Peneira",
-          "Descascador de legumes",
-          "Tesoura de cozinha",
-          "Abridor de latas",
-          "Cortador de pizza",
-          "Jogo de facas",
-          "Faca de pão",
-          "Faca de legumes"
-        ]
-      },
-      {
-        id: "utensilios",
-        nome: "Utensílios de Cozinha",
-        icone: "🍳",
-        subtitulo: "Silicone • Conchas • Colheres",
-        descricao: "Utensílios essenciais para mexer, servir e cozinhar com praticidade.",
-        destaque: ["Silicone", "Concha", "Colher de pau"],
-        itens: [
-          "Utensílios em silicone (colher, espátula, pegador)",
-          "Concha",
-          "Escumadeira",
-          "Colher de pau",
-          "Espátula",
-          "Batedor de claras (fouet)",
-          "Pegador de massa",
-          "Pegador de salada",
-          "Descanso de panela",
-          "Descanso para talheres",
-          "Saca-rolhas",
-          "Pregadores de cozinha"
-        ]
-      },
-      {
-        id: "panelas",
-        nome: "Panelas & Formas",
-        icone: "🔥",
-        subtitulo: "Assadeiras • Formas • Refratários",
-        descricao: "Itens para forno e fogão, perfeitos para o uso diário da cozinha.",
-        destaque: ["Assadeiras", "Formas", "Panelas"],
-        itens: [
-          "Assadeiras de vidro",
-          "Forma de bolo",
-          "Forma de pudim",
-          "Forma quadrada",
-          "Forma redonda",
-          "Refratários",
-          "Travessas",
-          "Jogo de panelas",
-          "Frigideira",
-          "Panela de pressão",
-          "Leiteira",
-          "Bule de café"
-        ]
-      },
-      {
-        id: "mesa",
-        nome: "Mesa & Servir",
-        icone: "🍽️",
-        subtitulo: "Pratos • Copos • Taças",
-        descricao: "Peças para montar a mesa, servir bem e receber visitas com charme.",
-        destaque: ["Pratos", "Copos", "Taças"],
-        itens: [
-          "Jarra para água e sucos",
-          "Jogo de copos",
-          "Jogo de taças",
-          "Xícaras de café",
-          "Xícaras de chá",
-          "Pratos rasos",
-          "Pratos fundos",
-          "Pratos de sobremesa",
-          "Bowls",
-          "Bandeja",
-          "Petisqueira",
-          "Toalha de mesa"
-        ]
-      },
-      {
-        id: "limpeza",
-        nome: "Limpeza da Cozinha",
-        icone: "🧼",
-        subtitulo: "Panos • Pia • Escorredor",
-        descricao: "Itens indispensáveis para manter a cozinha limpa e organizada.",
-        destaque: ["Panos", "Pia", "Escorredor"],
-        itens: [
-          "Panos de prato",
-          "Rodo de pia",
-          "Lixo de pia",
-          "Escorredor de louça",
-          "Centrífuga de salada",
-          "Escorredor de macarrão",
-          "Porta-detergente",
-          "Porta-esponja",
-          "Lixeira de cozinha",
-          "Esponjeira",
-          "Luvas de limpeza",
-          "Balde pequeno"
-        ]
-      }
+    const presentesOriginais = [
+      { nome:"Vasilhas plásticas e potes herméticos", categoria:"Organização", valor:89.90, emoji:"📦", descricao:"Conjunto com potes de vários tamanhos para mantimentos.", destaque:true },
+      { nome:"Assadeiras de vidro", categoria:"Panelas & Formas", valor:119.90, emoji:"🫓", descricao:"Assadeiras práticas para forno e receitas do dia a dia." },
+      { nome:"Forma de bolo", categoria:"Panelas & Formas", valor:49.90, emoji:"🎂", descricao:"Forma clássica para bolos caseiros e especiais." },
+      { nome:"Forma de pudim", categoria:"Panelas & Formas", valor:45.90, emoji:"🍮", descricao:"Perfeita para sobremesas e pudins." },
+      { nome:"Forma quadrada", categoria:"Panelas & Formas", valor:39.90, emoji:"⬜", descricao:"Ideal para tortas, bolos e receitas assadas." },
+      { nome:"Utensílios em silicone", categoria:"Utensílios", valor:79.90, emoji:"🥄", descricao:"Kit com colher, espátula e pegador." },
+      { nome:"Bule de café", categoria:"Mesa & Servir", valor:59.90, emoji:"☕", descricao:"Bule elegante para servir café com charme." },
+      { nome:"Leiteira", categoria:"Panelas & Formas", valor:49.90, emoji:"🥛", descricao:"Item útil para aquecer leite e molhos." },
+      { nome:"Escorredor de macarrão", categoria:"Limpeza", valor:34.90, emoji:"🍝", descricao:"Peça prática para escorrer massas e legumes." },
+      { nome:"Porta-condimentos e temperos", categoria:"Organização", valor:69.90, emoji:"🧂", descricao:"Organização linda para os temperos da cozinha." },
+      { nome:"Panos de prato", categoria:"Limpeza", valor:29.90, emoji:"🧺", descricao:"Kit com panos úteis para o dia a dia." },
+      { nome:"Espremedor de batata", categoria:"Preparação", valor:35.90, emoji:"🥔", descricao:"Facilita receitas e acompanhamentos." },
+      { nome:"Espremedor de alho", categoria:"Preparação", valor:24.90, emoji:"🧄", descricao:"Pequeno e indispensável na cozinha." },
+      { nome:"Ralador de queijo", categoria:"Preparação", valor:27.90, emoji:"🧀", descricao:"Ralador prático para queijo, legumes e mais." },
+      { nome:"Tábua de corte", categoria:"Preparação", valor:39.90, emoji:"🔪", descricao:"Base essencial para o preparo dos alimentos." },
+      { nome:"Saca-rolhas", categoria:"Utensílios", valor:22.90, emoji:"🍷", descricao:"Acessório útil para abrir garrafas com praticidade." },
+      { nome:"Jarra para água e sucos", categoria:"Mesa & Servir", valor:44.90, emoji:"🍹", descricao:"Jarra bonita para servir bebidas." },
+      { nome:"Rodo de pia", categoria:"Limpeza", valor:14.90, emoji:"🧽", descricao:"Ajuda a manter a pia seca e limpa." },
+      { nome:"Lixo de pia", categoria:"Limpeza", valor:19.90, emoji:"🗑️", descricao:"Peça compacta para resíduos da pia." },
+      { nome:"Açucareiro", categoria:"Mesa & Servir", valor:29.90, emoji:"🍚", descricao:"Açucareiro delicado para café e chá." },
+      { nome:"Pregadores de cozinha", categoria:"Utensílios", valor:12.90, emoji:"📎", descricao:"Ótimos para fechar embalagens e organizar." },
+      { nome:"Escorredor de louça", categoria:"Limpeza", valor:79.90, emoji:"🍽️", descricao:"Essencial para organizar a pia." },
+      { nome:"Centrífuga de salada", categoria:"Limpeza", valor:59.90, emoji:"🥗", descricao:"Ajuda a secar folhas com facilidade." },
+      { nome:"Concha", categoria:"Utensílios", valor:19.90, emoji:"🥣", descricao:"Perfeita para sopas, feijão e molhos." },
+      { nome:"Escumadeira", categoria:"Utensílios", valor:19.90, emoji:"🍲", descricao:"Útil no preparo de frituras e cozidos." },
+      { nome:"Colher de pau", categoria:"Utensílios", valor:14.90, emoji:"🪵", descricao:"Clássica e indispensável para cozinhar." },
+      { nome:"Porta-frios", categoria:"Organização", valor:39.90, emoji:"🧈", descricao:"Para armazenar frios com mais organização." },
+      { nome:"Peneira", categoria:"Preparação", valor:18.90, emoji:"🫗", descricao:"Item básico para receitas e coados." },
+      { nome:"Descanso de panela", categoria:"Utensílios", valor:24.90, emoji:"🔥", descricao:"Protege a mesa e a bancada." }
     ];
 
-    let categorias = [...categoriasOriginais];
+    let presentes = [...presentesOriginais];
 
     function abrirConvite() {
       const overlay = document.getElementById("conviteOverlay");
@@ -1443,159 +1261,121 @@
       document.getElementById("s").innerText = Math.floor((diferenca / 1000) % 60);
     }, 1000);
 
-    function preencherSelectCategorias() {
+    function formatarMoeda(valor) {
+      return valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+    }
+
+    function preencherFiltroCategoria() {
+      const categorias = [...new Set(presentesOriginais.map(item => item.categoria))];
       const select = document.getElementById("filtroCategoria");
-      categoriasOriginais.forEach(categoria => {
+      categorias.forEach(categoria => {
         const option = document.createElement("option");
-        option.value = categoria.id;
-        option.textContent = categoria.nome;
+        option.value = categoria;
+        option.textContent = categoria;
         select.appendChild(option);
       });
     }
 
-    function renderResumo() {
-      const totalCategorias = categoriasOriginais.length;
-      const totalItens = categoriasOriginais.reduce((acc, categoria) => acc + categoria.itens.length, 0);
-      const mediaItens = Math.round(totalItens / totalCategorias);
-      const maiorCategoria = [...categoriasOriginais].sort((a,b) => b.itens.length - a.itens.length)[0];
-
-      const resumo = [
-        { valor: totalCategorias, label: "Categorias" },
-        { valor: totalItens, label: "Itens sugeridos" },
-        { valor: mediaItens, label: "Média por categoria" },
-        { valor: maiorCategoria.itens.length, label: "Maior categoria" }
-      ];
-
-      const container = document.getElementById("resumoCategorias");
-      container.innerHTML = resumo.map(item => `
-        <div class="resumo-item">
-          <strong>${item.valor}</strong>
-          <span>${item.label}</span>
-        </div>
-      `).join("");
-    }
-
-    function obterCategoriasFiltradas() {
+    function obterPresentesFiltrados() {
       const busca = document.getElementById("busca").value.trim().toLowerCase();
-      const filtroCategoria = document.getElementById("filtroCategoria").value;
+      const categoria = document.getElementById("filtroCategoria").value;
       const ordenar = document.getElementById("ordenar").value;
 
-      let resultado = categoriasOriginais.filter(categoria => {
-        const matchCategoria = filtroCategoria === "todas" || categoria.id === filtroCategoria;
-        const textoBase = [
-          categoria.nome,
-          categoria.subtitulo,
-          categoria.descricao,
-          ...categoria.itens,
-          ...categoria.destaque
-        ].join(" ").toLowerCase();
+      let lista = presentesOriginais.filter(item => {
+        const matchBusca =
+          busca === "" ||
+          item.nome.toLowerCase().includes(busca) ||
+          item.categoria.toLowerCase().includes(busca) ||
+          item.descricao.toLowerCase().includes(busca);
 
-        const matchBusca = busca === "" || textoBase.includes(busca);
-        return matchCategoria && matchBusca;
+        const matchCategoria =
+          categoria === "todas" || item.categoria === categoria;
+
+        return matchBusca && matchCategoria;
       });
 
       if (ordenar === "az") {
-        resultado.sort((a, b) => a.nome.localeCompare(b.nome));
-      } else if (ordenar === "quantidade") {
-        resultado.sort((a, b) => b.itens.length - a.itens.length);
-      } else {
-        resultado.sort((a, b) => categoriasOriginais.findIndex(c => c.id === a.id) - categoriasOriginais.findIndex(c => c.id === b.id));
+        lista.sort((a, b) => a.nome.localeCompare(b.nome));
+      } else if (ordenar === "menor") {
+        lista.sort((a, b) => a.valor - b.valor);
+      } else if (ordenar === "maior") {
+        lista.sort((a, b) => b.valor - a.valor);
       }
 
-      return resultado;
+      return lista;
     }
 
-    function renderCategorias() {
-      const grid = document.getElementById("categoriasGrid");
-      const filtradas = obterCategoriasFiltradas();
+    function renderPresentes() {
+      const container = document.getElementById("listaPresentes");
+      const lista = obterPresentesFiltrados();
 
-      if (filtradas.length === 0) {
-        grid.innerHTML = `
-          <div class="categoria-card" style="grid-column:1/-1;text-align:center;">
-            <div class="categoria-head" style="justify-content:center;">
-              <div>
-                <h3>Nenhum resultado encontrado</h3>
-                <div class="categoria-subtitulo">Tente mudar o termo da busca ou selecionar outra categoria.</div>
-              </div>
-            </div>
+      if (lista.length === 0) {
+        container.innerHTML = `
+          <div class="presente-card" style="grid-column:1/-1;text-align:center;">
+            <h3>Nenhum presente encontrado</h3>
+            <div class="presente-desc">Tente mudar a busca ou o filtro de categoria.</div>
           </div>
         `;
         return;
       }
 
-      grid.innerHTML = filtradas.map(categoria => `
-        <div class="categoria-card">
-          <div class="categoria-head">
-            <div class="categoria-info">
-              <div class="categoria-icone">${categoria.icone}</div>
-              <div>
-                <h3>${categoria.nome}</h3>
-                <div class="categoria-subtitulo">${categoria.subtitulo}</div>
-              </div>
+      container.innerHTML = lista.map((item, index) => `
+        <div class="presente-card">
+          <div class="presente-arte">
+            <div class="presente-arte-inner">
+              <div class="presente-icone">${item.emoji}</div>
+              <div class="presente-categoria">${item.categoria}</div>
+              <div>${item.nome}</div>
             </div>
-            <div class="categoria-count">${categoria.itens.length} itens</div>
           </div>
-
-          <div class="chips">
-            ${categoria.destaque.map(chip => `<span class="chip">${chip}</span>`).join("")}
+          <h3>${item.nome}</h3>
+          <div class="presente-desc">${item.descricao}</div>
+          <div class="presente-rodape">
+            <div class="valor">${formatarMoeda(item.valor)}</div>
+            <span class="tag-status ${item.destaque ? "destaque" : "livre"}">
+              ${item.destaque ? "Mais pedido" : "Disponível"}
+            </span>
           </div>
-
-          <div class="lista-itens">
-            ${categoria.itens.slice(0, 6).map(item => `
-              <div class="item-presente">
-                <div class="item-bullet">✓</div>
-                <div class="item-texto">${item}</div>
-              </div>
-            `).join("")}
-          </div>
-
-          <div class="card-footer">
-            <div class="footer-info">
-              <strong>Pronto para editar depois</strong>
-              Você poderá substituir por presentes individuais.
-            </div>
-            <button class="btn-acao" type="button" onclick="abrirModal('${categoria.id}')">Ver categoria</button>
-          </div>
+          <button class="btn-acao" type="button" onclick="abrirModal(${index})">Presentear</button>
         </div>
       `).join("");
     }
 
-    function abrirModal(categoriaId) {
-      const categoria = categoriasOriginais.find(item => item.id === categoriaId);
-      if (!categoria) return;
+    function abrirModal(indexRender) {
+      const lista = obterPresentesFiltrados();
+      const item = lista[indexRender];
+      if (!item) return;
 
       document.body.classList.add("modal-aberto");
-      document.getElementById("categoriaModal").style.display = "flex";
-      document.getElementById("modalTitulo").innerText = categoria.nome;
-      document.getElementById("modalDescricao").innerText = categoria.descricao;
-      document.getElementById("modalLista").innerHTML = categoria.itens.map(item => `
-        <div class="item-presente" style="margin-bottom:10px;">
-          <div class="item-bullet">${categoria.icone}</div>
-          <div class="item-texto">${item}</div>
-        </div>
-      `).join("");
+      document.getElementById("presenteModal").style.display = "flex";
+      document.getElementById("modalTitulo").innerText = item.nome;
+      document.getElementById("modalDescricao").innerText = item.descricao;
+      document.getElementById("modalCategoria").innerText = item.categoria;
+      document.getElementById("modalValor").innerText = "Valor sugerido: " + formatarMoeda(item.valor);
       document.getElementById("areaPix").style.display = "none";
     }
 
     function fecharModal() {
       document.body.classList.remove("modal-aberto");
-      document.getElementById("categoriaModal").style.display = "none";
+      document.getElementById("presenteModal").style.display = "none";
     }
 
     function mostrarPix() {
       document.getElementById("areaPix").style.display = "block";
     }
 
-    document.getElementById("busca").addEventListener("input", renderCategorias);
-    document.getElementById("filtroCategoria").addEventListener("change", renderCategorias);
-    document.getElementById("ordenar").addEventListener("change", renderCategorias);
+    document.getElementById("busca").addEventListener("input", renderPresentes);
+    document.getElementById("filtroCategoria").addEventListener("change", renderPresentes);
+    document.getElementById("ordenar").addEventListener("change", renderPresentes);
 
-    preencherSelectCategorias();
-    renderResumo();
-    renderCategorias();
+    preencherFiltroCategoria();
+    renderPresentes();
 
     window.addEventListener("click", function(event) {
-      const modal = document.getElementById("categoriaModal");
+      const modal = document.getElementById("presenteModal");
       if (event.target === modal) {
         fecharModal();
       }
