@@ -1,940 +1,641 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Chá de Cozinha Renan & Laislla</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Site do chá de cozinha de Renan & Laislla com contagem regressiva, localização e lista de presentes.">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<style>
-:root{
-  --rosa:#d9a3b0;
-  --rosa-escuro:#b9788a;
-  --rosa-claro:#f9eff2;
-  --champagne:#f6e6d1;
-  --creme:#fffaf7;
-  --dourado:#d8b36a;
-  --texto:#5f5656;
-  --texto-suave:#7a7272;
-  --branco:#ffffff;
-  --borda:rgba(0,0,0,0.05);
-  --sombra:0 14px 40px rgba(0,0,0,0.08);
-}
-
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-
-body{
-  margin:0;
-  font-family:"Montserrat", sans-serif;
-  color:var(--texto);
-  background:radial-gradient(circle at top left, #fffdfc 0%, #fff8f4 40%, #fff 100%);
-  line-height:1.7;
-  overflow-x:hidden;
-}
-
-h1,h2,h3{font-family:"Cormorant Garamond", serif}
-
-body.convite-fechado{overflow:hidden}
-body.convite-fechado > *:not(#conviteOverlay){visibility:hidden;opacity:0}
-
-#conviteOverlay{
-  position:fixed;
-  inset:0;
-  background:linear-gradient(135deg, rgba(255,250,247,0.98), rgba(249,239,242,0.98));
-  z-index:999999;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-
-.convite-card{
-  width:100%;
-  max-width:460px;
-  background:#fff;
-  border-radius:28px;
-  overflow:hidden;
-  box-shadow:0 24px 60px rgba(0,0,0,0.18);
-  border:1px solid rgba(0,0,0,0.05);
-  animation:fadeZoomIn .9s ease;
-}
-
-.convite-card img{width:100%;display:block}
-
-.convite-footer{
-  padding:22px;
-  text-align:center;
-  background:linear-gradient(135deg, #f7e8d7, #f6dfe6);
-}
-
-.convite-footer button{
-  background:linear-gradient(135deg, var(--rosa), var(--rosa-escuro));
-  color:#fff;
-  border:none;
-  padding:14px 34px;
-  border-radius:999px;
-  font-weight:700;
-  cursor:pointer;
-  font-size:15px;
-  letter-spacing:.7px;
-  box-shadow:0 10px 24px rgba(0,0,0,0.12);
-}
-
-@keyframes fadeZoomIn{
-  from{opacity:0;transform:scale(.94) translateY(20px)}
-  to{opacity:1;transform:scale(1) translateY(0)}
-}
-
-nav{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:rgba(255,255,255,0.92);
-  backdrop-filter: blur(12px);
-  border-bottom:1px solid var(--borda);
-  text-align:center;
-}
-
-nav a{
-  display:inline-block;
-  padding:18px 14px;
-  text-decoration:none;
-  color:#6e6666;
-  font-size:14px;
-  font-weight:500;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  position:relative;
-}
-
-nav a::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  bottom:8px;
-  width:0;
-  height:2px;
-  background:var(--dourado);
-  transform:translateX(-50%);
-  transition:.3s ease;
-}
-
-nav a:hover::after{width:56%}
-
-.hero{
-  min-height:92vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:70px 20px 50px;
-  position:relative;
-  overflow:hidden;
-}
-
-.hero::before{
-  content:"";
-  position:absolute;
-  width:520px;
-  height:520px;
-  top:-170px;
-  left:-170px;
-  border-radius:50%;
-  background:rgba(216,163,176,0.16);
-  filter:blur(12px);
-}
-
-.hero::after{
-  content:"";
-  position:absolute;
-  width:430px;
-  height:430px;
-  bottom:-140px;
-  right:-120px;
-  border-radius:50%;
-  background:rgba(214,176,106,0.12);
-  filter:blur(12px);
-}
-
-.hero-box{
-  position:relative;
-  z-index:2;
-  width:100%;
-  max-width:1100px;
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:34px;
-  align-items:center;
-}
-
-.hero-texto{text-align:left}
-
-.hero-tag{
-  display:inline-block;
-  background:rgba(255,255,255,0.8);
-  border:1px solid rgba(0,0,0,0.05);
-  border-radius:999px;
-  padding:8px 16px;
-  font-size:13px;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  color:#7c6c6c;
-  margin-bottom:18px;
-}
-
-.hero h1{
-  font-size:80px;
-  color:var(--rosa-escuro);
-  margin:0 0 8px;
-  font-weight:600;
-  line-height:.95;
-}
-
-.hero .subtitulo{
-  font-size:30px;
-  color:var(--dourado);
-  margin-bottom:20px;
-}
-
-.hero p{
-  font-size:21px;
-  color:#7b7272;
-  margin:0 0 18px;
-}
-
-.hero-info{
-  font-size:17px;
-  color:#6c6363;
-  background:rgba(255,255,255,0.72);
-  display:inline-block;
-  padding:12px 18px;
-  border-radius:18px;
-  box-shadow:var(--sombra);
-}
-
-.hero-img{
-  background:#fff;
-  border-radius:30px;
-  overflow:hidden;
-  box-shadow:var(--sombra);
-  border:1px solid var(--borda);
-}
-
-.hero-img img{
-  width:100%;
-  height:100%;
-  min-height:520px;
-  object-fit:cover;
-  display:block;
-}
-
-main section{
-  max-width:1150px;
-  margin:0 auto 90px;
-  padding:0 20px;
-}
-
-.section-box{
-  position:relative;
-  background:rgba(255,255,255,0.94);
-  border:1px solid var(--borda);
-  border-radius:32px;
-  padding:58px 34px;
-  box-shadow:var(--sombra);
-  text-align:center;
-  overflow:hidden;
-}
-
-.section-box::before{
-  content:"";
-  position:absolute;
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  background:rgba(216,163,176,0.08);
-  top:-60px;
-  left:-60px;
-}
-
-.section-box::after{
-  content:"";
-  position:absolute;
-  width:160px;
-  height:160px;
-  border-radius:50%;
-  background:rgba(214,176,106,0.08);
-  bottom:-50px;
-  right:-50px;
-}
-
-.section-content{position:relative;z-index:2}
-
-section h2{
-  font-size:48px;
-  color:#584b4b;
-  font-weight:600;
-  margin:0 0 28px;
-  letter-spacing:2px;
-}
-
-section h2::after{
-  content:"";
-  display:block;
-  width:86px;
-  height:2px;
-  background:linear-gradient(90deg, transparent, var(--dourado), transparent);
-  margin:14px auto 0;
-}
-
-.texto{
-  max-width:840px;
-  margin:0 auto;
-  font-size:18px;
-  color:var(--texto-suave);
-}
-
-.texto strong{color:#675a5a}
-
-.countdown{
-  max-width:1150px;
-  margin:0 auto 90px;
-  padding:0 20px;
-}
-
-.countdown-box{
-  position:relative;
-  background:linear-gradient(135deg, #f7ecdf 0%, #f1dccd 100%);
-  border-radius:32px;
-  padding:58px 24px;
-  text-align:center;
-  box-shadow:var(--sombra);
-  overflow:hidden;
-}
-
-.countdown h2{
-  position:relative;
-  z-index:2;
-  font-size:48px;
-  margin:0 0 30px;
-  color:#5d4c4c;
-  letter-spacing:3px;
-}
-
-.time{
-  position:relative;
-  z-index:2;
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:18px;
-}
-
-.time div{
-  min-width:135px;
-  padding:24px 18px;
-  border-radius:24px;
-  background:rgba(255,255,255,0.74);
-  border:1px solid rgba(255,255,255,0.8);
-  box-shadow:0 8px 20px rgba(0,0,0,0.05);
-}
-
-.time span{
-  display:block;
-  font-size:46px;
-  font-weight:700;
-  color:var(--rosa-escuro);
-  font-family:"Cormorant Garamond", serif;
-  line-height:1;
-  margin-bottom:6px;
-}
-
-.casal-grid{
-  display:grid;
-  grid-template-columns:1fr 1.1fr;
-  gap:34px;
-  align-items:center;
-  text-align:left;
-  margin-top:20px;
-}
-
-.casal-img{
-  width:100%;
-  max-width:430px;
-  margin:0 auto;
-  border-radius:28px;
-  overflow:hidden;
-  box-shadow:var(--sombra);
-  background:#fff;
-  border:1px solid var(--borda);
-}
-
-.casal-img img{width:100%;display:block;object-fit:cover}
-
-.casal-texto{font-size:18px;color:var(--texto-suave)}
-
-.casal-texto strong{
-  display:block;
-  font-size:32px;
-  font-family:"Cormorant Garamond", serif;
-  color:#5e5151;
-  margin-bottom:16px;
-  line-height:1.2;
-}
-
-.mapa-container{
-  margin-top:28px;
-  overflow:hidden;
-  border-radius:26px;
-  box-shadow:var(--sombra);
-  border:1px solid var(--borda);
-}
-
-.mapa-container iframe{width:100%;height:420px;border:0}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:22px;
-}
-
-.card{
-  background:#fff;
-  border:1px solid #f2eaea;
-  border-radius:22px;
-  padding:18px;
-  transition:.28s ease;
-  box-shadow:0 10px 24px rgba(0,0,0,0.05);
-}
-
-.card:hover{transform:translateY(-6px);box-shadow:0 16px 30px rgba(0,0,0,0.08)}
-
-.card img{
-  width:100%;
-  height:220px;
-  object-fit:cover;
-  border-radius:18px;
-  display:block;
-  background:#f8f1f4;
-}
-
-.card-arte{
-  width:100%;
-  height:220px;
-  border-radius:18px;
-  overflow:hidden;
-  background:linear-gradient(135deg,#fffafc 0%,#f8edf1 55%,#f4e4db 100%);
-  border:1px solid #f0dfe6;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.card-arte::before{
-  content:"";
-  position:absolute;
-  width:180px;
-  height:180px;
-  border-radius:50%;
-  top:-55px;
-  right:-45px;
-  background:rgba(217,163,176,.18);
-}
-
-.card-arte::after{
-  content:"";
-  position:absolute;
-  width:150px;
-  height:150px;
-  border-radius:50%;
-  bottom:-65px;
-  left:-45px;
-  background:rgba(216,179,106,.14);
-}
-
-.card-arte-inner{
-  position:relative;
-  z-index:2;
-  width:78%;
-  height:72%;
-  background:rgba(255,255,255,.82);
-  border:1px solid rgba(255,255,255,.95);
-  border-radius:22px;
-  box-shadow:0 10px 30px rgba(137,98,112,.10);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:18px;
-}
-
-.card-emoji{
-  font-size:54px;
-  line-height:1;
-  margin-bottom:14px;
-}
-
-.card-mini-title{
-  font-size:13px;
-  font-weight:700;
-  color:#7d6670;
-  line-height:1.35;
-}
-
-.card-mini-subtitle{
-  font-size:11px;
-  color:#b38d98;
-  margin-top:6px;
-  letter-spacing:.4px;
-  text-transform:uppercase;
-}
-
-.card h3{
-  font-size:21px;
-  color:#5a4d4d;
-  margin:14px 0 8px;
-  font-family:"Cormorant Garamond", serif;
-}
-
-.valor-presente{font-size:18px;color:#444;margin-bottom:12px}
-
-button,.btn-cartao{
-  background:linear-gradient(135deg, var(--rosa) 0%, var(--rosa-escuro) 100%);
-  color:#fff;
-  border:none;
-  padding:13px 24px;
-  border-radius:999px;
-  cursor:pointer;
-  font-size:15px;
-  font-weight:600;
-  letter-spacing:.4px;
-  transition:.25s ease;
-  text-decoration:none;
-  display:inline-block;
-}
-
-button:hover,.btn-cartao:hover{transform:translateY(-2px);filter:brightness(1.05)}
-
-.card.escolhido{opacity:.56;position:relative}
-
-.card.escolhido::after{
-  content:"🎁 Presente já escolhido";
-  position:absolute;
-  inset:0;
-  background:rgba(255,255,255,.76);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  font-weight:700;
-  color:#555;
-  border-radius:22px;
-}
-
-.card.destaque{
-  border:2px solid rgba(216,179,106,0.4);
-  box-shadow:0 18px 40px rgba(216,179,106,0.16);
-}
-
-.card.destaque h3::before{content:"⭐ "}
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.84);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:999999;
-}
-
-.modal-content{
-  background:#fff;
-  width:90%;
-  max-width:430px;
-  border-radius:24px;
-  padding:30px;
-  text-align:center;
-  position:relative;
-  box-shadow:var(--sombra);
-}
-
-.close{position:absolute;top:10px;right:14px;font-size:28px;cursor:pointer}
-body.modal-aberto{overflow:hidden}
-
-footer{
-  text-align:center;
-  color:#988d8d;
-  padding:10px 20px 45px;
-  font-size:14px;
-}
-
-.ordenar-presentes{margin-bottom:30px;text-align:left}
-
-.ordenar-presentes select{
-  margin-left:10px;
-  padding:10px 12px;
-  border-radius:10px;
-  border:1px solid #ddd;
-  background:#fff;
-}
-
-@media(max-width:980px){
-  .hero-box,.casal-grid{grid-template-columns:1fr;text-align:center}
-  .hero-texto{text-align:center}
-  .hero-img img{min-height:360px}
-}
-
-@media(max-width:768px){
-  .hero h1{font-size:54px}
-  .hero .subtitulo{font-size:24px}
-  .hero p{font-size:18px}
-  .countdown h2, section h2{font-size:36px}
-  nav a{font-size:12px;padding:12px 8px}
-}
-</style>
-</head>
-<body class="convite-fechado">
-
-<div id="conviteOverlay">
-  <div class="convite-card">
-    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" alt="Convite Chá de Cozinha">
-    <div class="convite-footer">
-      <button onclick="abrirConvite()">ABRIR CONVITE</button>
-    </div>
-  </div>
-</div>
-
-<nav>
-  <a href="#inicio">Início</a>
-  <a href="#nosso-encontro">Nosso Encontro</a>
-  <a href="#o-casal">O Casal</a>
-  <a href="#localizacao">Localização</a>
-  <a href="#presentes">Presentes</a>
-</nav>
-
-<div class="hero" id="inicio">
-  <div class="hero-box">
-    <div class="hero-texto">
-      <div class="hero-tag">Um dia especial</div>
-      <h1>Chá de Cozinha</h1>
-      <div class="subtitulo">Renan & Laislla</div>
-      <p>02 de maio de 2026 • 14h</p>
-      <div class="hero-info">Rua Baltazar Nunes, 600 • Apto 82 • Bloco 3</div>
-    </div>
-
-    <div class="hero-img">
-      <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1400&q=80" alt="Imagem principal chá de cozinha">
-    </div>
-  </div>
-</div>
-
-<main>
-  <section id="nosso-encontro">
-    <div class="section-box">
-      <div class="section-content">
-        <h2>Nosso Encontro</h2>
-        <p class="texto">
-          <strong>Um momento especial para celebrar essa nova fase</strong><br><br>
-          Criamos esse site para compartilhar com vocês todos os detalhes do nosso chá de cozinha.
-          Estamos muito felizes em viver esse momento tão especial ao lado de pessoas queridas.
-          Para presentear, escolham qualquer item da lista com carinho.
-          Vai ser uma alegria enorme ter vocês conosco nesse dia.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <div class="countdown">
-    <div class="countdown-box">
-      <h2>Contagem Regressiva</h2>
-      <div class="time">
-        <div><span id="d">0</span>Dias</div>
-        <div><span id="h">0</span>Horas</div>
-        <div><span id="m">0</span>Minutos</div>
-        <div><span id="s">0</span>Segundos</div>
-      </div>
-    </div>
-  </div>
-
-  <section id="o-casal">
-    <div class="section-box">
-      <div class="section-content">
-        <h2>Renan & Laislla</h2>
-        <div class="casal-grid">
-          <div class="casal-img">
-            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1200&q=80" alt="Foto do casal">
-          </div>
-
-          <div class="casal-texto">
-            <strong>Uma nova fase merece ser celebrada com muito amor, alegria e carinho</strong>
-            O chá de cozinha é um momento especial para reunir pessoas queridas,
-            compartilhar risadas, memórias e viver a expectativa dessa nova etapa que está chegando.<br><br>
-            Preparamos tudo com muito carinho para que este dia seja leve, bonito e inesquecível.
-            Esperamos vocês para celebrar conosco.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="localizacao">
-    <div class="section-box">
-      <div class="section-content">
-        <h2>Localização</h2>
-        <p class="texto">
-          Rua Baltazar Nunes, 600, Apto 82, Bloco 3<br>
-          CEP 08290-220
-        </p>
-
-        <div class="mapa-container">
-          <iframe
-            src="https://www.google.com/maps?q=Rua%20Baltazar%20Nunes%20600%20CEP%2008290220&output=embed"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="presentes">
-    <div class="section-box">
-      <div class="section-content">
-        <h2>Lista de Presentes</h2>
-
-        <div class="ordenar-presentes">
-          <label for="ordenarSelect"><strong>Ordenar lista por:</strong></label>
-          <select id="ordenarSelect">
-            <option value="original">Ordem original</option>
-            <option value="menor">Menor preço</option>
-            <option value="maior">Maior preço</option>
-            <option value="az">A–Z</option>
-          </select>
-        </div>
-
-        <div class="grid" id="listaPresentes"></div>
-
-        <button id="verMais" style="margin-top:30px">Ver mais presentes</button>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer>
-  Feito com carinho para esse dia especial ✨
-</footer>
-
-<script>
-const presentesOriginais = [
-  { nome: "Cota para Geladeira French Door", valor: "250.00", tipo: "cota", ativo: true, ordem: 1, imagem: "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?auto=format&fit=crop&w=900&q=80", status: "livre", destaque: true, emoji: "🧊" },
-  { nome: "Cota para Lava-louças", valor: "200.00", tipo: "cota", ativo: true, ordem: 2, imagem: "https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=900&q=80", status: "livre", destaque: true, emoji: "🍽️" },
-  { nome: "Jogo de Panelas", valor: "399.90", tipo: "fixo", ativo: true, ordem: 3, imagem: "https://images.unsplash.com/photo-1584990347449-a17f2464a73d?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🍳" },
-  { nome: "Air Fryer", valor: "459.90", tipo: "fixo", ativo: true, ordem: 4, imagem: "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🍟" },
-  { nome: "Liquidificador", valor: "249.90", tipo: "fixo", ativo: true, ordem: 5, imagem: "https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🥤" },
-  { nome: "Faqueiro", valor: "189.90", tipo: "fixo", ativo: true, ordem: 6, imagem: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🍴" },
-  { nome: "Jogo de Taças", valor: "129.90", tipo: "fixo", ativo: true, ordem: 7, imagem: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🥂" },
-  { nome: "Aparelho de Jantar", valor: "349.90", tipo: "fixo", ativo: true, ordem: 8, imagem: "https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🍽️" },
-  { nome: "Cafeteira", valor: "299.90", tipo: "fixo", ativo: true, ordem: 9, imagem: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "☕" },
-  { nome: "Mixer", valor: "159.90", tipo: "fixo", ativo: true, ordem: 10, imagem: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🌀" },
-  { nome: "Organizador de Cozinha", valor: "89.90", tipo: "fixo", ativo: true, ordem: 11, imagem: "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🧺" },
-  { nome: "Kit Potes Herméticos", valor: "119.90", tipo: "fixo", ativo: true, ordem: 12, imagem: "https://images.unsplash.com/photo-1516315720917-231ef9acce48?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🫙" },
-  { nome: "Batedeira Planetária", valor: "549.90", tipo: "fixo", ativo: true, ordem: 13, imagem: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🍰" },
-  { nome: "Micro-ondas", valor: "799.90", tipo: "fixo", ativo: true, ordem: 14, imagem: "https://images.unsplash.com/photo-1520986606214-8b456906c813?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "📦" },
-  { nome: "Jarra Elétrica", valor: "179.90", tipo: "fixo", ativo: true, ordem: 15, imagem: "https://images.unsplash.com/photo-1582582494700-ff5ac1b7f948?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🫖" },
-  { nome: "Conjunto de Assadeiras", valor: "169.90", tipo: "fixo", ativo: true, ordem: 16, imagem: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🍞" },
-  { nome: "Kit Utensílios de Silicone", valor: "149.90", tipo: "fixo", ativo: true, ordem: 17, imagem: "https://images.unsplash.com/photo-1506086679525-9ad52c7f1f59?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🥄" },
-  { nome: "Escorredor de Louça", valor: "139.90", tipo: "fixo", ativo: true, ordem: 18, imagem: "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🧼" },
-  { nome: "Toalha de Mesa", valor: "99.90", tipo: "fixo", ativo: true, ordem: 19, imagem: "https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🪄" },
-  { nome: "Jogo de Copos", valor: "119.90", tipo: "fixo", ativo: true, ordem: 20, imagem: "https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=900&q=80", status: "livre", emoji: "🥛" }
-];
-
-function gerarArtePresenteHTML(nome, emoji = "🎁") {
-  return `
-    <div class="card-arte">
-      <div class="card-arte-inner">
-        <div class="card-emoji">${emoji}</div>
-        <div class="card-mini-title">${nome}</div>
-        <div class="card-mini-subtitle">Lista de Presentes</div>
-      </div>
-    </div>
-  `;
-}
-
-let presentes = [...presentesOriginais].map(item => ({
-  ...item,
-  imagem: ""
-}));
-let presentesOriginal = [...presentes];
-let pagina = 0;
-const porPagina = 8;
-
-function normalizarValor(valor) {
-  if (!valor) return null;
-  let v = valor.toString().trim().replace(",", ".");
-  let num = parseFloat(v);
-  if (isNaN(num)) return null;
-  return num.toFixed(2);
-}
-
-function abrirConvite() {
-  const overlay = document.getElementById("conviteOverlay");
-  overlay.style.transition = "opacity .8s ease, transform .8s ease";
-  overlay.style.opacity = "0";
-  overlay.style.transform = "scale(1.02)";
-  setTimeout(() => {
-    document.body.classList.remove("convite-fechado");
-    overlay.style.display = "none";
-  }, 700);
-}
-
-const data = new Date("2026-05-02T14:00:00").getTime();
-setInterval(() => {
-  const n = new Date().getTime();
-  const d = data - n;
-  if (d < 0) return;
-  document.getElementById("d").innerText = Math.floor(d / (1000*60*60*24));
-  document.getElementById("h").innerText = Math.floor((d / (1000*60*60)) % 24);
-  document.getElementById("m").innerText = Math.floor((d / (1000*60)) % 60);
-  document.getElementById("s").innerText = Math.floor((d / 1000) % 60);
-}, 1000);
-
-function renderPresentes() {
-  const cont = document.getElementById("listaPresentes");
-  const fim = (pagina + 1) * porPagina;
-
-  presentes.slice(0, fim).forEach(p => {
-    if (p.rendered) return;
-    p.rendered = true;
-
-    const imagemHTML = p.imagem && p.imagem.trim() !== ""
-      ? `<img src="${p.imagem}" alt="${p.nome}">`
-      : gerarArtePresenteHTML(p.nome, p.emoji || "🎁");
-
-    const valorNormalizado = normalizarValor(p.valor);
-    const textoValor = p.tipo === "livre" || !valorNormalizado
-      ? "Valor livre"
-      : "R$ " + valorNormalizado.replace(".", ",");
-
-    const botao = p.status === "finalizado"
-      ? ""
-      : `<button onclick="abrirModal('${p.nome}','${p.valor}','${p.tipo}')">Presentear</button>`;
-
-    cont.insertAdjacentHTML("beforeend", `
-      <div class="card ${p.status === "finalizado" ? "escolhido" : ""} ${p.destaque ? "destaque" : ""}">
-        ${imagemHTML}
-        <h3>${p.nome}</h3>
-        <p class="valor-presente"><strong>${textoValor}</strong></p>
-        ${botao}
-      </div>
-    `);
-  });
-};
-
-function crc16(payload) {
-  let crc = 0xFFFF;
-  for (let i = 0; i < payload.length; i++) {
-    crc ^= payload.charCodeAt(i) << 8;
-    for (let j = 0; j < 8; j++) {
-      crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : crc << 1;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chá de Cozinha Renan & Laislla</title>
+  <meta name="description" content="Site premium do chá de cozinha de Renan & Laislla" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --rosa:#d9a3b0;
+      --rosa-escuro:#b9788a;
+      --rosa-claro:#f9eff2;
+      --champagne:#f6e6d1;
+      --creme:#fffaf7;
+      --dourado:#d8b36a;
+      --texto:#5f5656;
+      --texto-suave:#7a7272;
+      --branco:#ffffff;
+      --borda:rgba(0,0,0,0.06);
+      --sombra:0 14px 40px rgba(0,0,0,0.08);
     }
-  }
-  return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
-}
 
-function normalizarPixTexto(texto) {
-  return texto.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9 ]/g, "").toUpperCase().trim();
-}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
 
-function gerarPixPayload({ chave, nome, cidade, valor }) {
-  function campo(id, valor) {
-    const tamanho = valor.length.toString().padStart(2, "0");
-    return id + tamanho + valor;
-  }
+    body{
+      margin:0;
+      font-family:"Montserrat",sans-serif;
+      color:var(--texto);
+      background:radial-gradient(circle at top left,#fffdfc 0%,#fff8f4 40%,#fff 100%);
+      line-height:1.7;
+      overflow-x:hidden;
+    }
 
-  const payloadSemCRC =
-    campo("00", "01") +
-    campo("26", campo("00", "BR.GOV.BCB.PIX") + campo("01", chave)) +
-    campo("52", "0000") +
-    campo("53", "986") +
-    (valor ? campo("54", valor) : "") +
-    campo("58", "BR") +
-    campo("59", nome.substring(0, 25)) +
-    campo("60", cidade.substring(0, 15)) +
-    campo("62", "0503***");
+    h1,h2,h3{font-family:"Cormorant Garamond",serif}
 
-  const crc = crc16(payloadSemCRC + "6304");
-  return payloadSemCRC + "6304" + crc;
-}
+    nav{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--borda);
+      text-align:center;
+    }
 
-function abrirModal(nome, valor, tipo) {
-  document.body.classList.add("modal-aberto");
-  document.getElementById("modalTitulo").innerText = nome;
+    nav a{
+      display:inline-block;
+      padding:16px 12px;
+      text-decoration:none;
+      color:#6e6666;
+      font-size:13px;
+      font-weight:600;
+      letter-spacing:1px;
+      text-transform:uppercase;
+    }
 
-  const valorNumerico = tipo === "livre" ? null : valor;
-  document.getElementById("modalValor").innerText = tipo === "livre" ? "Escolha o valor no seu app Pix 💕" : "Valor do presente: R$ " + valor;
+    .hero{
+      min-height:78vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:60px 20px 30px;
+      position:relative;
+      overflow:hidden;
+    }
 
-  const payload = gerarPixPayload({
-    chave: "gosteieufalo@gmail.com",
-    nome: normalizarPixTexto("CHA DE COZINHA RENAN LAISLLA"),
-    cidade: "SAO PAULO",
-    valor: valorNumerico ? normalizarValor(valorNumerico) : null
-  });
+    .hero::before,
+    .hero::after{
+      content:"";
+      position:absolute;
+      border-radius:50%;
+      filter:blur(12px);
+    }
 
-  document.getElementById("qrPix").src = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(payload);
-  document.getElementById("pixCopiaCola").value = payload;
-  document.getElementById("areaPix").style.display = "none";
-  document.getElementById("pixModal").style.display = "flex";
-}
+    .hero::before{
+      width:520px;
+      height:520px;
+      top:-170px;
+      left:-170px;
+      background:rgba(216,163,176,.16);
+    }
 
-function fecharModal() {
-  document.body.classList.remove("modal-aberto");
-  document.getElementById("pixModal").style.display = "none";
-}
+    .hero::after{
+      width:430px;
+      height:430px;
+      bottom:-140px;
+      right:-120px;
+      background:rgba(214,176,106,.12);
+    }
 
-function mostrarPix() {
-  document.getElementById("areaPix").style.display = "block";
-}
+    .hero-box{
+      position:relative;
+      z-index:2;
+      width:100%;
+      max-width:1120px;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:34px;
+      align-items:center;
+    }
 
-function copiarPix() {
-  const texto = document.getElementById("pixCopiaCola").value;
-  navigator.clipboard.writeText(texto).then(() => {
-    alert("Código Pix copiado com sucesso!");
-  }).catch(() => {
-    alert("Não foi possível copiar automaticamente.");
-  });
-}
+    .hero-tag{
+      display:inline-block;
+      background:rgba(255,255,255,.84);
+      border:1px solid var(--borda);
+      border-radius:999px;
+      padding:8px 16px;
+      font-size:12px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      color:#7c6c6c;
+      margin-bottom:16px;
+    }
 
-renderPresentes();
-</script>
+    .hero h1{
+      font-size:78px;
+      color:var(--rosa-escuro);
+      line-height:.95;
+      margin:0 0 8px;
+    }
 
-<div class="modal" id="pixModal">
-  <div class="modal-content">
-    <span class="close" onclick="fecharModal()">✕</span>
-    <h3 id="modalTitulo"></h3>
-    <p id="modalValor"></p>
+    .hero .subtitulo{
+      font-size:30px;
+      color:var(--dourado);
+      margin-bottom:18px;
+    }
 
-    <div style="margin-top:20px;display:flex;flex-direction:column;gap:12px">
-      <button onclick="mostrarPix()" style="background:#00b894">🟢 Pagar com Pix</button>
+    .hero p{
+      font-size:21px;
+      color:#7b7272;
+      margin:0 0 18px;
+    }
 
-      <a href="https://link.mercadopago.com.br/casamentorenanlaisla" target="_blank" class="btn-cartao" style="display:block;background:#009ee3">
-        💳 Pagar com cartão
-      </a>
-    </div>
+    .hero-info{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.78);
+      box-shadow:var(--sombra);
+      color:#6c6363;
+    }
 
-    <div class="qr" id="areaPix" style="display:none;margin-top:20px">
-      <img id="qrPix" style="max-width:260px" alt="QR Code Pix">
-      <p style="margin-top:10px"><strong>Pix:</strong> 300.389.638-50</p>
-      <textarea id="pixCopiaCola" readonly style="width:100%;height:90px;margin-top:10px;padding:8px;font-size:12px"></textarea>
-      <button onclick="copiarPix()" style="margin-top:10px;background:#00b894">📋 Copiar código Pix</button>
+    .hero-img{
+      min-height:520px;
+      border-radius:30px;
+      overflow:hidden;
+      border:1px solid var(--borda);
+      box-shadow:var(--sombra);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,.35), rgba(255,255,255,.1)),
+        radial-gradient(circle at top right, rgba(255,255,255,.8), transparent 35%),
+        linear-gradient(135deg,#edd5dd 0%, #f6e6d1 100%);
+      position:relative;
+    }
+
+    .hero-img::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 25% 30%, rgba(255,255,255,.95), transparent 20%),
+        radial-gradient(circle at 70% 65%, rgba(255,255,255,.55), transparent 18%);
+    }
+
+    .hero-img-inner{
+      position:absolute;
+      inset:28px;
+      border-radius:24px;
+      background:rgba(255,255,255,.55);
+      border:1px solid rgba(255,255,255,.8);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:28px;
+      color:#745d66;
+    }
+
+    .hero-img-inner strong{
+      display:block;
+      font-size:42px;
+      margin-bottom:10px;
+    }
+
+    .hero-img-inner span{
+      font-size:18px;
+    }
+
+    main section{
+      max-width:1150px;
+      margin:0 auto 86px;
+      padding:0 20px;
+    }
+
+    .section-box{
+      position:relative;
+      background:rgba(255,255,255,.95);
+      border:1px solid var(--borda);
+      border-radius:32px;
+      padding:58px 34px;
+      box-shadow:var(--sombra);
+      text-align:center;
+      overflow:hidden;
+    }
+
+    .section-box::before,
+    .section-box::after{
+      content:"";
+      position:absolute;
+      border-radius:50%;
+    }
+
+    .section-box::before{
+      width:180px;
+      height:180px;
+      top:-60px;
+      left:-60px;
+      background:rgba(216,163,176,.08);
+    }
+
+    .section-box::after{
+      width:160px;
+      height:160px;
+      bottom:-50px;
+      right:-50px;
+      background:rgba(214,176,106,.08);
+    }
+
+    .section-content{
+      position:relative;
+      z-index:2;
+    }
+
+    section h2{
+      font-size:48px;
+      color:#584b4b;
+      font-weight:600;
+      margin:0 0 26px;
+      letter-spacing:2px;
+    }
+
+    section h2::after{
+      content:"";
+      display:block;
+      width:86px;
+      height:2px;
+      background:linear-gradient(90deg,transparent,var(--dourado),transparent);
+      margin:14px auto 0;
+    }
+
+    .texto{
+      max-width:840px;
+      margin:0 auto;
+      font-size:18px;
+      color:var(--texto-suave);
+    }
+
+    .countdown{
+      max-width:1150px;
+      margin:0 auto 90px;
+      padding:0 20px;
+    }
+
+    .countdown-box{
+      background:linear-gradient(135deg,#f7ecdf 0%,#f1dccd 100%);
+      border-radius:32px;
+      padding:58px 24px;
+      text-align:center;
+      box-shadow:var(--sombra);
+    }
+
+    .countdown h2{
+      font-size:48px;
+      margin:0 0 28px;
+      color:#5d4c4c;
+      letter-spacing:3px;
+    }
+
+    .time{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:18px;
+    }
+
+    .time div{
+      min-width:135px;
+      padding:24px 18px;
+      border-radius:24px;
+      background:rgba(255,255,255,.76);
+      border:1px solid rgba(255,255,255,.8);
+      box-shadow:0 8px 20px rgba(0,0,0,.05);
+    }
+
+    .time span{
+      display:block;
+      font-size:46px;
+      font-weight:700;
+      color:var(--rosa-escuro);
+      font-family:"Cormorant Garamond",serif;
+      line-height:1;
+      margin-bottom:6px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:22px;
+    }
+
+    .card{
+      background:#fff;
+      border:1px solid #f2eaea;
+      border-radius:24px;
+      padding:18px;
+      box-shadow:0 10px 24px rgba(0,0,0,.05);
+      transition:.25s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 16px 28px rgba(0,0,0,.08);
+    }
+
+    .card-art{
+      height:220px;
+      border-radius:18px;
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(135deg,#fffafc 0%,#f8edf1 58%,#f5e6dc 100%);
+      border:1px solid #f0dfe6;
+    }
+
+    .card-art::before{
+      content:"";
+      position:absolute;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      top:-55px;
+      right:-45px;
+      background:rgba(217,163,176,.18);
+    }
+
+    .card-art::after{
+      content:"";
+      position:absolute;
+      width:150px;
+      height:150px;
+      border-radius:50%;
+      bottom:-65px;
+      left:-45px;
+      background:rgba(216,179,106,.14);
+    }
+
+    .card-art-inner{
+      position:absolute;
+      inset:18px;
+      border-radius:22px;
+      z-index:2;
+      background:rgba(255,255,255,.84);
+      border:1px solid rgba(255,255,255,.95);
+      box-shadow:0 10px 30px rgba(137,98,112,.1);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:18px;
+    }
+
+    .card-photo{
+      width:128px;
+      height:128px;
+      border-radius:22px;
+      margin-bottom:14px;
+      background:linear-gradient(145deg,#f6dfe6,#f8ede4);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.8), 0 8px 22px rgba(185,120,138,.13);
+    }
+
+    .card-photo span{
+      font-size:60px;
+      line-height:1;
+    }
+
+    .card-mini-title{
+      font-size:13px;
+      font-weight:700;
+      color:#7d6670;
+      line-height:1.35;
+    }
+
+    .card-mini-subtitle{
+      font-size:11px;
+      color:#b38d98;
+      margin-top:6px;
+      text-transform:uppercase;
+      letter-spacing:.4px;
+    }
+
+    .card h3{
+      font-size:20px;
+      color:#5a4d4d;
+      margin:14px 0 6px;
+      text-align:center;
+    }
+
+    .valor-presente{
+      font-size:17px;
+      color:#444;
+      margin:0 0 12px;
+      text-align:center;
+    }
+
+    button{
+      background:linear-gradient(135deg,var(--rosa),var(--rosa-escuro));
+      color:#fff;
+      border:none;
+      padding:12px 22px;
+      border-radius:999px;
+      cursor:pointer;
+      font-size:15px;
+      font-weight:600;
+      display:block;
+      margin:0 auto;
+    }
+
+    footer{
+      text-align:center;
+      color:#988d8d;
+      padding:10px 20px 45px;
+      font-size:14px;
+    }
+
+    @media(max-width:980px){
+      .hero-box{
+        grid-template-columns:1fr;
+        text-align:center;
+      }
+
+      .hero h1{
+        font-size:58px;
+      }
+
+      .hero-img{
+        min-height:360px;
+      }
+    }
+
+    @media(max-width:768px){
+      nav a{
+        font-size:12px;
+        padding:12px 8px;
+      }
+
+      .countdown h2,
+      section h2{
+        font-size:36px;
+      }
+
+      .hero .subtitulo{
+        font-size:24px;
+      }
+
+      .hero p{
+        font-size:18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#inicio">Início</a>
+    <a href="#encontro">Nosso Encontro</a>
+    <a href="#categorias">Categorias</a>
+  </nav>
+
+  <div class="hero" id="inicio">
+    <div class="hero-box">
+      <div class="hero-texto">
+        <div class="hero-tag">Um dia especial</div>
+        <h1>Chá de Cozinha</h1>
+        <div class="subtitulo">Renan &amp; Laislla</div>
+        <p>02 de maio de 2026 • 14h</p>
+        <div class="hero-info">Rua Baltazar Nunes, 600 • Apto 82 • Bloco 3</div>
+      </div>
+
+      <div class="hero-img">
+        <div class="hero-img-inner">
+          <div>
+            <strong>Renan &amp; Laislla</strong>
+            <span>Um site delicado, elegante e pronto para você colocar os presentes depois.</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
+  <main>
+    <section id="encontro">
+      <div class="section-box">
+        <div class="section-content">
+          <h2>Nosso Encontro</h2>
+          <p class="texto">
+            Criamos esse site para compartilhar com vocês todos os detalhes do nosso chá de cozinha.
+            Estamos muito felizes em viver esse momento ao lado de pessoas queridas.
+            Preparamos tudo com carinho para que esse dia seja leve, bonito e inesquecível.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="countdown">
+      <div class="countdown-box">
+        <h2>Contagem Regressiva</h2>
+        <div class="time">
+          <div><span id="d">0</span>Dias</div>
+          <div><span id="h">0</span>Horas</div>
+          <div><span id="m">0</span>Minutos</div>
+          <div><span id="s">0</span>Segundos</div>
+        </div>
+      </div>
+    </div>
+
+    <section id="categorias">
+      <div class="section-box">
+        <div class="section-content">
+          <h2>Lista de Presentes</h2>
+
+          <div class="grid">
+            <div class="card">
+              <div class="card-art">
+                <div class="card-art-inner">
+                  <div class="card-photo"><span>📦</span></div>
+                  <div class="card-mini-title">Organização &amp; Armazenamento</div>
+                  <div class="card-mini-subtitle">Potes • Organizadores • Mantimentos</div>
+                </div>
+              </div>
+              <h3>Organização &amp; Armazenamento</h3>
+              <p class="valor-presente"><strong>Preencha depois</strong></p>
+              <button type="button">Categoria</button>
+            </div>
+
+            <div class="card">
+              <div class="card-art">
+                <div class="card-art-inner">
+                  <div class="card-photo"><span>🔪</span></div>
+                  <div class="card-mini-title">Preparação de Alimentos</div>
+                  <div class="card-mini-subtitle">Facas • Tábuas • Raladores</div>
+                </div>
+              </div>
+              <h3>Preparação de Alimentos</h3>
+              <p class="valor-presente"><strong>Preencha depois</strong></p>
+              <button type="button">Categoria</button>
+            </div>
+
+            <div class="card">
+              <div class="card-art">
+                <div class="card-art-inner">
+                  <div class="card-photo"><span>🍳</span></div>
+                  <div class="card-mini-title">Utensílios de Cozinha</div>
+                  <div class="card-mini-subtitle">Colheres • Conchas • Silicone</div>
+                </div>
+              </div>
+              <h3>Utensílios de Cozinha</h3>
+              <p class="valor-presente"><strong>Preencha depois</strong></p>
+              <button type="button">Categoria</button>
+            </div>
+
+            <div class="card">
+              <div class="card-art">
+                <div class="card-art-inner">
+                  <div class="card-photo"><span>🔥</span></div>
+                  <div class="card-mini-title">Panelas &amp; Formas</div>
+                  <div class="card-mini-subtitle">Panelas • Assadeiras • Formas</div>
+                </div>
+              </div>
+              <h3>Panelas &amp; Formas</h3>
+              <p class="valor-presente"><strong>Preencha depois</strong></p>
+              <button type="button">Categoria</button>
+            </div>
+
+            <div class="card">
+              <div class="card-art">
+                <div class="card-art-inner">
+                  <div class="card-photo"><span>🍽️</span></div>
+                  <div class="card-mini-title">Mesa &amp; Servir</div>
+                  <div class="card-mini-subtitle">Pratos • Copos • Taças</div>
+                </div>
+              </div>
+              <h3>Mesa &amp; Servir</h3>
+              <p class="valor-presente"><strong>Preencha depois</strong></p>
+              <button type="button">Categoria</button>
+            </div>
+
+            <div class="card">
+              <div class="card-art">
+                <div class="card-art-inner">
+                  <div class="card-photo"><span>🧼</span></div>
+                  <div class="card-mini-title">Limpeza da Cozinha</div>
+                  <div class="card-mini-subtitle">Panos • Lixeira • Escorredor</div>
+                </div>
+              </div>
+              <h3>Limpeza da Cozinha</h3>
+              <p class="valor-presente"><strong>Preencha depois</strong></p>
+              <button type="button">Categoria</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>Feito com carinho para esse dia especial ✨</footer>
+
+  <script>
+    const data = new Date("2026-05-02T14:00:00").getTime();
+
+    setInterval(() => {
+      const agora = new Date().getTime();
+      const dif = data - agora;
+
+      if (dif < 0) return;
+
+      document.getElementById("d").innerText = Math.floor(dif / (1000 * 60 * 60 * 24));
+      document.getElementById("h").innerText = Math.floor((dif / (1000 * 60 * 60)) % 24);
+      document.getElementById("m").innerText = Math.floor((dif / (1000 * 60)) % 60);
+      document.getElementById("s").innerText = Math.floor((dif / 1000) % 60);
+    }, 1000);
+  </script>
 </body>
 </html>
