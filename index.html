@@ -34,31 +34,163 @@
 
     <!-- GELADEIRA (COTAS) -->
     <div class="card">
-      <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c">
+      <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=900&q=80" alt="Geladeira Premium">
       <h3>Geladeira Premium</h3>
       <p class="price">Valor total: R$ 10.000</p>
       <div class="cotas">
         <p>Compre uma cota:</p>
+        <button onclick="comprarCota(50)">R$ 50</button>
         <button onclick="comprarCota(100)">R$ 100</button>
         <button onclick="comprarCota(200)">R$ 200</button>
         <button onclick="comprarCota(500)">R$ 500</button>
       </div>
     </div>
 
-    <!-- AIRFRYER -->
     <div class="card">
-      <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db">
+      <img src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=900&q=80" alt="Air Fryer">
       <h3>Air Fryer</h3>
-      <p class="price">R$ 400</p>
-      <button onclick="comprar(400)">Presentear</button>
+      <p class="price">R$ 399</p>
+      <button onclick="comprar(399)">Presentear</button>
     </div>
 
-    <!-- LIQUIDIFICADOR -->
     <div class="card">
-      <img src="https://images.unsplash.com/photo-1586201375754-8c4d4c6f4d1d">
+      <img src="https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&w=900&q=80" alt="Liquidificador">
       <h3>Liquidificador</h3>
-      <p class="price">R$ 250</p>
-      <button onclick="comprar(250)">Presentear</button>
+      <p class="price">R$ 249</p>
+      <button onclick="comprar(249)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1585515656973-8c79e0d3f1d9?auto=format&fit=crop&w=900&q=80" alt="Jogo de Panelas">
+      <h3>Jogo de Panelas</h3>
+      <p class="price">R$ 589</p>
+      <button onclick="comprar(589)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1517705008128-361805f42e86?auto=format&fit=crop&w=900&q=80" alt="Jogo de Jantar">
+      <h3>Jogo de Jantar 20 Peças</h3>
+      <p class="price">R$ 329</p>
+      <button onclick="comprar(329)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=900&q=80" alt="Faqueiro">
+      <h3>Faqueiro Inox</h3>
+      <p class="price">R$ 279</p>
+      <button onclick="comprar(279)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=80" alt="Cafeteira">
+      <h3>Cafeteira Elétrica</h3>
+      <p class="price">R$ 219</p>
+      <button onclick="comprar(219)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1520986606214-8b456906c813?auto=format&fit=crop&w=900&q=80" alt="Micro-ondas">
+      <h3>Micro-ondas</h3>
+      <p class="price">R$ 799</p>
+      <button onclick="comprar(799)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80" alt="Batedeira">
+      <h3>Batedeira Planetária</h3>
+      <p class="price">R$ 459</p>
+      <button onclick="comprar(459)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80" alt="Conjunto de Taças">
+      <h3>Conjunto de Taças</h3>
+      <p class="price">R$ 189</p>
+      <button onclick="comprar(189)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=900&q=80" alt="Sanduicheira">
+      <h3>Sanduicheira Grill</h3>
+      <p class="price">R$ 169</p>
+      <button onclick="comprar(169)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=900&q=80" alt="Jogo de Copos">
+      <h3>Jogo de Copos</h3>
+      <p class="price">R$ 119</p>
+      <button onclick="comprar(119)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=80" alt="Aparelho de Fondue">
+      <h3>Aparelho de Fondue</h3>
+      <p class="price">R$ 199</p>
+      <button onclick="comprar(199)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1516315720917-231ef9acce48?auto=format&fit=crop&w=900&q=80" alt="Conjunto de Assadeiras">
+      <h3>Conjunto de Assadeiras</h3>
+      <p class="price">R$ 159</p>
+      <button onclick="comprar(159)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&w=900&q=80" alt="Escorredor de Louça">
+      <h3>Escorredor de Louça</h3>
+      <p class="price">R$ 139</p>
+      <button onclick="comprar(139)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=900&q=80" alt="Kit Potes Herméticos">
+      <h3>Kit Potes Herméticos</h3>
+      <p class="price">R$ 129</p>
+      <button onclick="comprar(129)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80" alt="Mixer">
+      <h3>Mixer 3 em 1</h3>
+      <p class="price">R$ 209</p>
+      <button onclick="comprar(209)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1464306076886-da185f6a9d05?auto=format&fit=crop&w=900&q=80" alt="Panos de Prato">
+      <h3>Kit Panos de Prato</h3>
+      <p class="price">R$ 79</p>
+      <button onclick="comprar(79)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1519669556878-63bdad8a1a49?auto=format&fit=crop&w=900&q=80" alt="Toalha de Mesa">
+      <h3>Toalha de Mesa</h3>
+      <p class="price">R$ 99</p>
+      <button onclick="comprar(99)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1516594798947-e65505dbb29d?auto=format&fit=crop&w=900&q=80" alt="Processador">
+      <h3>Processador de Alimentos</h3>
+      <p class="price">R$ 349</p>
+      <button onclick="comprar(349)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1582582494700-ff5ac1b7f948?auto=format&fit=crop&w=900&q=80" alt="Jarra Elétrica">
+      <h3>Jarra Elétrica</h3>
+      <p class="price">R$ 179</p>
+      <button onclick="comprar(179)">Presentear</button>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1506086679525-9ad52c7f1f59?auto=format&fit=crop&w=900&q=80" alt="Kit Utensílios">
+      <h3>Kit Utensílios de Silicone</h3>
+      <p class="price">R$ 149</p>
+      <button onclick="comprar(149)">Presentear</button>
     </div>
 
   </div>
