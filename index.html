@@ -416,8 +416,82 @@ section h2::after{
   width:100%;
   height:220px;
   object-fit:cover;
-  border-radius:16px;
+  border-radius:18px;
   display:block;
+  background:#f8f1f4;
+}
+
+.card-arte{
+  width:100%;
+  height:220px;
+  border-radius:18px;
+  overflow:hidden;
+  background:linear-gradient(135deg,#fffafc 0%,#f8edf1 55%,#f4e4db 100%);
+  border:1px solid #f0dfe6;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.card-arte::before{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  top:-55px;
+  right:-45px;
+  background:rgba(217,163,176,.18);
+}
+
+.card-arte::after{
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  bottom:-65px;
+  left:-45px;
+  background:rgba(216,179,106,.14);
+}
+
+.card-arte-inner{
+  position:relative;
+  z-index:2;
+  width:78%;
+  height:72%;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(255,255,255,.95);
+  border-radius:22px;
+  box-shadow:0 10px 30px rgba(137,98,112,.10);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:18px;
+}
+
+.card-emoji{
+  font-size:54px;
+  line-height:1;
+  margin-bottom:14px;
+}
+
+.card-mini-title{
+  font-size:13px;
+  font-weight:700;
+  color:#7d6670;
+  line-height:1.35;
+}
+
+.card-mini-subtitle{
+  font-size:11px;
+  color:#b38d98;
+  margin-top:6px;
+  letter-spacing:.4px;
+  text-transform:uppercase;
 }
 
 .card h3{
@@ -680,29 +754,21 @@ const presentesOriginais = [
   { nome: "Jogo de Copos", valor: "119.90", tipo: "fixo", ativo: true, ordem: 20, imagem: "", status: "livre", emoji: "🥛" }
 ];
 
-function gerarImagemPresenteSVG(nome, emoji = "🎁") {
-  const svg = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700">
-      <defs>
-        <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#fff7fb"/>
-          <stop offset="100%" stop-color="#f5e8ef"/>
-        </linearGradient>
-      </defs>
-      <rect width="900" height="700" rx="40" fill="url(#bg)"/>
-      <circle cx="760" cy="120" r="90" fill="#f1d7df" opacity="0.65"/>
-      <circle cx="140" cy="580" r="110" fill="#f6e6d1" opacity="0.8"/>
-      <rect x="120" y="110" width="660" height="480" rx="34" fill="#ffffff" stroke="#eddbe2" stroke-width="4"/>
-      <text x="450" y="285" text-anchor="middle" font-size="120">${emoji}</text>
-      <text x="450" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#7b5561">${nome}</text>
-      <text x="450" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#b48b97">Lista de Presentes</text>
-    </svg>`;
-  return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+function gerarArtePresenteHTML(nome, emoji = "🎁") {
+  return `
+    <div class="card-arte">
+      <div class="card-arte-inner">
+        <div class="card-emoji">${emoji}</div>
+        <div class="card-mini-title">${nome}</div>
+        <div class="card-mini-subtitle">Lista de Presentes</div>
+      </div>
+    </div>
+  `;
 }
 
 let presentes = [...presentesOriginais].map(item => ({
   ...item,
-  imagem: gerarImagemPresenteSVG(item.nome, item.emoji)
+  imagem: ""
 }));
 let presentesOriginal = [...presentes];
 let pagina = 0;
@@ -746,13 +812,11 @@ function renderPresentes() {
     if (p.rendered) return;
     p.rendered = true;
 
-    const imagemPresente = p.imagem && p.imagem.trim() !== "" ? p.imagem : gerarImagemPresenteSVG(p.nome, p.emoji || "🎁");
-    const valorNormalizado = normalizarValor(p.valor);
-    const textoValor = p.tipo === "livre" || !valorNormalizado ? "Valor livre" : "R$ " + valorNormalizado.replace(".", ",");
+    const imagemPresente = p.imagem && p.imagem.trim() !== "" ? `<img src="${p.imagem}" alt="${p.nome}">` : gerarArtePresenteHTML(p.nome, p.emoji || "🎁");
 
     cont.insertAdjacentHTML("beforeend", `
       <div class="card ${p.status === "finalizado" ? "escolhido" : ""} ${p.destaque ? "destaque" : ""}">
-        <img src="${imagemPresente}" alt="${p.nome}">
+        ${imagemPresente}
         <h3>${p.nome}</h3>
         <p class="valor-presente"><strong>${textoValor}</strong></p>
         ${p.status === "finalizado" ? "" : `<button onclick="abrirModal('${p.nome}','${p.valor}','${p.tipo}')">Presentear</button>`}
