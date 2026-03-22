@@ -79,7 +79,7 @@ body:not(.convite-fechado) > *:not(#conviteOverlay){visibility:visible;opacity:1
   padding:34px;
   background:
     linear-gradient(160deg, rgba(0,0,0,.54), rgba(40,30,12,.24)),
-    url("imagens/convite-varal-utensilios.jpg") center/cover no-repeat;
+    url("imagens/convite.jpeg") center/cover no-repeat;
   position:relative;
 }
 .convite-arte::after{
@@ -470,7 +470,7 @@ section h2::after{
 .local-card{
   background:
     linear-gradient(160deg, rgba(201,164,108,.18), rgba(201,164,108,.18)),
-    url("imagens/cozinha-quase-vazia.jpg") center/cover no-repeat;
+    url("imagens/local.jpeg") center/cover no-repeat;
   border-radius:28px;
   min-height:420px;
   overflow:hidden;
@@ -853,6 +853,178 @@ footer{
   color: #6b5e53;
 }
 
+
+/* ===== melhorias premium ===== */
+.nome-reserva{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:16px;
+  background:linear-gradient(135deg, rgba(201,164,108,.12), rgba(255,255,255,.92));
+  border:1px solid rgba(201,164,108,.22);
+  margin:10px 0 14px;
+}
+.nome-reserva .avatar{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--dourado),var(--dourado-escuro));
+  color:#fff;
+  font-size:13px;
+  font-weight:700;
+  box-shadow:0 6px 14px rgba(201,164,108,.28);
+  flex:0 0 34px;
+}
+.nome-reserva .label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.9px;
+  color:#8d7b68;
+  font-weight:700;
+  line-height:1.1;
+}
+.nome-reserva .nome{
+  font-size:14px;
+  color:#3f4f45;
+  font-weight:700;
+  line-height:1.2;
+  word-break:break-word;
+}
+.card-acoes{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.card-acoes button{
+  width:auto;
+  flex:1 1 auto;
+}
+.toast-wrap{
+  position:fixed;
+  right:16px;
+  bottom:16px;
+  z-index:2147483647;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.toast{
+  min-width:260px;
+  max-width:360px;
+  padding:14px 16px;
+  border-radius:16px;
+  color:#fff;
+  box-shadow:0 18px 38px rgba(0,0,0,.18);
+  font-size:14px;
+  line-height:1.45;
+  animation:toastIn .22s ease;
+}
+.toast.ok{background:rgba(63,79,69,.96)}
+.toast.err{background:rgba(133,58,58,.96)}
+@keyframes toastIn{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.modal-ajuda{
+  font-size:13px;
+  color:#8d7b68;
+  margin-top:12px !important;
+}
+.status-sync{
+  margin-top:10px;
+  font-size:12px;
+  color:#8d7b68;
+}
+@media(max-width:700px){
+  .toast-wrap{left:14px; right:14px; bottom:14px;}
+  .toast{min-width:unset; max-width:unset;}
+  }
+
+
+/* ===== imagens premium ===== */
+.convite-arte{
+  background:
+    linear-gradient(160deg, rgba(0,0,0,.54), rgba(40,30,12,.24)),
+    url("imagens/convite.jpeg") center/cover no-repeat !important;
+}
+.hero-foto-card{overflow:hidden;}
+.hero-foto-card img{
+  width:100%;
+  height:580px;
+  object-fit:cover;
+  object-position:center;
+  border-radius:30px;
+  display:block;
+  filter:brightness(.98) contrast(1.04);
+  transition:transform .45s ease, filter .35s ease;
+}
+.hero-foto-card:hover img{
+  transform:scale(1.03);
+  filter:brightness(1) contrast(1.05);
+}
+.casal-foto{overflow:hidden;}
+.casal-foto img{
+  width:100%;
+  height:500px;
+  object-fit:cover;
+  object-position:center;
+  border-radius:24px;
+  display:block;
+  transition:transform .45s ease, filter .35s ease;
+  filter:brightness(.99) contrast(1.03);
+}
+.casal-foto:hover img{
+  transform:scale(1.03);
+  filter:brightness(1) contrast(1.05);
+}
+.local-card{
+  background:
+    linear-gradient(160deg, rgba(201,164,108,.18), rgba(201,164,108,.18)),
+    url("imagens/local.jpeg") center/cover no-repeat !important;
+}
+.card{overflow:hidden;}
+.card img{
+  width:100%;
+  height:230px;
+  object-fit:cover;
+  object-position:center;
+  border-radius:16px;
+  display:block;
+  background:#f0ebe3;
+  transition:transform .4s ease, filter .35s ease;
+  filter:brightness(.99) contrast(1.02);
+}
+.card:hover img{
+  transform:scale(1.035);
+  filter:brightness(1) contrast(1.04);
+}
+@media (max-width: 980px){
+  .hero-foto-card img{height:500px;}
+  .casal-foto img{height:460px;}
+}
+@media (max-width: 768px){
+  .convite-arte{min-height:560px;background-position:center;}
+  .hero{padding:64px 16px 34px;}
+  .hero-foto-card{padding:14px;border-radius:26px;}
+  .hero-foto-card img{height:420px;border-radius:20px;}
+  .casal-foto{padding:14px;border-radius:22px;}
+  .casal-foto img{height:390px;border-radius:18px;}
+  .local-card{min-height:320px;background-position:center;}
+  .mapa-container,.mapa-container iframe{min-height:320px;}
+  .card img{height:190px;border-radius:14px;}
+}
+@media (max-width: 480px){
+  .convite-box{transform:translateY(38px);}
+  .hero-foto-card img{height:340px;}
+  .casal-foto img{height:330px;}
+  .local-card{min-height:260px;}
+  .mapa-container,.mapa-container iframe{min-height:260px;}
+  .card img{height:170px;}
+}
+
 </style>
 </head>
 
@@ -885,7 +1057,7 @@ footer{
   <div class="hero-box">
     <div class="hero-foto-wrap">
       <div class="hero-foto-card">
-        <img src="imagens/casal-topo.jpg" alt="Renan e Laislla">
+        <img src="imagens/casal.jpeg" alt="Renan e Laislla">
       </div>
     </div>
 
@@ -927,7 +1099,7 @@ footer{
       <h2>O CASAL</h2>
       <div class="casal-grid">
         <div class="casal-foto">
-          <img src="imagens/casal-1.jpg" alt="Renan e Laislla">
+          <img src="imagens/casal.jpeg" alt="Renan e Laislla">
         </div>
         <div class="texto">
           <strong>Cada detalhe desse dia foi pensado com muito amor</strong>
@@ -1000,24 +1172,24 @@ footer{
     <p id="modalNomePresente">Digite seu nome para reservar este presente.</p>
     <input type="text" id="nomeConvidado" placeholder="Seu nome">
     <div class="modal-acoes">
-      <button class="btn" onclick="confirmarEscolha()">Confirmar</button>
+      <button class="btn" id="btnConfirmarEscolha" onclick="confirmarEscolha()">Confirmar</button>
       <button class="btn-secundario" onclick="fecharModalNome()">Cancelar</button>
     </div>
+    <p class="modal-ajuda">Após confirmar, essa escolha não poderá ser alterada pelo convidado.</p>
   </div>
 </div>
+
+<div class="toast-wrap" id="toastWrap"></div>
 
 <footer>
   Feito com carinho para esse dia especial ✨
 </footer>
 
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
 import { getFirestore, doc, onSnapshot, runTransaction, setDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-/*
-  PREENCHA ESTES DADOS DO FIREBASE PARA A LISTA FUNCIONAR EM TEMPO REAL.
-  Enquanto estiver vazio, o site continua funcionando em modo local (cada aparelho vê a própria escolha).
-*/
 const firebaseConfig = {
   apiKey: "AIzaSyArsliiGlgSiE2JdnbfdjmnXEoKVwN90fc",
   authDomain: "cha-cozinha-renan-laislla.firebaseapp.com",
@@ -1030,26 +1202,26 @@ const firebaseConfig = {
 const LISTA_ID = "renan-laislla-cha-cozinha";
 
 const presentesOriginais = [
-  { nome:"Vasilhas plásticas e potes herméticos", ativo:true, ordem:1, categoria:"Organização", foto:"imagens/foto1.png", descricao:"Conjunto com potes de vários tamanhos para mantimentos." },
-  { nome:"Assadeiras de vidro", ativo:true, ordem:2, categoria:"Panelas & Formas", foto:"imagens/foto2.png", descricao:"Assadeiras práticas para forno e receitas do dia a dia." },
-  { nome:"Forma de bolo", ativo:true, ordem:3, categoria:"Panelas & Formas", foto:"imagens/foto3.png", descricao:"Forma clássica para bolos caseiros e especiais." },
-  { nome:"Forma de pudim", ativo:true, ordem:4, categoria:"Panelas & Formas", foto:"imagens/foto4.png", descricao:"Perfeita para sobremesas e pudins." },
-  { nome:"Utensílios em silicone", ativo:true, ordem:5, categoria:"Utensílios", foto:"imagens/foto5.png", descricao:"Kit com colher, espátula e pegador." },
-  { nome:"Bule de café", ativo:true, ordem:6, categoria:"Mesa & Servir", foto:"imagens/foto6.png", descricao:"Bule elegante para servir café com charme." },
-  { nome:"Leiteira", ativo:true, ordem:7, categoria:"Panelas & Formas", foto:"imagens/foto7.png", descricao:"Item útil para aquecer leite e molhos." },
-  { nome:"Escorredor de macarrão", ativo:true, ordem:8, categoria:"Limpeza", foto:"imagens/foto8.png", descricao:"Peça prática para escorrer massas e legumes." },
-  { nome:"Porta-condimentos e temperos", ativo:true, ordem:9, categoria:"Organização", foto:"imagens/foto9.png", descricao:"Organização linda para os temperos da cozinha." },
-  { nome:"Panos de prato", ativo:true, ordem:10, categoria:"Limpeza", foto:"imagens/foto10.png", descricao:"Kit com panos úteis para o dia a dia." },
-  { nome:"Espremedor de batata", ativo:true, ordem:11, categoria:"Preparação", foto:"imagens/foto11.png", descricao:"Facilita receitas e acompanhamentos." },
-  { nome:"Espremedor de alho", ativo:true, ordem:12, categoria:"Preparação", foto:"imagens/foto12.png", descricao:"Pequeno e indispensável na cozinha." },
-  { nome:"Ralador de queijo", ativo:true, ordem:13, categoria:"Preparação", foto:"imagens/foto13.png", descricao:"Ralador prático para queijo, legumes e mais." },
-  { nome:"Tábua de corte", ativo:true, ordem:14, categoria:"Preparação", foto:"imagens/foto14.png", descricao:"Base essencial para o preparo dos alimentos." },
-  { nome:"Jarra para água e sucos", ativo:true, ordem:15, categoria:"Mesa & Servir", foto:"imagens/foto15.png", descricao:"Jarra bonita para servir bebidas." },
-  { nome:"Escorredor de louça", ativo:true, ordem:16, categoria:"Limpeza", foto:"imagens/foto16.png", descricao:"Essencial para organizar a pia." },
-  { nome:"Concha", ativo:true, ordem:17, categoria:"Utensílios", foto:"imagens/foto17.png", descricao:"Perfeita para sopas, feijão e molhos." },
-  { nome:"Colher de pau", ativo:true, ordem:18, categoria:"Utensílios", foto:"imagens/foto18.png", descricao:"Clássica e indispensável para cozinhar." },
-  { nome:"Açucareiro", ativo:true, ordem:19, categoria:"Mesa & Servir", foto:"imagens/foto19.png", descricao:"Açucareiro delicado para café e chá." },
-  { nome:"Peneira", ativo:true, ordem:20, categoria:"Preparação", foto:"imagens/foto20.png", descricao:"Item básico para receitas e coados." }
+  { nome:"Vasilhas plásticas e potes herméticos", ativo:true, ordem:1, categoria:"Organização", foto:"imagens/potes-hermeticos.jpg", descricao:"Conjunto com potes de vários tamanhos para mantimentos." },
+  { nome:"Assadeiras de vidro", ativo:true, ordem:2, categoria:"Panelas & Formas", foto:"imagens/assadeiras-vidro.jpg", descricao:"Assadeiras práticas para forno e receitas do dia a dia." },
+  { nome:"Forma de bolo", ativo:true, ordem:3, categoria:"Panelas & Formas", foto:"imagens/forma-bolo.jpg", descricao:"Forma clássica para bolos caseiros e especiais." },
+  { nome:"Forma de pudim", ativo:true, ordem:4, categoria:"Panelas & Formas", foto:"imagens/forma-pudim.jpg", descricao:"Perfeita para sobremesas e pudins." },
+  { nome:"Utensílios em silicone", ativo:true, ordem:5, categoria:"Utensílios", foto:"imagens/utensilios-silicone.jpg", descricao:"Kit com colher, espátula e pegador." },
+  { nome:"Bule de café", ativo:true, ordem:6, categoria:"Mesa & Servir", foto:"imagens/bule-cafe.jpg", descricao:"Bule elegante para servir café com charme." },
+  { nome:"Leiteira", ativo:true, ordem:7, categoria:"Panelas & Formas", foto:"imagens/leiteira.jpg", descricao:"Item útil para aquecer leite e molhos." },
+  { nome:"Escorredor de macarrão", ativo:true, ordem:8, categoria:"Limpeza", foto:"imagens/escorredor-macarrao.jpg", descricao:"Peça prática para escorrer massas e legumes." },
+  { nome:"Porta-condimentos e temperos", ativo:true, ordem:9, categoria:"Organização", foto:"imagens/porta-temperos.jpg", descricao:"Organização linda para os temperos da cozinha." },
+  { nome:"Panos de prato", ativo:true, ordem:10, categoria:"Limpeza", foto:"imagens/panos-prato.jpg", descricao:"Kit com panos úteis para o dia a dia." },
+  { nome:"Espremedor de batata", ativo:true, ordem:11, categoria:"Preparação", foto:"imagens/espremedor-batata.jpg", descricao:"Facilita receitas e acompanhamentos." },
+  { nome:"Espremedor de alho", ativo:true, ordem:12, categoria:"Preparação", foto:"imagens/espremedor-alho.jpg", descricao:"Pequeno e indispensável na cozinha." },
+  { nome:"Ralador de queijo", ativo:true, ordem:13, categoria:"Preparação", foto:"imagens/ralador-queijo.jpg", descricao:"Ralador prático para queijo, legumes e mais." },
+  { nome:"Tábua de corte", ativo:true, ordem:14, categoria:"Preparação", foto:"imagens/tabua-corte.jpg", descricao:"Base essencial para o preparo dos alimentos." },
+  { nome:"Jarra para água e sucos", ativo:true, ordem:15, categoria:"Mesa & Servir", foto:"imagens/jarra-sucos.jpg", descricao:"Jarra bonita para servir bebidas." },
+  { nome:"Escorredor de louça", ativo:true, ordem:16, categoria:"Limpeza", foto:"imagens/escorredor-louca.jpg", descricao:"Essencial para organizar a pia." },
+  { nome:"Concha", ativo:true, ordem:17, categoria:"Utensílios", foto:"imagens/concha.jpg", descricao:"Perfeita para sopas, feijão e molhos." },
+  { nome:"Colher de pau", ativo:true, ordem:18, categoria:"Utensílios", foto:"imagens/colher-pau.jpg", descricao:"Clássica e indispensável para cozinhar." },
+  { nome:"Açucareiro", ativo:true, ordem:19, categoria:"Mesa & Servir", foto:"imagens/acucareiro.jpg", descricao:"Açucareiro delicado para café e chá." },
+  { nome:"Peneira", ativo:true, ordem:20, categoria:"Preparação", foto:"imagens/peneira.jpg", descricao:"Item básico para receitas e coados." }
 ];
 
 let presentes = [...presentesOriginais];
@@ -1058,13 +1230,11 @@ let pagina = 0;
 const porPagina = 12;
 let presentePendente = null;
 let escolhasCache = JSON.parse(localStorage.getItem("cha_escolhas_com_nome") || "{}");
+let ultimoNome = localStorage.getItem("cha_nome_convidado") || "";
 let db = null;
 let docRef = null;
 let realtimeAtivo = false;
-
-function firebasePreenchido() {
-  return firebaseConfig.apiKey !== "COLE_AQUI" && firebaseConfig.projectId !== "COLE_AQUI";
-}
+let salvandoEscolha = false;
 
 function normalizarTexto(t){
   return (t || "").toLowerCase().trim();
@@ -1079,9 +1249,51 @@ function salvarEscolhasLocal(obj){
   localStorage.setItem("cha_escolhas_com_nome", JSON.stringify(obj));
 }
 
-async function iniciarFirebaseSePossivel(){
-  if (!firebasePreenchido()) return;
+function iniciais(nome){
+  return (nome || "")
+    .trim()
+    .split(/\s+/)
+    .slice(0,2)
+    .map(p => p.charAt(0).toUpperCase())
+    .join("") || "♡";
+}
 
+function escaparHtml(str){
+  return String(str || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#39;");
+}
+
+function mostrarToast(msg, tipo="ok"){
+  const wrap = document.getElementById("toastWrap");
+  const el = document.createElement("div");
+  el.className = `toast ${tipo}`;
+  el.textContent = msg;
+  wrap.appendChild(el);
+  setTimeout(() => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(8px)";
+    setTimeout(() => el.remove(), 220);
+  }, 2600);
+}
+
+function atualizarStatusSync(){
+  let el = document.getElementById("statusSync");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "statusSync";
+    el.className = "status-sync";
+    document.querySelector(".lista-escolhidos").appendChild(el);
+  }
+  el.textContent = realtimeAtivo
+    ? "Lista sincronizada em tempo real para todos os convidados."
+    : "Sem conexão online no momento. As escolhas ficam só neste aparelho.";
+}
+
+async function iniciarFirebase(){
   try {
     const app = initializeApp(firebaseConfig);
     db = getFirestore(app);
@@ -1093,13 +1305,22 @@ async function iniciarFirebaseSePossivel(){
       const data = snap.data() || {};
       escolhasCache = data.escolhas || {};
       localStorage.setItem("cha_escolhas_com_nome", JSON.stringify(escolhasCache));
+      realtimeAtivo = true;
+      atualizarStatusSync();
       atualizarListaEscolhidos();
       renderPresentes(true);
+    }, (error) => {
+      console.error(error);
+      realtimeAtivo = false;
+      atualizarStatusSync();
     });
 
     realtimeAtivo = true;
+    atualizarStatusSync();
   } catch (error) {
     console.error("Erro ao iniciar Firebase:", error);
+    realtimeAtivo = false;
+    atualizarStatusSync();
   }
 }
 
@@ -1122,7 +1343,7 @@ function preencherFiltroCategoria(){
 function atualizarListaEscolhidos(){
   const ul = document.getElementById("listaEscolhidos");
   const escolhas = carregarEscolhas();
-  const itens = Object.entries(escolhas);
+  const itens = Object.entries(escolhas).sort((a,b) => a[0].localeCompare(b[0]));
 
   if (itens.length === 0) {
     ul.innerHTML = "<li>Nenhum presente escolhido ainda.</li>";
@@ -1130,7 +1351,7 @@ function atualizarListaEscolhidos(){
   }
 
   ul.innerHTML = itens
-    .map(([presente, nome]) => `<li><strong>${presente}</strong> — escolhido por ${nome}</li>`)
+    .map(([presente, nome]) => `<li><strong>${escaparHtml(presente)}</strong> — escolhido por ${escaparHtml(nome)}</li>`)
     .join("");
 }
 
@@ -1150,6 +1371,21 @@ function obterPresentesFiltrados(){
 
     return matchBusca && matchCategoria;
   });
+}
+
+function fallbackSvg(itemNome){
+  return "data:image/svg+xml;utf8," + encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>
+      <defs>
+        <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
+          <stop offset='0%' stop-color='#f2eadf'/>
+          <stop offset='100%' stop-color='#e7dccb'/>
+        </linearGradient>
+      </defs>
+      <rect width='100%' height='100%' fill='url(#g)'/>
+      <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='#8f7f6c' font-family='Arial' font-size='28'>${itemNome}</text>
+    </svg>`
+  );
 }
 
 function renderPresentes(reset = false){
@@ -1173,18 +1409,33 @@ function renderPresentes(reset = false){
   cont.innerHTML = listaFiltrada.slice(0, fim).map(item => {
     const nomeEscolhido = nomeDeQuemEscolheu(item.nome);
     const jaEscolhido = !!nomeEscolhido;
+    const nomeSeguro = escaparHtml(item.nome);
+    const descricaoSegura = escaparHtml(item.descricao);
+    const categoriaSegura = escaparHtml(item.categoria);
+    const nomePessoaSeguro = escaparHtml(nomeEscolhido);
 
     return `
       <div class="card">
-        <img src="${item.foto}" alt="${item.nome}">
-        <span class="categoria-chip">${item.categoria}</span>
-        <h3>${item.nome}</h3>
-        <div class="desc-presente">${item.descricao}</div>
+        <img src="${item.foto}" alt="${nomeSeguro}" onerror="this.onerror=null;this.src='${fallbackSvg(item.nome)}'">
+        <span class="categoria-chip">${categoriaSegura}</span>
+        <h3>${nomeSeguro}</h3>
+        <div class="desc-presente">${descricaoSegura}</div>
         <div class="estado ${jaEscolhido ? "estado-escolhido" : "estado-disponivel"}">
           ${jaEscolhido ? "Já escolhido" : "Disponível"}
         </div>
-        <div class="escolhido-por">${jaEscolhido ? `Escolhido por: <strong>${nomeEscolhido}</strong>` : ""}</div>
-        ${jaEscolhido ? "" : `<button type="button" onclick="abrirModalNome('${item.nome.replace(/'/g, "\'")}')">Escolher presente</button>`}
+        ${jaEscolhido ? `
+          <div class="nome-reserva">
+            <div class="avatar">${iniciais(nomeEscolhido)}</div>
+            <div>
+              <div class="label">Escolhido por</div>
+              <div class="nome">${nomePessoaSeguro}</div>
+            </div>
+          </div>
+        ` : `<div class="escolhido-por"></div>`}
+        <div class="card-acoes">
+          ${jaEscolhido ? "" : `<button type="button" onclick='abrirModalNome(${JSON.stringify(item.nome)})'>Escolher presente</button>`}
+          
+        </div>
       </div>
     `;
   }).join("");
@@ -1196,18 +1447,26 @@ function renderPresentes(reset = false){
 function abrirModalNome(nomePresente){
   presentePendente = nomePresente;
   document.getElementById("modalNomePresente").innerText = `Digite seu nome para reservar: ${nomePresente}`;
-  document.getElementById("nomeConvidado").value = "";
+  document.getElementById("nomeConvidado").value = ultimoNome;
   document.getElementById("modalNome").style.display = "flex";
   setTimeout(() => document.getElementById("nomeConvidado").focus(), 50);
 }
 
 function fecharModalNome(){
+  if (salvandoEscolha) return;
   document.getElementById("modalNome").style.display = "none";
   presentePendente = null;
 }
 
+function setBotaoConfirmar(carregando){
+  const btn = document.getElementById("btnConfirmarEscolha");
+  salvandoEscolha = carregando;
+  btn.disabled = carregando;
+  btn.textContent = carregando ? "Salvando..." : "Confirmar";
+}
+
 async function reservarPresente(nomePresente, nome){
-  if (realtimeAtivo && db && docRef) {
+  if (db && docRef) {
     await runTransaction(db, async (transaction) => {
       const snap = await transaction.get(docRef);
       const data = snap.exists() ? (snap.data() || {}) : {};
@@ -1239,29 +1498,45 @@ async function reservarPresente(nomePresente, nome){
 
 async function confirmarEscolha(){
   const nome = document.getElementById("nomeConvidado").value.trim();
-  if (!presentePendente) return;
+  if (!presentePendente || salvandoEscolha) return;
 
   if (!nome) {
-    alert("Digite seu nome para escolher o presente.");
+    mostrarToast("Digite seu nome para escolher o presente.", "err");
     return;
   }
 
+  if (nome.length < 2) {
+    mostrarToast("Digite um nome válido.", "err");
+    return;
+  }
+
+  const avisoFinal = window.confirm("Depois de confirmar, essa escolha não poderá ser alterada pelo convidado. Deseja continuar?");
+  if (!avisoFinal) return;
+
+  ultimoNome = nome;
+  localStorage.setItem("cha_nome_convidado", nome);
+  setBotaoConfirmar(true);
+
   try {
     await reservarPresente(presentePendente, nome);
+    const reservado = presentePendente;
     fecharModalNome();
     pagina = 0;
     atualizarListaEscolhidos();
     renderPresentes(true);
+    mostrarToast(`Presente reservado com sucesso: ${reservado}. Após confirmar, a escolha não pode ser alterada pelo convidado.`, "ok");
   } catch (error) {
     if (error && error.message === "JA_ESCOLHIDO") {
-      alert("Esse presente já foi escolhido por outra pessoa.");
       fecharModalNome();
       atualizarListaEscolhidos();
       renderPresentes(true);
+      mostrarToast("Esse presente já foi escolhido por outra pessoa.", "err");
       return;
     }
     console.error(error);
-    alert("Não foi possível salvar a escolha agora.");
+    mostrarToast("Não foi possível salvar a escolha agora.", "err");
+  } finally {
+    setBotaoConfirmar(false);
   }
 }
 
@@ -1301,6 +1576,10 @@ document.getElementById("modalNome").addEventListener("click", function(e){
   if (e.target.id === "modalNome") fecharModalNome();
 });
 
+document.addEventListener("keydown", function(e){
+  if (e.key === "Escape") fecharModalNome();
+});
+
 const data = new Date("2026-05-02T14:00:00").getTime();
 setInterval(() => {
   const n = new Date().getTime();
@@ -1336,7 +1615,8 @@ window.abrirConvite = abrirConvite;
 preencherFiltroCategoria();
 atualizarListaEscolhidos();
 renderPresentes(true);
-iniciarFirebaseSePossivel();
+atualizarStatusSync();
+iniciarFirebase();
 </script>
 </body>
 </html>
