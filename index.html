@@ -79,7 +79,7 @@ body:not(.convite-fechado) > *:not(#conviteOverlay){visibility:visible;opacity:1
   padding:34px;
   background:
     linear-gradient(160deg, rgba(0,0,0,.54), rgba(40,30,12,.24)),
-    url("imagens/convite.jpeg") center/cover no-repeat;
+    url("imagens/convite-varal-utensilios.jpg") center/cover no-repeat;
   position:relative;
 }
 .convite-arte::after{
@@ -853,96 +853,6 @@ footer{
   color: #6b5e53;
 }
 
-
-/* ===== melhorias premium ===== */
-.nome-reserva{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:10px 12px;
-  border-radius:16px;
-  background:linear-gradient(135deg, rgba(201,164,108,.12), rgba(255,255,255,.92));
-  border:1px solid rgba(201,164,108,.22);
-  margin:10px 0 14px;
-}
-.nome-reserva .avatar{
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,var(--dourado),var(--dourado-escuro));
-  color:#fff;
-  font-size:13px;
-  font-weight:700;
-  box-shadow:0 6px 14px rgba(201,164,108,.28);
-  flex:0 0 34px;
-}
-.nome-reserva .label{
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:.9px;
-  color:#8d7b68;
-  font-weight:700;
-  line-height:1.1;
-}
-.nome-reserva .nome{
-  font-size:14px;
-  color:#3f4f45;
-  font-weight:700;
-  line-height:1.2;
-  word-break:break-word;
-}
-.card-acoes{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.card-acoes button{
-  width:auto;
-  flex:1 1 auto;
-}
-.toast-wrap{
-  position:fixed;
-  right:16px;
-  bottom:16px;
-  z-index:2147483647;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.toast{
-  min-width:260px;
-  max-width:360px;
-  padding:14px 16px;
-  border-radius:16px;
-  color:#fff;
-  box-shadow:0 18px 38px rgba(0,0,0,.18);
-  font-size:14px;
-  line-height:1.45;
-  animation:toastIn .22s ease;
-}
-.toast.ok{background:rgba(63,79,69,.96)}
-.toast.err{background:rgba(133,58,58,.96)}
-@keyframes toastIn{
-  from{opacity:0;transform:translateY(12px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.modal-ajuda{
-  font-size:13px;
-  color:#8d7b68;
-  margin-top:12px !important;
-}
-.status-sync{
-  margin-top:10px;
-  font-size:12px;
-  color:#8d7b68;
-}
-@media(max-width:700px){
-  .toast-wrap{left:14px; right:14px; bottom:14px;}
-  .toast{min-width:unset; max-width:unset;}
-  }
-
 </style>
 </head>
 
@@ -975,7 +885,7 @@ footer{
   <div class="hero-box">
     <div class="hero-foto-wrap">
       <div class="hero-foto-card">
-        <img src="imagens/casal.jpeg" alt="Renan e Laislla">
+        <img src="imagens/casal-topo.jpg" alt="Renan e Laislla">
       </div>
     </div>
 
@@ -1017,7 +927,7 @@ footer{
       <h2>O CASAL</h2>
       <div class="casal-grid">
         <div class="casal-foto">
-          <img src="imagens/casal2.jpeg" alt="Renan e Laislla">
+          <img src="imagens/casal-1.jpg" alt="Renan e Laislla">
         </div>
         <div class="texto">
           <strong>Cada detalhe desse dia foi pensado com muito amor</strong>
@@ -1090,24 +1000,24 @@ footer{
     <p id="modalNomePresente">Digite seu nome para reservar este presente.</p>
     <input type="text" id="nomeConvidado" placeholder="Seu nome">
     <div class="modal-acoes">
-      <button class="btn" id="btnConfirmarEscolha" onclick="confirmarEscolha()">Confirmar</button>
+      <button class="btn" onclick="confirmarEscolha()">Confirmar</button>
       <button class="btn-secundario" onclick="fecharModalNome()">Cancelar</button>
     </div>
-    <p class="modal-ajuda">Após confirmar, essa escolha não poderá ser alterada pelo convidado.</p>
   </div>
 </div>
-
-<div class="toast-wrap" id="toastWrap"></div>
 
 <footer>
   Feito com carinho para esse dia especial ✨
 </footer>
 
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
 import { getFirestore, doc, onSnapshot, runTransaction, setDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
+/*
+  PREENCHA ESTES DADOS DO FIREBASE PARA A LISTA FUNCIONAR EM TEMPO REAL.
+  Enquanto estiver vazio, o site continua funcionando em modo local (cada aparelho vê a própria escolha).
+*/
 const firebaseConfig = {
   apiKey: "AIzaSyArsliiGlgSiE2JdnbfdjmnXEoKVwN90fc",
   authDomain: "cha-cozinha-renan-laislla.firebaseapp.com",
@@ -1148,11 +1058,13 @@ let pagina = 0;
 const porPagina = 12;
 let presentePendente = null;
 let escolhasCache = JSON.parse(localStorage.getItem("cha_escolhas_com_nome") || "{}");
-let ultimoNome = localStorage.getItem("cha_nome_convidado") || "";
 let db = null;
 let docRef = null;
 let realtimeAtivo = false;
-let salvandoEscolha = false;
+
+function firebasePreenchido() {
+  return firebaseConfig.apiKey !== "COLE_AQUI" && firebaseConfig.projectId !== "COLE_AQUI";
+}
 
 function normalizarTexto(t){
   return (t || "").toLowerCase().trim();
@@ -1167,51 +1079,9 @@ function salvarEscolhasLocal(obj){
   localStorage.setItem("cha_escolhas_com_nome", JSON.stringify(obj));
 }
 
-function iniciais(nome){
-  return (nome || "")
-    .trim()
-    .split(/\s+/)
-    .slice(0,2)
-    .map(p => p.charAt(0).toUpperCase())
-    .join("") || "♡";
-}
+async function iniciarFirebaseSePossivel(){
+  if (!firebasePreenchido()) return;
 
-function escaparHtml(str){
-  return String(str || "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#39;");
-}
-
-function mostrarToast(msg, tipo="ok"){
-  const wrap = document.getElementById("toastWrap");
-  const el = document.createElement("div");
-  el.className = `toast ${tipo}`;
-  el.textContent = msg;
-  wrap.appendChild(el);
-  setTimeout(() => {
-    el.style.opacity = "0";
-    el.style.transform = "translateY(8px)";
-    setTimeout(() => el.remove(), 220);
-  }, 2600);
-}
-
-function atualizarStatusSync(){
-  let el = document.getElementById("statusSync");
-  if (!el) {
-    el = document.createElement("div");
-    el.id = "statusSync";
-    el.className = "status-sync";
-    document.querySelector(".lista-escolhidos").appendChild(el);
-  }
-  el.textContent = realtimeAtivo
-    ? "Lista sincronizada em tempo real para todos os convidados."
-    : "Sem conexão online no momento. As escolhas ficam só neste aparelho.";
-}
-
-async function iniciarFirebase(){
   try {
     const app = initializeApp(firebaseConfig);
     db = getFirestore(app);
@@ -1223,22 +1093,13 @@ async function iniciarFirebase(){
       const data = snap.data() || {};
       escolhasCache = data.escolhas || {};
       localStorage.setItem("cha_escolhas_com_nome", JSON.stringify(escolhasCache));
-      realtimeAtivo = true;
-      atualizarStatusSync();
       atualizarListaEscolhidos();
       renderPresentes(true);
-    }, (error) => {
-      console.error(error);
-      realtimeAtivo = false;
-      atualizarStatusSync();
     });
 
     realtimeAtivo = true;
-    atualizarStatusSync();
   } catch (error) {
     console.error("Erro ao iniciar Firebase:", error);
-    realtimeAtivo = false;
-    atualizarStatusSync();
   }
 }
 
@@ -1261,7 +1122,7 @@ function preencherFiltroCategoria(){
 function atualizarListaEscolhidos(){
   const ul = document.getElementById("listaEscolhidos");
   const escolhas = carregarEscolhas();
-  const itens = Object.entries(escolhas).sort((a,b) => a[0].localeCompare(b[0]));
+  const itens = Object.entries(escolhas);
 
   if (itens.length === 0) {
     ul.innerHTML = "<li>Nenhum presente escolhido ainda.</li>";
@@ -1269,7 +1130,7 @@ function atualizarListaEscolhidos(){
   }
 
   ul.innerHTML = itens
-    .map(([presente, nome]) => `<li><strong>${escaparHtml(presente)}</strong> — escolhido por ${escaparHtml(nome)}</li>`)
+    .map(([presente, nome]) => `<li><strong>${presente}</strong> — escolhido por ${nome}</li>`)
     .join("");
 }
 
@@ -1289,21 +1150,6 @@ function obterPresentesFiltrados(){
 
     return matchBusca && matchCategoria;
   });
-}
-
-function fallbackSvg(itemNome){
-  return "data:image/svg+xml;utf8," + encodeURIComponent(
-    `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>
-      <defs>
-        <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
-          <stop offset='0%' stop-color='#f2eadf'/>
-          <stop offset='100%' stop-color='#e7dccb'/>
-        </linearGradient>
-      </defs>
-      <rect width='100%' height='100%' fill='url(#g)'/>
-      <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='#8f7f6c' font-family='Arial' font-size='28'>${itemNome}</text>
-    </svg>`
-  );
 }
 
 function renderPresentes(reset = false){
@@ -1327,33 +1173,18 @@ function renderPresentes(reset = false){
   cont.innerHTML = listaFiltrada.slice(0, fim).map(item => {
     const nomeEscolhido = nomeDeQuemEscolheu(item.nome);
     const jaEscolhido = !!nomeEscolhido;
-    const nomeSeguro = escaparHtml(item.nome);
-    const descricaoSegura = escaparHtml(item.descricao);
-    const categoriaSegura = escaparHtml(item.categoria);
-    const nomePessoaSeguro = escaparHtml(nomeEscolhido);
 
     return `
       <div class="card">
-        <img src="${item.foto}" alt="${nomeSeguro}" onerror="this.onerror=null;this.src='${fallbackSvg(item.nome)}'">
-        <span class="categoria-chip">${categoriaSegura}</span>
-        <h3>${nomeSeguro}</h3>
-        <div class="desc-presente">${descricaoSegura}</div>
+        <img src="${item.foto}" alt="${item.nome}">
+        <span class="categoria-chip">${item.categoria}</span>
+        <h3>${item.nome}</h3>
+        <div class="desc-presente">${item.descricao}</div>
         <div class="estado ${jaEscolhido ? "estado-escolhido" : "estado-disponivel"}">
           ${jaEscolhido ? "Já escolhido" : "Disponível"}
         </div>
-        ${jaEscolhido ? `
-          <div class="nome-reserva">
-            <div class="avatar">${iniciais(nomeEscolhido)}</div>
-            <div>
-              <div class="label">Escolhido por</div>
-              <div class="nome">${nomePessoaSeguro}</div>
-            </div>
-          </div>
-        ` : `<div class="escolhido-por"></div>`}
-        <div class="card-acoes">
-          ${jaEscolhido ? "" : `<button type="button" onclick='abrirModalNome(${JSON.stringify(item.nome)})'>Escolher presente</button>`}
-          
-        </div>
+        <div class="escolhido-por">${jaEscolhido ? `Escolhido por: <strong>${nomeEscolhido}</strong>` : ""}</div>
+        ${jaEscolhido ? "" : `<button type="button" onclick="abrirModalNome('${item.nome.replace(/'/g, "\'")}')">Escolher presente</button>`}
       </div>
     `;
   }).join("");
@@ -1365,26 +1196,18 @@ function renderPresentes(reset = false){
 function abrirModalNome(nomePresente){
   presentePendente = nomePresente;
   document.getElementById("modalNomePresente").innerText = `Digite seu nome para reservar: ${nomePresente}`;
-  document.getElementById("nomeConvidado").value = ultimoNome;
+  document.getElementById("nomeConvidado").value = "";
   document.getElementById("modalNome").style.display = "flex";
   setTimeout(() => document.getElementById("nomeConvidado").focus(), 50);
 }
 
 function fecharModalNome(){
-  if (salvandoEscolha) return;
   document.getElementById("modalNome").style.display = "none";
   presentePendente = null;
 }
 
-function setBotaoConfirmar(carregando){
-  const btn = document.getElementById("btnConfirmarEscolha");
-  salvandoEscolha = carregando;
-  btn.disabled = carregando;
-  btn.textContent = carregando ? "Salvando..." : "Confirmar";
-}
-
 async function reservarPresente(nomePresente, nome){
-  if (db && docRef) {
+  if (realtimeAtivo && db && docRef) {
     await runTransaction(db, async (transaction) => {
       const snap = await transaction.get(docRef);
       const data = snap.exists() ? (snap.data() || {}) : {};
@@ -1416,45 +1239,29 @@ async function reservarPresente(nomePresente, nome){
 
 async function confirmarEscolha(){
   const nome = document.getElementById("nomeConvidado").value.trim();
-  if (!presentePendente || salvandoEscolha) return;
+  if (!presentePendente) return;
 
   if (!nome) {
-    mostrarToast("Digite seu nome para escolher o presente.", "err");
+    alert("Digite seu nome para escolher o presente.");
     return;
   }
-
-  if (nome.length < 2) {
-    mostrarToast("Digite um nome válido.", "err");
-    return;
-  }
-
-  const avisoFinal = window.confirm("Depois de confirmar, essa escolha não poderá ser alterada pelo convidado. Deseja continuar?");
-  if (!avisoFinal) return;
-
-  ultimoNome = nome;
-  localStorage.setItem("cha_nome_convidado", nome);
-  setBotaoConfirmar(true);
 
   try {
     await reservarPresente(presentePendente, nome);
-    const reservado = presentePendente;
     fecharModalNome();
     pagina = 0;
     atualizarListaEscolhidos();
     renderPresentes(true);
-    mostrarToast(`Presente reservado com sucesso: ${reservado}. Após confirmar, a escolha não pode ser alterada pelo convidado.`, "ok");
   } catch (error) {
     if (error && error.message === "JA_ESCOLHIDO") {
+      alert("Esse presente já foi escolhido por outra pessoa.");
       fecharModalNome();
       atualizarListaEscolhidos();
       renderPresentes(true);
-      mostrarToast("Esse presente já foi escolhido por outra pessoa.", "err");
       return;
     }
     console.error(error);
-    mostrarToast("Não foi possível salvar a escolha agora.", "err");
-  } finally {
-    setBotaoConfirmar(false);
+    alert("Não foi possível salvar a escolha agora.");
   }
 }
 
@@ -1494,10 +1301,6 @@ document.getElementById("modalNome").addEventListener("click", function(e){
   if (e.target.id === "modalNome") fecharModalNome();
 });
 
-document.addEventListener("keydown", function(e){
-  if (e.key === "Escape") fecharModalNome();
-});
-
 const data = new Date("2026-05-02T14:00:00").getTime();
 setInterval(() => {
   const n = new Date().getTime();
@@ -1533,8 +1336,7 @@ window.abrirConvite = abrirConvite;
 preencherFiltroCategoria();
 atualizarListaEscolhidos();
 renderPresentes(true);
-atualizarStatusSync();
-iniciarFirebase();
+iniciarFirebaseSePossivel();
 </script>
 </body>
 </html>
