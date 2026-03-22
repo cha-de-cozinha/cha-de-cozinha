@@ -804,34 +804,158 @@ footer{
 }
 
 
-/* Aprimoramentos premium da lista */
+/* visual premium seguro - sem alterar a lógica do Firebase */
+body{
+  background: linear-gradient(180deg, #f7f2ea 0%, #f3ede4 100%);
+}
+.topbar{
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.05);
+}
+.hero-card, .bloco-branco, .lista-escolhidos, .card-local, .card-casal, .card-encontro{
+  box-shadow: 0 18px 45px rgba(79,66,49,.08);
+  border: 1px solid rgba(201,164,108,.16);
+}
 .card{
   transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+  border: 1px solid rgba(201,164,108,.14);
+  box-shadow: 0 12px 28px rgba(0,0,0,.06);
 }
 .card:hover{
   transform: translateY(-6px);
-  box-shadow: 0 22px 44px rgba(0,0,0,.10);
+  box-shadow: 0 22px 44px rgba(0,0,0,.12);
+  border-color: rgba(201,164,108,.32);
 }
 .card img{
-  background: linear-gradient(135deg, #f4efe8, #e8e0d4);
+  background: linear-gradient(135deg, #f2eadf, #e7dccb);
 }
-.escolhido-por{
-  min-height: 28px;
+button, .btn{
+  box-shadow: 0 14px 30px rgba(35,46,41,.18);
+  letter-spacing: .2px;
 }
-.modal-nome-box .ajuda-modal{
-  font-size: 13px;
-  color: var(--texto-suave);
-  margin: 6px 0 0;
+button:hover, .btn:hover{
+  transform: translateY(-1px);
 }
-.btn-carregando{
-  opacity:.8;
-  pointer-events:none;
+.estado{
+  letter-spacing: .5px;
+}
+.escolhido-por strong{
+  color: #3F4F45;
+}
+.section-title, h2{
+  letter-spacing: .6px;
+}
+input, select{
+  box-shadow: 0 8px 22px rgba(0,0,0,.04);
+}
+footer{
+  background: transparent;
+  color: #6b5e53;
+}
+
+
+/* ===== melhorias premium + admin ===== */
+.nome-reserva{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:16px;
+  background:linear-gradient(135deg, rgba(201,164,108,.12), rgba(255,255,255,.92));
+  border:1px solid rgba(201,164,108,.22);
+  margin:10px 0 14px;
+}
+.nome-reserva .avatar{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--dourado),var(--dourado-escuro));
+  color:#fff;
+  font-size:13px;
+  font-weight:700;
+  box-shadow:0 6px 14px rgba(201,164,108,.28);
+  flex:0 0 34px;
+}
+.nome-reserva .label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.9px;
+  color:#8d7b68;
+  font-weight:700;
+  line-height:1.1;
+}
+.nome-reserva .nome{
+  font-size:14px;
+  color:#3f4f45;
+  font-weight:700;
+  line-height:1.2;
+  word-break:break-word;
+}
+.card-acoes{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.card-acoes button{
+  width:auto;
+  flex:1 1 auto;
+}
+.btn-liberar{
+  background:linear-gradient(135deg,#d8d2c7,#c8c1b5) !important;
+  color:#3f4f45 !important;
+  box-shadow:none !important;
+}
+.admin-bar{
+  position:sticky;
+  bottom:12px;
+  z-index:9999;
+  width:min(1120px, calc(100% - 24px));
+  margin:0 auto 14px;
+  display:none;
+}
+.admin-bar-inner{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  padding:14px 16px;
+  border-radius:18px;
+  background:rgba(63,79,69,.94);
+  color:#fff;
+  box-shadow:0 16px 34px rgba(0,0,0,.22);
+}
+.admin-bar strong{
+  font-size:14px;
+}
+.admin-mini{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+.admin-mini button{
+  border:none;
+  border-radius:999px;
+  padding:10px 16px;
+  font-weight:700;
+  cursor:pointer;
+}
+.admin-ativar{
+  background:linear-gradient(135deg,var(--dourado),var(--dourado-escuro));
+  color:#fff;
+}
+.admin-sair{
+  background:#fff;
+  color:#3f4f45;
 }
 .toast-wrap{
   position:fixed;
-  right:20px;
-  bottom:20px;
-  z-index:999999;
+  right:16px;
+  bottom:16px;
+  z-index:2147483647;
   display:flex;
   flex-direction:column;
   gap:10px;
@@ -841,40 +965,32 @@ footer{
   max-width:360px;
   padding:14px 16px;
   border-radius:16px;
-  background:rgba(63,79,69,.96);
   color:#fff;
   box-shadow:0 18px 38px rgba(0,0,0,.18);
   font-size:14px;
   line-height:1.45;
   animation:toastIn .22s ease;
 }
-.toast.toast-erro{
-  background:rgba(133,58,58,.96);
-}
-.toast.toast-sucesso{
-  background:rgba(63,79,69,.96);
-}
+.toast.ok{background:rgba(63,79,69,.96)}
+.toast.err{background:rgba(133,58,58,.96)}
 @keyframes toastIn{
-  from{opacity:0;transform:translateY(10px)}
+  from{opacity:0;transform:translateY(12px)}
   to{opacity:1;transform:translateY(0)}
 }
-.status-sistema{
-  margin-top:12px;
-  text-align:center;
-  font-size:12px;
-  color:var(--texto-suave);
-  opacity:.9;
+.modal-ajuda{
+  font-size:13px;
+  color:#8d7b68;
+  margin-top:12px !important;
 }
-@media (max-width:700px){
-  .toast-wrap{
-    left:14px;
-    right:14px;
-    bottom:14px;
-  }
-  .toast{
-    min-width:unset;
-    max-width:unset;
-  }
+.status-sync{
+  margin-top:10px;
+  font-size:12px;
+  color:#8d7b68;
+}
+@media(max-width:700px){
+  .toast-wrap{left:14px; right:14px; bottom:14px;}
+  .toast{min-width:unset; max-width:unset;}
+  .admin-bar{width:calc(100% - 20px)}
 }
 
 </style>
@@ -1027,7 +1143,17 @@ footer{
       <button class="btn" id="btnConfirmarEscolha" onclick="confirmarEscolha()">Confirmar</button>
       <button class="btn-secundario" onclick="fecharModalNome()">Cancelar</button>
     </div>
-    <p class="ajuda-modal">Seu nome ficará visível apenas neste presente reservado.</p>
+    <p class="modal-ajuda">Seu nome ficará visível apenas no presente que você reservar.</p>
+  </div>
+</div>
+
+<div class="admin-bar" id="adminBar">
+  <div class="admin-bar-inner">
+    <strong id="adminStatus">Modo admin desativado</strong>
+    <div class="admin-mini">
+      <button class="admin-ativar" id="btnAdminToggle" onclick="alternarAdmin()">Ativar admin</button>
+      <button class="admin-sair" id="btnAdminSair" onclick="sairAdmin()" style="display:none;">Sair do admin</button>
+    </div>
   </div>
 </div>
 
@@ -1052,6 +1178,7 @@ const firebaseConfig = {
 };
 
 const LISTA_ID = "renan-laislla-cha-cozinha";
+const ADMIN_PASSWORD = "cha2026";
 
 const presentesOriginais = [
   { nome:"Vasilhas plásticas e potes herméticos", ativo:true, ordem:1, categoria:"Organização", foto:"imagens/potes-hermeticos.jpg", descricao:"Conjunto com potes de vários tamanhos para mantimentos." },
@@ -1081,12 +1208,13 @@ let presentesOriginal = [...presentesOriginais].sort((a,b) => a.ordem - b.ordem)
 let pagina = 0;
 const porPagina = 12;
 let presentePendente = null;
+let escolhasCache = JSON.parse(localStorage.getItem("cha_escolhas_com_nome") || "{}");
+let ultimoNome = localStorage.getItem("cha_nome_convidado") || "";
 let db = null;
 let docRef = null;
 let realtimeAtivo = false;
-let escolhasCache = JSON.parse(localStorage.getItem("cha_escolhas_com_nome") || "{}");
-let ultimoNome = localStorage.getItem("cha_nome_convidado") || "";
 let salvandoEscolha = false;
+let adminAtivo = sessionStorage.getItem("cha_admin_ativo") === "1";
 
 function normalizarTexto(t){
   return (t || "").toLowerCase().trim();
@@ -1101,30 +1229,66 @@ function salvarEscolhasLocal(obj){
   localStorage.setItem("cha_escolhas_com_nome", JSON.stringify(obj));
 }
 
-function mostrarToast(mensagem, tipo="sucesso"){
+function iniciais(nome){
+  return (nome || "")
+    .trim()
+    .split(/\s+/)
+    .slice(0,2)
+    .map(p => p.charAt(0).toUpperCase())
+    .join("") || "♡";
+}
+
+function escaparHtml(str){
+  return String(str || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#39;");
+}
+
+function mostrarToast(msg, tipo="ok"){
   const wrap = document.getElementById("toastWrap");
   const el = document.createElement("div");
-  el.className = `toast ${tipo === "erro" ? "toast-erro" : "toast-sucesso"}`;
-  el.textContent = mensagem;
+  el.className = `toast ${tipo}`;
+  el.textContent = msg;
   wrap.appendChild(el);
   setTimeout(() => {
     el.style.opacity = "0";
     el.style.transform = "translateY(8px)";
     setTimeout(() => el.remove(), 220);
-  }, 2800);
+  }, 2600);
 }
 
-function atualizarStatusSistema(){
-  let el = document.getElementById("statusSistema");
+function atualizarAdminUI(){
+  const adminBar = document.getElementById("adminBar");
+  const status = document.getElementById("adminStatus");
+  const btnToggle = document.getElementById("btnAdminToggle");
+  const btnSair = document.getElementById("btnAdminSair");
+
+  adminBar.style.display = "block";
+  if (adminAtivo) {
+    status.textContent = "Modo admin ativado — você pode liberar presentes";
+    btnToggle.style.display = "none";
+    btnSair.style.display = "inline-block";
+  } else {
+    status.textContent = "Modo admin desativado";
+    btnToggle.style.display = "inline-block";
+    btnSair.style.display = "none";
+  }
+}
+
+function atualizarStatusSync(){
+  let el = document.getElementById("statusSync");
   if (!el) {
     el = document.createElement("div");
-    el.id = "statusSistema";
-    el.className = "status-sistema";
+    el.id = "statusSync";
+    el.className = "status-sync";
     document.querySelector(".lista-escolhidos").appendChild(el);
   }
   el.textContent = realtimeAtivo
     ? "Lista sincronizada em tempo real para todos os convidados."
-    : "Modo local ativo neste aparelho.";
+    : "Sem conexão online no momento. As escolhas ficam só neste aparelho.";
 }
 
 async function iniciarFirebase(){
@@ -1140,18 +1304,21 @@ async function iniciarFirebase(){
       escolhasCache = data.escolhas || {};
       localStorage.setItem("cha_escolhas_com_nome", JSON.stringify(escolhasCache));
       realtimeAtivo = true;
-      atualizarStatusSistema();
+      atualizarStatusSync();
       atualizarListaEscolhidos();
       renderPresentes(true);
+    }, (error) => {
+      console.error(error);
+      realtimeAtivo = false;
+      atualizarStatusSync();
     });
 
     realtimeAtivo = true;
-    atualizarStatusSistema();
+    atualizarStatusSync();
   } catch (error) {
     console.error("Erro ao iniciar Firebase:", error);
     realtimeAtivo = false;
-    atualizarStatusSistema();
-    mostrarToast("Não foi possível conectar ao sistema online agora.", "erro");
+    atualizarStatusSync();
   }
 }
 
@@ -1182,7 +1349,7 @@ function atualizarListaEscolhidos(){
   }
 
   ul.innerHTML = itens
-    .map(([presente, nome]) => `<li><strong>${presente}</strong> — escolhido por ${nome}</li>`)
+    .map(([presente, nome]) => `<li><strong>${escaparHtml(presente)}</strong> — escolhido por ${escaparHtml(nome)}</li>`)
     .join("");
 }
 
@@ -1202,6 +1369,21 @@ function obterPresentesFiltrados(){
 
     return matchBusca && matchCategoria;
   });
+}
+
+function fallbackSvg(itemNome){
+  return "data:image/svg+xml;utf8," + encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>
+      <defs>
+        <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
+          <stop offset='0%' stop-color='#f2eadf'/>
+          <stop offset='100%' stop-color='#e7dccb'/>
+        </linearGradient>
+      </defs>
+      <rect width='100%' height='100%' fill='url(#g)'/>
+      <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='#8f7f6c' font-family='Arial' font-size='28'>${itemNome}</text>
+    </svg>`
+  );
 }
 
 function renderPresentes(reset = false){
@@ -1225,18 +1407,33 @@ function renderPresentes(reset = false){
   cont.innerHTML = listaFiltrada.slice(0, fim).map(item => {
     const nomeEscolhido = nomeDeQuemEscolheu(item.nome);
     const jaEscolhido = !!nomeEscolhido;
+    const nomeSeguro = escaparHtml(item.nome);
+    const descricaoSegura = escaparHtml(item.descricao);
+    const categoriaSegura = escaparHtml(item.categoria);
+    const nomePessoaSeguro = escaparHtml(nomeEscolhido);
 
     return `
       <div class="card">
-        <img src="${item.foto}" alt="${item.nome}" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='#efe7db'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='#8f7f6c' font-family='Arial' font-size='28'>${item.nome}</text></svg>`)}'">
-        <span class="categoria-chip">${item.categoria}</span>
-        <h3>${item.nome}</h3>
-        <div class="desc-presente">${item.descricao}</div>
+        <img src="${item.foto}" alt="${nomeSeguro}" onerror="this.onerror=null;this.src='${fallbackSvg(item.nome)}'">
+        <span class="categoria-chip">${categoriaSegura}</span>
+        <h3>${nomeSeguro}</h3>
+        <div class="desc-presente">${descricaoSegura}</div>
         <div class="estado ${jaEscolhido ? "estado-escolhido" : "estado-disponivel"}">
           ${jaEscolhido ? "Já escolhido" : "Disponível"}
         </div>
-        <div class="escolhido-por">${jaEscolhido ? `Escolhido por: <strong>${nomeEscolhido}</strong>` : ""}</div>
-        ${jaEscolhido ? "" : `<button type="button" onclick="abrirModalNome(${JSON.stringify(item.nome)})">Escolher presente</button>`}
+        ${jaEscolhido ? `
+          <div class="nome-reserva">
+            <div class="avatar">${iniciais(nomeEscolhido)}</div>
+            <div>
+              <div class="label">Escolhido por</div>
+              <div class="nome">${nomePessoaSeguro}</div>
+            </div>
+          </div>
+        ` : `<div class="escolhido-por"></div>`}
+        <div class="card-acoes">
+          ${jaEscolhido ? "" : `<button type="button" onclick='abrirModalNome(${JSON.stringify(item.nome)})'>Escolher presente</button>`}
+          ${(jaEscolhido && adminAtivo) ? `<button type="button" class="btn-liberar" onclick='liberarPresente(${JSON.stringify(item.nome)})'>Desfazer escolha</button>` : ""}
+        </div>
       </div>
     `;
   }).join("");
@@ -1263,7 +1460,6 @@ function setBotaoConfirmar(carregando){
   const btn = document.getElementById("btnConfirmarEscolha");
   salvandoEscolha = carregando;
   btn.disabled = carregando;
-  btn.classList.toggle("btn-carregando", carregando);
   btn.textContent = carregando ? "Salvando..." : "Confirmar";
 }
 
@@ -1303,12 +1499,12 @@ async function confirmarEscolha(){
   if (!presentePendente || salvandoEscolha) return;
 
   if (!nome) {
-    mostrarToast("Digite seu nome para reservar o presente.", "erro");
+    mostrarToast("Digite seu nome para escolher o presente.", "err");
     return;
   }
 
   if (nome.length < 2) {
-    mostrarToast("Digite um nome válido.", "erro");
+    mostrarToast("Digite um nome válido.", "err");
     return;
   }
 
@@ -1318,25 +1514,90 @@ async function confirmarEscolha(){
 
   try {
     await reservarPresente(presentePendente, nome);
-    const nomeReserva = presentePendente;
+    const reservado = presentePendente;
     fecharModalNome();
     pagina = 0;
     atualizarListaEscolhidos();
     renderPresentes(true);
-    mostrarToast(`Presente reservado com sucesso: ${nomeReserva}`);
+    mostrarToast(`Presente reservado com sucesso: ${reservado}`, "ok");
   } catch (error) {
     if (error && error.message === "JA_ESCOLHIDO") {
       fecharModalNome();
       atualizarListaEscolhidos();
       renderPresentes(true);
-      mostrarToast("Esse presente já foi escolhido por outra pessoa.", "erro");
+      mostrarToast("Esse presente já foi escolhido por outra pessoa.", "err");
       return;
     }
     console.error(error);
-    mostrarToast("Não foi possível salvar a escolha agora.", "erro");
+    mostrarToast("Não foi possível salvar a escolha agora.", "err");
   } finally {
     setBotaoConfirmar(false);
   }
+}
+
+async function liberarPresente(nomePresente){
+  if (!adminAtivo) {
+    mostrarToast("Ative o modo admin primeiro.", "err");
+    return;
+  }
+
+  const confirmar = window.confirm(`Deseja liberar novamente o presente "${nomePresente}"?`);
+  if (!confirmar) return;
+
+  try {
+    if (db && docRef) {
+      await runTransaction(db, async (transaction) => {
+        const snap = await transaction.get(docRef);
+        const data = snap.exists() ? (snap.data() || {}) : {};
+        const escolhas = data.escolhas || {};
+
+        delete escolhas[nomePresente];
+
+        transaction.set(docRef, {
+          escolhas,
+          atualizadoEm: new Date().toISOString()
+        }, { merge: true });
+
+        escolhasCache = escolhas;
+        localStorage.setItem("cha_escolhas_com_nome", JSON.stringify(escolhasCache));
+      });
+    } else {
+      const escolhas = carregarEscolhas();
+      delete escolhas[nomePresente];
+      salvarEscolhasLocal(escolhas);
+    }
+
+    atualizarListaEscolhidos();
+    renderPresentes(true);
+    mostrarToast("Presente liberado novamente.", "ok");
+  } catch (error) {
+    console.error(error);
+    mostrarToast("Não foi possível liberar este presente.", "err");
+  }
+}
+
+function alternarAdmin(){
+  const senha = prompt("Digite a senha do admin:");
+  if (senha === null) return;
+
+  if (senha !== ADMIN_PASSWORD) {
+    mostrarToast("Senha incorreta.", "err");
+    return;
+  }
+
+  adminAtivo = true;
+  sessionStorage.setItem("cha_admin_ativo", "1");
+  atualizarAdminUI();
+  renderPresentes(true);
+  mostrarToast("Modo admin ativado.", "ok");
+}
+
+function sairAdmin(){
+  adminAtivo = false;
+  sessionStorage.removeItem("cha_admin_ativo");
+  atualizarAdminUI();
+  renderPresentes(true);
+  mostrarToast("Modo admin desativado.", "ok");
 }
 
 document.getElementById("busca").addEventListener("input", function(){
@@ -1410,11 +1671,15 @@ window.abrirModalNome = abrirModalNome;
 window.fecharModalNome = fecharModalNome;
 window.confirmarEscolha = confirmarEscolha;
 window.abrirConvite = abrirConvite;
+window.alternarAdmin = alternarAdmin;
+window.sairAdmin = sairAdmin;
+window.liberarPresente = liberarPresente;
 
 preencherFiltroCategoria();
 atualizarListaEscolhidos();
 renderPresentes(true);
-atualizarStatusSistema();
+atualizarAdminUI();
+atualizarStatusSync();
 iniciarFirebase();
 </script>
 </body>
