@@ -1,168 +1,1112 @@
-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Chá de Cozinha Renan & Laislla</title>
+<meta name="description" content="Site do chá de cozinha de Renan e Laislla com convite, localização e lista de presentes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
-/* ===== RESET ===== */
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-
-/* ===== FUNDO ===== */
-body{
-  background: linear-gradient(135deg, #f7f3ed, #e9dfd2);
+:root{
+  --preto:#3a463f;
+  --preto-suave:#3f4f45;
+  --dourado:#c9a46c;
+  --dourado-escuro:#d8b67a;
+  --champagne:#e7ded1;
+  --creme:#f5f1eb;
+  --texto:#3f4f45;
+  --texto-suave:#6b5e53;
+  --linha:rgba(0,0,0,.08);
+  --branco:#ffffff;
+  --sombra:0 18px 44px rgba(0,0,0,.10);
+  --sombra-forte:0 28px 64px rgba(0,0,0,.18);
 }
 
-/* ===== HERO ===== */
-.hero{
-  height:100vh;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:"Montserrat", sans-serif;
+  line-height:1.7;
+  color:var(--texto);
+  background:
+    radial-gradient(circle at top left, #f5f1eb 0%, #ece7df 42%, #d9dfd7 100%);
+  overflow-x:hidden;
+}
+
+h1,h2,h3,h4,h5{
+  font-family:"Playfair Display", serif;
+}
+
+a{color:inherit;text-decoration:none}
+
+body.convite-fechado{overflow:hidden}
+body.convite-fechado > *:not(#conviteOverlay){visibility:hidden;opacity:0}
+body:not(.convite-fechado) > *:not(#conviteOverlay){visibility:visible;opacity:1}
+
+/* CONVITE */
+#conviteOverlay{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg, rgba(17,17,17,.96), rgba(35,27,14,.96));
+  z-index:999999;
   display:flex;
   align-items:center;
   justify-content:center;
-  text-align:center;
-  color:white;
+  padding:20px;
+  animation:fadeZoomIn .9s cubic-bezier(.4,0,.2,1);
+}
+@keyframes fadeZoomIn{
+  from{opacity:0;transform:scale(.92) translateY(30px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+.convite-shell{
+  max-width:460px;
+  width:100%;
+  border-radius:30px;
+  overflow:hidden;
+  box-shadow:var(--sombra-forte);
+  border:1px solid rgba(255,255,255,.14);
+}
+.convite-arte{
+  min-height:600px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:34px;
+  background:
+    linear-gradient(160deg, rgba(0,0,0,.54), rgba(40,30,12,.24)),
+    url("imagens/convite-varal-utensilios.jpg") center/cover no-repeat;
   position:relative;
 }
-
-.hero::before{
+.convite-arte::after{
   content:"";
   position:absolute;
   inset:0;
-  background:
-    linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.4)),
-    url("imagens/convite.jpeg") center/cover no-repeat;
-  z-index:-1;
+  background:linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.36));
 }
-
-.hero h1{
-  font-size:50px;
-}
-
-.hero p{
-  margin-top:10px;
-  font-size:20px;
-}
-
-/* ===== SEÇÕES ===== */
-section{
-  padding:60px 20px;
-  max-width:1100px;
-  margin:auto;
-}
-
-.box{
-  background:white;
-  padding:30px;
-  border-radius:20px;
-  box-shadow:0 20px 50px rgba(0,0,0,0.1);
-  margin-bottom:40px;
-}
-
-/* ===== CASAL ===== */
-.casal img{
+.convite-box{
   width:100%;
-  max-width:350px;
+  max-width:370px;
+  padding:38px 30px;
+  border-radius:30px;
+  background:rgba(255,252,248,.90);
+  backdrop-filter:blur(10px);
+  box-shadow:0 16px 34px rgba(0,0,0,.22);
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+.convite-topo{
+  display:block;
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:2.2px;
+  color:var(--dourado-escuro);
+  font-weight:700;
+  margin-bottom:14px;
+}
+.convite-box h1{
+  font-size:60px;
+  line-height:.94;
+  color:var(--preto);
+  margin:0 0 10px;
+}
+.convite-box h2{
+  font-size:35px;
+  color:#d8b67a;
+  margin:0;
+}
+.convite-faixa{
+  background:linear-gradient(135deg,var(--dourado),var(--dourado-escuro));
+  padding:20px;
+  text-align:center;
+}
+.convite-faixa button{
+  background:#fff;
+  color:#3f4f45;
+  padding:15px 42px;
+  font-size:15px;
+  border:none;
+  border-radius:40px;
+  font-weight:700;
+  letter-spacing:1.2px;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,.20);
+  transition:.25s ease;
+}
+.convite-faixa button:hover{transform:translateY(-2px)}
+
+/* MENU */
+nav{
+  position:sticky;
+  top:0;
+  background:rgba(255,252,248,.92);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--linha);
+  z-index:1000;
+  text-align:center;
+}
+nav a{
+  display:inline-block;
+  padding:18px 16px;
+  font-size:14px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:1.2px;
+  color:#6b5e53;
+  position:relative;
+  transition:.25s ease;
+}
+nav a:hover{color:var(--dourado-escuro)}
+nav a::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:8px;
+  width:0;
+  height:2px;
+  background:var(--dourado);
+  transition:.3s ease;
+  transform:translateX(-50%);
+}
+nav a:hover::after{width:56%}
+
+/* HERO */
+.hero{
+  max-width:1240px;
+  margin:0 auto;
+  padding:86px 24px 46px;
+}
+.hero-box{
+  display:grid;
+  grid-template-columns:.98fr 1.02fr;
+  gap:44px;
+  align-items:center;
+}
+.hero-foto-wrap{position:relative}
+.hero-foto-wrap::before{
+  content:"";
+  position:absolute;
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  top:-38px;
+  left:-26px;
+  background:rgba(201,164,108,.18);
+  filter:blur(14px);
+}
+.hero-foto-wrap::after{
+  content:"";
+  position:absolute;
+  width:210px;
+  height:210px;
+  border-radius:50%;
+  right:-18px;
+  bottom:-28px;
+  background:rgba(120,98,68,.08);
+  filter:blur(10px);
+}
+.hero-foto-card{
+  position:relative;
+  background:linear-gradient(180deg,#fff,#f5f1eb);
+  border-radius:40px;
+  padding:22px;
+  box-shadow:0 22px 54px rgba(87,65,35,.12);
+  border:1px solid rgba(160,132,68,.12);
+}
+.hero-foto-card img{
+  width:100%;
+  height:580px;
+  object-fit:cover;
+  border-radius:30px;
+  display:block;
+}
+.hero-texto{
+  text-align:left;
+  max-width:600px;
+}
+.hero-tag{
+  display:inline-block;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(255,255,255,.9);
+  border:1px solid rgba(201,164,108,.24);
+  color:var(--dourado-escuro);
+  font-size:12px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:1.8px;
+  margin-bottom:22px;
+  box-shadow:0 8px 18px rgba(120,98,68,.05);
+}
+.hero h1{
+  font-size:88px;
+  line-height:.9;
+  color:#3f4f45;
+  margin:0 0 16px;
+  letter-spacing:-1.6px;
+}
+.hero h1 span{
+  display:block;
+  color:#c9a46c;
+}
+.hero-sub{
+  font-family:"Playfair Display", serif;
+  font-size:34px;
+  line-height:1.35;
+  color:#5f6f65;
+  margin:0 0 28px;
+}
+.hero p,.hero-info{display:none}
+.hero-botoes{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin-top:6px;
+}
+.btn,.btn-sec{
+  border:none;
+  padding:15px 28px;
+  border-radius:999px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.25s ease;
+  font-size:15px;
+  letter-spacing:.2px;
+}
+.btn{
+  background:linear-gradient(135deg,#c9a46c,#d8b67a);
+  color:#fff;
+  box-shadow:0 12px 26px rgba(184,147,90,.22);
+}
+.btn-sec{
+  background:linear-gradient(135deg,#dfe6df,#d8c9b5);
+  color:#3f4f45;
+  box-shadow:0 12px 26px rgba(201,164,108,.22);
+}
+.btn:hover,.btn-sec:hover,.card button:hover,.convite-faixa button:hover,#verMais:hover,.btn-secundario:hover{transform:translateY(-2px);filter:brightness(1.03)}
+
+/* CONTAGEM */
+.countdown{
+  max-width:1180px;
+  margin:22px auto 86px;
+  padding:0 20px;
+}
+.countdown-box{
+  background:linear-gradient(135deg,#3f4f45,#3f4f45);
+  border-radius:34px;
+  padding:60px 24px;
+  text-align:center;
+  box-shadow:var(--sombra-forte);
+  position:relative;
+  overflow:hidden;
+}
+.countdown-box::before{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  left:-60px;
+  top:-70px;
+  background:rgba(201,164,108,.18);
+}
+.countdown-box::after{
+  content:"";
+  position:absolute;
+  width:190px;
+  height:190px;
+  border-radius:50%;
+  right:-40px;
+  bottom:-60px;
+  background:rgba(201,164,108,.14);
+}
+.countdown h2{
+  color:#fff;
+  letter-spacing:6px;
+  font-weight:300;
+  margin:0 0 30px;
+  position:relative;
+  z-index:2;
+}
+.time{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  flex-wrap:wrap;
+  position:relative;
+  z-index:2;
+}
+.time div{
+  background:rgba(255,252,248,.98);
+  padding:22px;
   border-radius:20px;
-  box-shadow:0 15px 35px rgba(0,0,0,0.15);
-  transition:0.3s;
+  min-width:120px;
+  box-shadow:0 10px 22px rgba(0,0,0,.14);
+}
+.time span{
+  display:block;
+  font-size:40px;
+  color:var(--dourado-escuro);
+  font-family:"Playfair Display", serif;
 }
 
-.casal img:hover{
-  transform:scale(1.03);
+/* TEXTOS */
+.texto-contagem{
+  max-width:900px;
+  margin:0 auto 80px;
+  text-align:center;
+  color:var(--texto-suave);
+  font-size:18px;
+  line-height:1.9;
+  padding:0 24px;
+}
+.texto-contagem .versiculo{
+  color:#d8b67a;
+  font-size:22px;
+  margin-bottom:24px;
+  font-family:"Playfair Display", serif;
 }
 
-/* ===== LOCAL ===== */
-.local{
-  height:300px;
-  border-radius:20px;
+/* SEÇÕES */
+section{
+  max-width:1120px;
+  margin:0 auto 90px;
+  padding:0 20px;
+}
+.box{
+  background:rgba(255,252,248,.92);
+  border-radius:30px;
+  border:1px solid var(--linha);
+  box-shadow:var(--sombra-forte);
+  padding:52px 34px;
+  position:relative;
+  overflow:hidden;
+  text-align:center;
+}
+.box::before{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  top:-60px;
+  left:-50px;
+  background:rgba(201,164,108,.14);
+}
+.box::after{
+  content:"";
+  position:absolute;
+  width:170px;
+  height:170px;
+  border-radius:50%;
+  right:-50px;
+  bottom:-50px;
+  background:rgba(120,98,68,.07);
+}
+.box-in{position:relative;z-index:2}
+section h2{
+  font-size:42px;
+  color:#3f4f45;
+  margin:0 0 18px;
+  letter-spacing:4px;
+  font-weight:300;
+}
+section h2::after{
+  content:"";
+  display:block;
+  width:84px;
+  height:2px;
+  background:var(--dourado);
+  margin:14px auto 0;
+  border-radius:2px;
+}
+
+.casal-grid{
+  display:grid;
+  grid-template-columns:1fr 1.05fr;
+  gap:36px;
+  align-items:center;
+  text-align:left;
+}
+.casal-foto{
+  background:#fff;
+  border-radius:30px;
+  padding:18px;
+  box-shadow:var(--sombra);
+  border:1px solid rgba(120,98,68,.07);
+}
+.casal-foto img{
+  width:100%;
+  height:500px;
+  object-fit:cover;
+  border-radius:24px;
+  display:block;
+}
+.texto{
+  font-size:18px;
+  line-height:1.9;
+  color:#6b5e53;
+}
+.texto strong{
+  display:block;
+  font-size:34px;
+  line-height:1.18;
+  color:var(--preto);
+  margin-bottom:16px;
+  font-family:"Playfair Display", serif;
+}
+
+.local-grid{
+  display:grid;
+  grid-template-columns:.9fr 1.1fr;
+  gap:24px;
+  align-items:stretch;
+}
+.local-card{
   background:
-    linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.1)),
+    linear-gradient(160deg, rgba(201,164,108,.18), rgba(201,164,108,.18)),
     url("imagens/local.jpeg") center/cover no-repeat;
+  border-radius:28px;
+  min-height:420px;
+  overflow:hidden;
+  position:relative;
+  border:1px solid rgba(120,98,68,.07);
+  box-shadow:var(--sombra);
+}
+.local-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(43,43,43,.14), rgba(43,43,43,.36));
+}
+.local-card-in{
+  position:absolute;
+  inset:auto 24px 24px 24px;
+  z-index:2;
+  background:rgba(255,252,248,.94);
+  backdrop-filter:blur(8px);
+  border-radius:22px;
+  padding:18px;
+  text-align:left;
+  box-shadow:var(--sombra);
+}
+.local-card-in strong{
+  display:block;
+  color:var(--preto);
+  font-size:24px;
+  margin-bottom:6px;
+}
+.local-card-in span{
+  color:#6b5e53;
+  font-size:15px;
+}
+.mapa-container{
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:var(--sombra);
+  border:1px solid rgba(120,98,68,.07);
+  min-height:420px;
+}
+.mapa-container iframe{
+  width:100%;
+  height:100%;
+  min-height:420px;
+  border:0;
 }
 
-/* ===== PRESENTES ===== */
+/* PRESENTES */
+.presentes-topo{
+  display:grid;
+  grid-template-columns:1.3fr .8fr .8fr;
+  gap:12px;
+  margin:0 0 26px;
+  text-align:left;
+}
+.campo{
+  width:100%;
+  padding:13px 14px;
+  border-radius:14px;
+  border:1px solid #ddd6cb;
+  background:#fff;
+  font-size:15px;
+  box-shadow:0 6px 14px rgba(120,98,68,.04);
+}
+.ajuda-fotos{
+  margin:0 0 26px;
+  padding:18px;
+  background:#fff;
+  border:1px solid #dfe6df;
+  border-radius:18px;
+  text-align:left;
+  color:#6b5e53;
+  font-size:14px;
+}
+.ajuda-fotos code{
+  background:#f3eee7;
+  padding:2px 6px;
+  border-radius:6px;
+}
+.lista-escolhidos{
+  margin:0 0 28px;
+  padding:18px;
+  background:#fff;
+  border:1px solid #dfe6df;
+  border-radius:18px;
+  text-align:left;
+}
+.lista-escolhidos h3{
+  font-size:26px;
+  color:#3f4f45;
+  margin:0 0 10px;
+}
+.lista-escolhidos ul{
+  margin:0;
+  padding-left:20px;
+  color:#6b5e53;
+}
+.lista-escolhidos li{margin-bottom:6px}
+
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:22px;
 }
-
 .card{
-  background:white;
-  border-radius:15px;
-  padding:15px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.1);
-  transition:0.3s;
+  border:1px solid #dfe6df;
+  border-radius:22px;
+  padding:16px;
+  background:#fff;
+  transition:transform .25s ease, box-shadow .25s ease;
+  position:relative;
+  text-align:left;
+  box-shadow:0 8px 22px rgba(120,98,68,.07);
 }
-
 .card:hover{
-  transform:translateY(-5px);
+  transform:translateY(-6px);
+  box-shadow:0 16px 30px rgba(0,0,0,.12);
 }
-
-.card button{
-  margin-top:10px;
+.card img{
   width:100%;
-  padding:10px;
+  height:230px;
+  object-fit:cover;
+  border-radius:16px;
+  display:block;
+  background:#f0ebe3;
+}
+.card h3{
+  font-weight:500;
+  font-size:24px;
+  margin:12px 0 8px;
+  color:#3f4f45;
+  line-height:1.14;
+}
+.categoria-chip{
+  display:inline-block;
+  background:#efe3c7;
+  color:#d8b67a;
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.desc-presente{
+  font-size:14px;
+  color:#6b5e53;
+  min-height:48px;
+  margin-bottom:14px;
+}
+.estado{
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  margin-bottom:12px;
+}
+.estado-disponivel{
+  background:#efe3c7;
+  color:#d8b67a;
+}
+.estado-escolhido{
+  background:#ede8df;
+  color:#6b5e53;
+}
+.escolhido-por{
+  font-size:14px;
+  color:#6b5e53;
+  margin-bottom:12px;
+  min-height:24px;
+}
+.card button{
+  background:linear-gradient(135deg,var(--preto),var(--preto-suave));
+  color:#fff;
   border:none;
-  background:black;
-  color:white;
-  border-radius:10px;
+  padding:12px 20px;
   cursor:pointer;
+  font-size:15px;
+  border-radius:30px;
+  font-weight:600;
+  letter-spacing:.4px;
+  transition:all .25s ease;
+  width:100%;
+  box-shadow:0 10px 22px rgba(0,0,0,.22);
+}
+#verMais{
+  margin-top:30px;
+  background:linear-gradient(135deg,var(--dourado),var(--dourado-escuro));
+  color:#3f4f45;
+  border:none;
+  padding:14px 28px;
+  border-radius:30px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.25s ease;
 }
 
-.card button:disabled{
-  background:gray;
+/* MODAL */
+.modal-nome{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.82);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:2147483647;
+  padding:18px;
 }
+.modal-nome-box{
+  background:#fff;
+  width:100%;
+  max-width:430px;
+  border-radius:22px;
+  padding:30px;
+  text-align:center;
+  box-shadow:var(--sombra-forte);
+}
+.modal-nome-box h3{
+  font-size:32px;
+  color:#3f4f45;
+  margin:0 0 8px;
+}
+.modal-nome-box p{
+  color:#6b5e53;
+  margin:0 0 18px;
+}
+.modal-nome-box input{
+  width:100%;
+  padding:13px 14px;
+  border-radius:12px;
+  border:1px solid #ddd6cb;
+  font-size:15px;
+  margin-bottom:14px;
+}
+.modal-acoes{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.btn-secundario{
+  background:#dfe6df;
+  color:#3f4f45;
+  border:none;
+  padding:12px 20px;
+  cursor:pointer;
+  font-size:15px;
+  border-radius:30px;
+  font-weight:600;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:30px 20px 50px;
+  color:#888;
+}
+
+@media(max-width:980px){
+  .hero-box,
+  .casal-grid,
+  .local-grid{
+    grid-template-columns:1fr;
+    text-align:center;
+  }
+  .hero-texto{text-align:center}
+  .hero-botoes{justify-content:center}
+  .presentes-topo{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  .hero h1{font-size:40px}
+  nav a{font-size:12px;padding:12px 8px}
+  .convite-box h1{font-size:46px;}
+  section h2{font-size:34px}
+}
+
+.hero-botoes{display:none !important;}
+
+.encontro-card{
+  max-width: 1120px;
+  margin: 36px auto 70px;
+  background: rgba(255,255,255,0.82);
+  border: 1px solid rgba(210,220,223,0.55);
+  border-radius: 34px;
+  box-shadow: 0 22px 60px rgba(120,98,68,0.10);
+  padding: 58px 48px;
+  text-align: center;
+  color: #5f6f65;
+}
+.encontro-card .versiculo{
+  font-size: clamp(2.5rem, 4.5vw, 4.4rem);
+  line-height: 1.05;
+  color: #c9a46c;
+  margin-bottom: 28px;
+}
+.encontro-card .versiculo strong{
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.encontro-card .versiculo::after{
+  content: "";
+  display: block;
+  width: 88px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(212,185,142,0), rgba(212,185,142,0.9), rgba(212,185,142,0));
+  margin: 16px auto 0;
+}
+.encontro-subtitulo{
+  font-size: clamp(1.15rem, 2vw, 1.7rem);
+  font-weight: 700;
+  color: #3f4f45;
+  margin-bottom: 24px;
+}
+.encontro-texto{
+  max-width: 880px;
+  margin: 0 auto;
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  line-height: 1.7;
+  color: #6b5e53;
+}
+@media (max-width: 768px){
+  .encontro-card{padding: 38px 22px; border-radius: 24px; margin: 24px 16px 48px;}
+  .encontro-card .versiculo{margin-bottom: 20px;}
+  .encontro-subtitulo{margin-bottom: 18px;}
+}
+
+
+/* visual premium seguro - sem alterar a lógica do Firebase */
+body{
+  background: linear-gradient(180deg, #f7f2ea 0%, #f3ede4 100%);
+}
+.topbar{
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px rgba(0,0,0,.05);
+}
+.hero-card, .bloco-branco, .lista-escolhidos, .card-local, .card-casal, .card-encontro{
+  box-shadow: 0 18px 45px rgba(79,66,49,.08);
+  border: 1px solid rgba(201,164,108,.16);
+}
+.card{
+  transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+  border: 1px solid rgba(201,164,108,.14);
+  box-shadow: 0 12px 28px rgba(0,0,0,.06);
+}
+.card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 22px 44px rgba(0,0,0,.12);
+  border-color: rgba(201,164,108,.32);
+}
+.card img{
+  background: linear-gradient(135deg, #f2eadf, #e7dccb);
+}
+button, .btn{
+  box-shadow: 0 14px 30px rgba(35,46,41,.18);
+  letter-spacing: .2px;
+}
+button:hover, .btn:hover{
+  transform: translateY(-1px);
+}
+.estado{
+  letter-spacing: .5px;
+}
+.escolhido-por strong{
+  color: #3F4F45;
+}
+.section-title, h2{
+  letter-spacing: .6px;
+}
+input, select{
+  box-shadow: 0 8px 22px rgba(0,0,0,.04);
+}
+footer{
+  background: transparent;
+  color: #6b5e53;
+}
+
+
+/* ===== melhorias premium ===== */
+.nome-reserva{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:16px;
+  background:linear-gradient(135deg, rgba(201,164,108,.12), rgba(255,255,255,.92));
+  border:1px solid rgba(201,164,108,.22);
+  margin:10px 0 14px;
+}
+.nome-reserva .avatar{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--dourado),var(--dourado-escuro));
+  color:#fff;
+  font-size:13px;
+  font-weight:700;
+  box-shadow:0 6px 14px rgba(201,164,108,.28);
+  flex:0 0 34px;
+}
+.nome-reserva .label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.9px;
+  color:#8d7b68;
+  font-weight:700;
+  line-height:1.1;
+}
+.nome-reserva .nome{
+  font-size:14px;
+  color:#3f4f45;
+  font-weight:700;
+  line-height:1.2;
+  word-break:break-word;
+}
+.card-acoes{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.card-acoes button{
+  width:auto;
+  flex:1 1 auto;
+}
+.toast-wrap{
+  position:fixed;
+  right:16px;
+  bottom:16px;
+  z-index:2147483647;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.toast{
+  min-width:260px;
+  max-width:360px;
+  padding:14px 16px;
+  border-radius:16px;
+  color:#fff;
+  box-shadow:0 18px 38px rgba(0,0,0,.18);
+  font-size:14px;
+  line-height:1.45;
+  animation:toastIn .22s ease;
+}
+.toast.ok{background:rgba(63,79,69,.96)}
+.toast.err{background:rgba(133,58,58,.96)}
+@keyframes toastIn{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.modal-ajuda{
+  font-size:13px;
+  color:#8d7b68;
+  margin-top:12px !important;
+}
+.status-sync{
+  margin-top:10px;
+  font-size:12px;
+  color:#8d7b68;
+}
+@media(max-width:700px){
+  .toast-wrap{left:14px; right:14px; bottom:14px;}
+  .toast{min-width:unset; max-width:unset;}
+  }
 
 </style>
 </head>
 
-<body>
+<body class="convite-fechado">
 
-<!-- HERO -->
-<div class="hero">
-  <div>
-    <h1>Chá de Cozinha</h1>
-    <p>Renan & Laislla</p>
+<div id="conviteOverlay">
+  <div class="convite-shell">
+    <div class="convite-arte">
+      <div class="convite-box">
+        <span class="convite-topo">Convite especial</span>
+        <h1>Chá de<br>Cozinha</h1>
+        <h2>Renan &amp; Laislla</h2>
+      </div>
+    </div>
+    <div class="convite-faixa">
+      <button onclick="abrirConvite()">✨ ABRIR CONVITE</button>
+    </div>
   </div>
 </div>
 
-<!-- CASAL -->
-<section>
-  <div class="box casal">
-    <h2>O Casal</h2>
-    <br>
-    <img src="imagens/casal.jpeg">
-  </div>
-</section>
+<nav>
+  <a href="#inicio">Início</a>
+  <a href="#nosso-encontro">Nosso Encontro</a>
+  <a href="#casal">O Casal</a>
+  <a href="#localizacao">Localização</a>
+  <a href="#presentes">Presentes</a>
+</nav>
 
-<!-- LOCAL -->
-<section>
+<div class="hero" id="inicio">
+  <div class="hero-box">
+    <div class="hero-foto-wrap">
+      <div class="hero-foto-card">
+        <img src="imagens/casal.jpeg" alt="Renan e Laislla">
+      </div>
+    </div>
+
+    <div class="hero-texto">
+      <div class="hero-tag">Chá de cozinha</div>
+      <h1>Laislla <span>&amp; Renan</span></h1>
+      <div class="hero-sub">Um dia especial cheio de amor, carinho e cozinha nova</div>
+</div>
+  </div>
+</div>
+
+<div class="countdown">
+  <div class="countdown-box">
+    <h2>CONTAGEM REGRESSIVA</h2>
+    <div class="time">
+      <div><span id="d">0</span>Dias</div>
+      <div><span id="h">0</span>Horas</div>
+      <div><span id="m">0</span>Minutos</div>
+      <div><span id="s">0</span>Segundos</div>
+    </div>
+  </div>
+</div>
+
+<div class="texto-contagem encontro-card" id="nosso-encontro">
+  <div class="versiculo">
+    <strong>Nosso Encontro</strong>
+  </div>
+  <div class="encontro-subtitulo">Um momento especial para celebrar essa nova fase</div>
+  <div class="encontro-texto">
+    Criamos esse site para compartilhar com vocês todos os detalhes do nosso chá de cozinha.<br>
+    Estamos muito felizes em viver esse momento tão especial ao lado de pessoas queridas.<br>
+    Preparamos tudo com muito carinho para que este dia seja leve, bonito e inesquecível. Escolham um presente disponível com carinho e, ao reservar, seu nome ficará marcado no item.
+  </div>
+</div>
+
+<section id="casal">
   <div class="box">
-    <h2>Local</h2>
-    <br>
-    <div class="local"></div>
+    <div class="box-in">
+      <h2>O CASAL</h2>
+      <div class="casal-grid">
+        <div class="casal-foto">
+          <img src="imagens/casal.jpeg" alt="Renan e Laislla">
+        </div>
+        <div class="texto">
+          <strong>Cada detalhe desse dia foi pensado com muito amor</strong>
+          Estamos preparando esse chá de cozinha com muito carinho para celebrar essa nova fase ao lado das pessoas que amamos.
+          Queremos viver esse momento de forma leve, bonita e especial, compartilhando alegria, amor e muitos sonhos para o nosso novo lar.
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- PRESENTES -->
-<section>
+<section id="localizacao">
   <div class="box">
-    <h2>Lista de Presentes</h2>
-    <br>
-
-    <div class="grid" id="lista"></div>
-
+    <div class="box-in">
+      <h2>LOCALIZAÇÃO</h2>
+      <div class="local-grid">
+        <div class="local-card">
+          <div class="local-card-in">
+            <strong>Nosso Chá de Cozinha</strong>
+            <span>Rua Baltazar Nunes, 600 • Apto 82 • Bloco 3<br>CEP 08290-220</span>
+          </div>
+        </div>
+        <div class="mapa-container">
+          <iframe 
+            src="https://www.google.com/maps?q=Rua%20Baltazar%20Nunes%20600%20CEP%2008290220&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+      <p class="texto" style="margin-top:24px">
+        Será uma tarde especial, cheia de carinho, bons momentos e muita celebração.
+      </p>
+    </div>
   </div>
 </section>
 
-<!-- FIREBASE -->
+<section id="presentes">
+  <div class="box">
+    <div class="box-in">
+      <h2>LISTA DE PRESENTES</h2>
+
+      <div class="presentes-topo">
+        <input type="text" id="busca" class="campo" placeholder="Buscar presente">
+        <select id="filtroCategoria" class="campo">
+          <option value="todas">Todas as categorias</option>
+        </select>
+        <select id="ordenar" class="campo">
+          <option value="original">Ordem original</option>
+          <option value="az">A–Z</option>
+        </select>
+      </div>
+
+      <div class="lista-escolhidos">
+        <h3>Presentes escolhidos</h3>
+        <ul id="listaEscolhidos">
+          <li>Nenhum presente escolhido ainda.</li>
+        </ul>
+      </div>
+
+      <div class="grid" id="listaPresentes"></div>
+      <button id="verMais">Ver mais presentes</button>
+    </div>
+  </div>
+</section>
+
+<div class="modal-nome" id="modalNome">
+  <div class="modal-nome-box">
+    <h3>Escolher presente</h3>
+    <p id="modalNomePresente">Digite seu nome para reservar este presente.</p>
+    <input type="text" id="nomeConvidado" placeholder="Seu nome">
+    <div class="modal-acoes">
+      <button class="btn" id="btnConfirmarEscolha" onclick="confirmarEscolha()">Confirmar</button>
+      <button class="btn-secundario" onclick="fecharModalNome()">Cancelar</button>
+    </div>
+    <p class="modal-ajuda">Após confirmar, essa escolha não poderá ser alterada pelo convidado.</p>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<footer>
+  Feito com carinho para esse dia especial ✨
+</footer>
+
+
 <script type="module">
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+import { getFirestore, doc, onSnapshot, runTransaction, setDoc } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyArsliiGlgSiE2JdnbfdjmnXEoKVwN90fc",
@@ -173,67 +1117,424 @@ const firebaseConfig = {
   appId: "1:786490450244:web:a13827f17458bac7177711"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const LISTA_ID = "renan-laislla-cha-cozinha";
 
-const docRef = doc(db, "listasPresentes", "renan-laislla-cha-cozinha");
-
-const presentes = [
-  "Assadeiras de vidro",
-  "Vasilhas plásticas e potes herméticos",
-  "Forma de bolo"
+const presentesOriginais = [
+  { nome:"Vasilhas plásticas e potes herméticos", ativo:true, ordem:1, categoria:"Organização", foto:"imagens/potes-hermeticos.jpg", descricao:"Conjunto com potes de vários tamanhos para mantimentos." },
+  { nome:"Assadeiras de vidro", ativo:true, ordem:2, categoria:"Panelas & Formas", foto:"imagens/assadeiras-vidro.jpg", descricao:"Assadeiras práticas para forno e receitas do dia a dia." },
+  { nome:"Forma de bolo", ativo:true, ordem:3, categoria:"Panelas & Formas", foto:"imagens/forma-bolo.jpg", descricao:"Forma clássica para bolos caseiros e especiais." },
+  { nome:"Forma de pudim", ativo:true, ordem:4, categoria:"Panelas & Formas", foto:"imagens/forma-pudim.jpg", descricao:"Perfeita para sobremesas e pudins." },
+  { nome:"Utensílios em silicone", ativo:true, ordem:5, categoria:"Utensílios", foto:"imagens/utensilios-silicone.jpg", descricao:"Kit com colher, espátula e pegador." },
+  { nome:"Bule de café", ativo:true, ordem:6, categoria:"Mesa & Servir", foto:"imagens/bule-cafe.jpg", descricao:"Bule elegante para servir café com charme." },
+  { nome:"Leiteira", ativo:true, ordem:7, categoria:"Panelas & Formas", foto:"imagens/leiteira.jpg", descricao:"Item útil para aquecer leite e molhos." },
+  { nome:"Escorredor de macarrão", ativo:true, ordem:8, categoria:"Limpeza", foto:"imagens/escorredor-macarrao.jpg", descricao:"Peça prática para escorrer massas e legumes." },
+  { nome:"Porta-condimentos e temperos", ativo:true, ordem:9, categoria:"Organização", foto:"imagens/porta-temperos.jpg", descricao:"Organização linda para os temperos da cozinha." },
+  { nome:"Panos de prato", ativo:true, ordem:10, categoria:"Limpeza", foto:"imagens/panos-prato.jpg", descricao:"Kit com panos úteis para o dia a dia." },
+  { nome:"Espremedor de batata", ativo:true, ordem:11, categoria:"Preparação", foto:"imagens/espremedor-batata.jpg", descricao:"Facilita receitas e acompanhamentos." },
+  { nome:"Espremedor de alho", ativo:true, ordem:12, categoria:"Preparação", foto:"imagens/espremedor-alho.jpg", descricao:"Pequeno e indispensável na cozinha." },
+  { nome:"Ralador de queijo", ativo:true, ordem:13, categoria:"Preparação", foto:"imagens/ralador-queijo.jpg", descricao:"Ralador prático para queijo, legumes e mais." },
+  { nome:"Tábua de corte", ativo:true, ordem:14, categoria:"Preparação", foto:"imagens/tabua-corte.jpg", descricao:"Base essencial para o preparo dos alimentos." },
+  { nome:"Jarra para água e sucos", ativo:true, ordem:15, categoria:"Mesa & Servir", foto:"imagens/jarra-sucos.jpg", descricao:"Jarra bonita para servir bebidas." },
+  { nome:"Escorredor de louça", ativo:true, ordem:16, categoria:"Limpeza", foto:"imagens/escorredor-louca.jpg", descricao:"Essencial para organizar a pia." },
+  { nome:"Concha", ativo:true, ordem:17, categoria:"Utensílios", foto:"imagens/concha.jpg", descricao:"Perfeita para sopas, feijão e molhos." },
+  { nome:"Colher de pau", ativo:true, ordem:18, categoria:"Utensílios", foto:"imagens/colher-pau.jpg", descricao:"Clássica e indispensável para cozinhar." },
+  { nome:"Açucareiro", ativo:true, ordem:19, categoria:"Mesa & Servir", foto:"imagens/acucareiro.jpg", descricao:"Açucareiro delicado para café e chá." },
+  { nome:"Peneira", ativo:true, ordem:20, categoria:"Preparação", foto:"imagens/peneira.jpg", descricao:"Item básico para receitas e coados." }
 ];
 
-async function carregar(){
+let presentes = [...presentesOriginais];
+let presentesOriginal = [...presentesOriginais].sort((a,b) => a.ordem - b.ordem);
+let pagina = 0;
+const porPagina = 12;
+let presentePendente = null;
+let escolhasCache = JSON.parse(localStorage.getItem("cha_escolhas_com_nome") || "{}");
+let ultimoNome = localStorage.getItem("cha_nome_convidado") || "";
+let db = null;
+let docRef = null;
+let realtimeAtivo = false;
+let salvandoEscolha = false;
 
-  const snap = await getDoc(docRef);
-  const dados = snap.data().escolhas || {};
+function normalizarTexto(t){
+  return (t || "").toLowerCase().trim();
+}
 
-  const lista = document.getElementById("lista");
-  lista.innerHTML = "";
+function carregarEscolhas(){
+  return escolhasCache || {};
+}
 
-  presentes.forEach(nome => {
+function salvarEscolhasLocal(obj){
+  escolhasCache = obj;
+  localStorage.setItem("cha_escolhas_com_nome", JSON.stringify(obj));
+}
 
-    const escolhido = dados[nome];
+function iniciais(nome){
+  return (nome || "")
+    .trim()
+    .split(/\s+/)
+    .slice(0,2)
+    .map(p => p.charAt(0).toUpperCase())
+    .join("") || "♡";
+}
 
-    lista.innerHTML += `
-      <div class="card">
-        <h3>${nome}</h3>
-        <p>${escolhido ? "Escolhido por: " + escolhido : "Disponível"}</p>
-        <button ${escolhido ? "disabled" : ""} onclick="escolher('${nome}')">
-          ${escolhido ? "Indisponível" : "Escolher presente"}
-        </button>
-      </div>
-    `;
+function escaparHtml(str){
+  return String(str || "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#39;");
+}
+
+function mostrarToast(msg, tipo="ok"){
+  const wrap = document.getElementById("toastWrap");
+  const el = document.createElement("div");
+  el.className = `toast ${tipo}`;
+  el.textContent = msg;
+  wrap.appendChild(el);
+  setTimeout(() => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(8px)";
+    setTimeout(() => el.remove(), 220);
+  }, 2600);
+}
+
+function atualizarStatusSync(){
+  let el = document.getElementById("statusSync");
+  if (!el) {
+    el = document.createElement("div");
+    el.id = "statusSync";
+    el.className = "status-sync";
+    document.querySelector(".lista-escolhidos").appendChild(el);
+  }
+  el.textContent = realtimeAtivo
+    ? "Lista sincronizada em tempo real para todos os convidados."
+    : "Sem conexão online no momento. As escolhas ficam só neste aparelho.";
+}
+
+async function iniciarFirebase(){
+  try {
+    const app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+    docRef = doc(db, "listasPresentes", LISTA_ID);
+
+    await setDoc(docRef, { escolhas: escolhasCache }, { merge: true });
+
+    onSnapshot(docRef, (snap) => {
+      const data = snap.data() || {};
+      escolhasCache = data.escolhas || {};
+      localStorage.setItem("cha_escolhas_com_nome", JSON.stringify(escolhasCache));
+      realtimeAtivo = true;
+      atualizarStatusSync();
+      atualizarListaEscolhidos();
+      renderPresentes(true);
+    }, (error) => {
+      console.error(error);
+      realtimeAtivo = false;
+      atualizarStatusSync();
+    });
+
+    realtimeAtivo = true;
+    atualizarStatusSync();
+  } catch (error) {
+    console.error("Erro ao iniciar Firebase:", error);
+    realtimeAtivo = false;
+    atualizarStatusSync();
+  }
+}
+
+function nomeDeQuemEscolheu(nomePresente){
+  const escolhas = carregarEscolhas();
+  return escolhas[nomePresente] || "";
+}
+
+function preencherFiltroCategoria(){
+  const categorias = [...new Set(presentesOriginais.map(item => item.categoria))];
+  const select = document.getElementById("filtroCategoria");
+  categorias.forEach(categoria => {
+    const option = document.createElement("option");
+    option.value = categoria;
+    option.textContent = categoria;
+    select.appendChild(option);
   });
 }
 
-window.escolher = async function(nome){
+function atualizarListaEscolhidos(){
+  const ul = document.getElementById("listaEscolhidos");
+  const escolhas = carregarEscolhas();
+  const itens = Object.entries(escolhas).sort((a,b) => a[0].localeCompare(b[0]));
 
-  const pessoa = prompt("Digite seu nome:");
-
-  if(!pessoa) return;
-
-  if(!confirm("Após confirmar, não poderá alterar. Deseja continuar?")) return;
-
-  const snap = await getDoc(docRef);
-  const dados = snap.data().escolhas || {};
-
-  if(dados[nome]){
-    alert("Esse presente já foi escolhido!");
+  if (itens.length === 0) {
+    ul.innerHTML = "<li>Nenhum presente escolhido ainda.</li>";
     return;
   }
 
-  dados[nome] = pessoa;
-
-  await updateDoc(docRef, { escolhas: dados });
-
-  carregar();
+  ul.innerHTML = itens
+    .map(([presente, nome]) => `<li><strong>${escaparHtml(presente)}</strong> — escolhido por ${escaparHtml(nome)}</li>`)
+    .join("");
 }
 
-carregar();
+function obterPresentesFiltrados(){
+  const busca = normalizarTexto(document.getElementById("busca").value);
+  const categoria = document.getElementById("filtroCategoria").value;
 
+  return presentes.filter(item => {
+    const matchBusca =
+      busca === "" ||
+      normalizarTexto(item.nome).includes(busca) ||
+      normalizarTexto(item.categoria).includes(busca) ||
+      normalizarTexto(item.descricao || "").includes(busca);
+
+    const matchCategoria =
+      categoria === "todas" || item.categoria === categoria;
+
+    return matchBusca && matchCategoria;
+  });
+}
+
+function fallbackSvg(itemNome){
+  return "data:image/svg+xml;utf8," + encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>
+      <defs>
+        <linearGradient id='g' x1='0' x2='1' y1='0' y2='1'>
+          <stop offset='0%' stop-color='#f2eadf'/>
+          <stop offset='100%' stop-color='#e7dccb'/>
+        </linearGradient>
+      </defs>
+      <rect width='100%' height='100%' fill='url(#g)'/>
+      <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='#8f7f6c' font-family='Arial' font-size='28'>${itemNome}</text>
+    </svg>`
+  );
+}
+
+function renderPresentes(reset = false){
+  const cont = document.getElementById("listaPresentes");
+  const listaFiltrada = obterPresentesFiltrados();
+  const fim = (pagina + 1) * porPagina;
+
+  if (reset) cont.innerHTML = "";
+
+  if (listaFiltrada.length === 0) {
+    cont.innerHTML = `
+      <div class="card" style="grid-column:1/-1;text-align:center;">
+        <h3>Nenhum presente encontrado</h3>
+        <p>Tente mudar a busca ou o filtro.</p>
+      </div>
+    `;
+    document.getElementById("verMais").style.display = "none";
+    return;
+  }
+
+  cont.innerHTML = listaFiltrada.slice(0, fim).map(item => {
+    const nomeEscolhido = nomeDeQuemEscolheu(item.nome);
+    const jaEscolhido = !!nomeEscolhido;
+    const nomeSeguro = escaparHtml(item.nome);
+    const descricaoSegura = escaparHtml(item.descricao);
+    const categoriaSegura = escaparHtml(item.categoria);
+    const nomePessoaSeguro = escaparHtml(nomeEscolhido);
+
+    return `
+      <div class="card">
+        <img src="${item.foto}" alt="${nomeSeguro}" onerror="this.onerror=null;this.src='${fallbackSvg(item.nome)}'">
+        <span class="categoria-chip">${categoriaSegura}</span>
+        <h3>${nomeSeguro}</h3>
+        <div class="desc-presente">${descricaoSegura}</div>
+        <div class="estado ${jaEscolhido ? "estado-escolhido" : "estado-disponivel"}">
+          ${jaEscolhido ? "Já escolhido" : "Disponível"}
+        </div>
+        ${jaEscolhido ? `
+          <div class="nome-reserva">
+            <div class="avatar">${iniciais(nomeEscolhido)}</div>
+            <div>
+              <div class="label">Escolhido por</div>
+              <div class="nome">${nomePessoaSeguro}</div>
+            </div>
+          </div>
+        ` : `<div class="escolhido-por"></div>`}
+        <div class="card-acoes">
+          ${jaEscolhido ? "" : `<button type="button" onclick='abrirModalNome(${JSON.stringify(item.nome)})'>Escolher presente</button>`}
+          
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  document.getElementById("verMais").style.display =
+    fim >= listaFiltrada.length ? "none" : "inline-block";
+}
+
+function abrirModalNome(nomePresente){
+  presentePendente = nomePresente;
+  document.getElementById("modalNomePresente").innerText = `Digite seu nome para reservar: ${nomePresente}`;
+  document.getElementById("nomeConvidado").value = ultimoNome;
+  document.getElementById("modalNome").style.display = "flex";
+  setTimeout(() => document.getElementById("nomeConvidado").focus(), 50);
+}
+
+function fecharModalNome(){
+  if (salvandoEscolha) return;
+  document.getElementById("modalNome").style.display = "none";
+  presentePendente = null;
+}
+
+function setBotaoConfirmar(carregando){
+  const btn = document.getElementById("btnConfirmarEscolha");
+  salvandoEscolha = carregando;
+  btn.disabled = carregando;
+  btn.textContent = carregando ? "Salvando..." : "Confirmar";
+}
+
+async function reservarPresente(nomePresente, nome){
+  if (db && docRef) {
+    await runTransaction(db, async (transaction) => {
+      const snap = await transaction.get(docRef);
+      const data = snap.exists() ? (snap.data() || {}) : {};
+      const escolhas = data.escolhas || {};
+
+      if (escolhas[nomePresente]) {
+        throw new Error("JA_ESCOLHIDO");
+      }
+
+      escolhas[nomePresente] = nome;
+      transaction.set(docRef, {
+        escolhas,
+        atualizadoEm: new Date().toISOString()
+      }, { merge: true });
+
+      escolhasCache = escolhas;
+      localStorage.setItem("cha_escolhas_com_nome", JSON.stringify(escolhasCache));
+    });
+    return;
+  }
+
+  const escolhas = carregarEscolhas();
+  if (escolhas[nomePresente]) {
+    throw new Error("JA_ESCOLHIDO");
+  }
+  escolhas[nomePresente] = nome;
+  salvarEscolhasLocal(escolhas);
+}
+
+async function confirmarEscolha(){
+  const nome = document.getElementById("nomeConvidado").value.trim();
+  if (!presentePendente || salvandoEscolha) return;
+
+  if (!nome) {
+    mostrarToast("Digite seu nome para escolher o presente.", "err");
+    return;
+  }
+
+  if (nome.length < 2) {
+    mostrarToast("Digite um nome válido.", "err");
+    return;
+  }
+
+  const avisoFinal = window.confirm("Depois de confirmar, essa escolha não poderá ser alterada pelo convidado. Deseja continuar?");
+  if (!avisoFinal) return;
+
+  ultimoNome = nome;
+  localStorage.setItem("cha_nome_convidado", nome);
+  setBotaoConfirmar(true);
+
+  try {
+    await reservarPresente(presentePendente, nome);
+    const reservado = presentePendente;
+    fecharModalNome();
+    pagina = 0;
+    atualizarListaEscolhidos();
+    renderPresentes(true);
+    mostrarToast(`Presente reservado com sucesso: ${reservado}. Após confirmar, a escolha não pode ser alterada pelo convidado.`, "ok");
+  } catch (error) {
+    if (error && error.message === "JA_ESCOLHIDO") {
+      fecharModalNome();
+      atualizarListaEscolhidos();
+      renderPresentes(true);
+      mostrarToast("Esse presente já foi escolhido por outra pessoa.", "err");
+      return;
+    }
+    console.error(error);
+    mostrarToast("Não foi possível salvar a escolha agora.", "err");
+  } finally {
+    setBotaoConfirmar(false);
+  }
+}
+
+document.getElementById("busca").addEventListener("input", function(){
+  pagina = 0;
+  renderPresentes(true);
+});
+
+document.getElementById("filtroCategoria").addEventListener("change", function(){
+  pagina = 0;
+  renderPresentes(true);
+});
+
+document.getElementById("ordenar").addEventListener("change", function(e){
+  const tipo = e.target.value;
+  let base = [...presentesOriginal];
+
+  if (tipo === "az") {
+    base.sort((a, b) => a.nome.localeCompare(b.nome));
+  }
+
+  presentes = base;
+  pagina = 0;
+  renderPresentes(true);
+});
+
+document.getElementById("verMais").onclick = () => {
+  pagina++;
+  renderPresentes(true);
+};
+
+document.getElementById("nomeConvidado").addEventListener("keydown", function(e){
+  if (e.key === "Enter") confirmarEscolha();
+});
+
+document.getElementById("modalNome").addEventListener("click", function(e){
+  if (e.target.id === "modalNome") fecharModalNome();
+});
+
+document.addEventListener("keydown", function(e){
+  if (e.key === "Escape") fecharModalNome();
+});
+
+const data = new Date("2026-05-02T14:00:00").getTime();
+setInterval(() => {
+  const n = new Date().getTime();
+  const d = data - n;
+  if (d < 0) return;
+  document.getElementById("d").innerText = Math.floor(d / (1000*60*60*24));
+  document.getElementById("h").innerText = Math.floor((d / (1000*60*60)) % 24);
+  document.getElementById("m").innerText = Math.floor((d / (1000*60)) % 60);
+  document.getElementById("s").innerText = Math.floor((d / 1000) % 60);
+}, 1000);
+
+function abrirConvite(){
+  const overlay = document.getElementById("conviteOverlay");
+  overlay.style.transition = "opacity 1.4s ease, transform 1.4s cubic-bezier(.4,0,.2,1)";
+  overlay.style.opacity = "0";
+  overlay.style.transform = "translateY(100%) scale(0.98)";
+  setTimeout(() => {
+    document.body.classList.remove("convite-fechado");
+  }, 400);
+  setTimeout(() => {
+    overlay.style.display = "none";
+    document.body.style.overflow = "auto";
+  }, 1400);
+}
+
+document.body.style.overflow = "hidden";
+
+window.abrirModalNome = abrirModalNome;
+window.fecharModalNome = fecharModalNome;
+window.confirmarEscolha = confirmarEscolha;
+window.abrirConvite = abrirConvite;
+
+preencherFiltroCategoria();
+atualizarListaEscolhidos();
+renderPresentes(true);
+atualizarStatusSync();
+iniciarFirebase();
 </script>
-
 </body>
 </html>
