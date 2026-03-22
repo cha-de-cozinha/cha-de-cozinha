@@ -79,7 +79,7 @@ body:not(.convite-fechado) > *:not(#conviteOverlay){visibility:visible;opacity:1
   padding:34px;
   background:
     linear-gradient(160deg, rgba(0,0,0,.54), rgba(40,30,12,.24)),
-    url("imagens/convite.jpeg") center/cover no-repeat;
+    url("imagens/convite-varal-utensilios.jpg") center/cover no-repeat;
   position:relative;
 }
 .convite-arte::after{
@@ -99,7 +99,6 @@ body:not(.convite-fechado) > *:not(#conviteOverlay){visibility:visible;opacity:1
   text-align:center;
   position:relative;
   z-index:2;
-  transform: translateY(90px);
 }
 .convite-topo{
   display:block;
@@ -471,7 +470,7 @@ section h2::after{
 .local-card{
   background:
     linear-gradient(160deg, rgba(201,164,108,.18), rgba(201,164,108,.18)),
-    url("imagens/local.jpeg") center/cover no-repeat;
+    url("imagens/cozinha-quase-vazia.jpg") center/cover no-repeat;
   border-radius:28px;
   min-height:420px;
   overflow:hidden;
@@ -944,88 +943,6 @@ footer{
   .toast{min-width:unset; max-width:unset;}
   }
 
-
-/* ===== imagens premium ===== */
-.convite-arte{
-  background:
-    linear-gradient(160deg, rgba(0,0,0,.54), rgba(40,30,12,.24)),
-    url("imagens/convite.jpeg") center/cover no-repeat !important;
-}
-.hero-foto-card{overflow:hidden;}
-.hero-foto-card img{
-  width:100%;
-  height:580px;
-  object-fit:cover;
-  object-position:center;
-  border-radius:30px;
-  display:block;
-  filter:brightness(.98) contrast(1.04);
-  transition:transform .45s ease, filter .35s ease;
-}
-.hero-foto-card:hover img{
-  transform:scale(1.03);
-  filter:brightness(1) contrast(1.05);
-}
-.casal-foto{overflow:hidden;}
-.casal-foto img{
-  width:100%;
-  height:500px;
-  object-fit:cover;
-  object-position:center;
-  border-radius:24px;
-  display:block;
-  transition:transform .45s ease, filter .35s ease;
-  filter:brightness(.99) contrast(1.03);
-}
-.casal-foto:hover img{
-  transform:scale(1.03);
-  filter:brightness(1) contrast(1.05);
-}
-.local-card{
-  background:
-    linear-gradient(160deg, rgba(201,164,108,.18), rgba(201,164,108,.18)),
-    url("imagens/local.jpeg") center/cover no-repeat !important;
-}
-.card{overflow:hidden;}
-.card img{
-  width:100%;
-  height:230px;
-  object-fit:cover;
-  object-position:center;
-  border-radius:16px;
-  display:block;
-  background:#f0ebe3;
-  transition:transform .4s ease, filter .35s ease;
-  filter:brightness(.99) contrast(1.02);
-}
-.card:hover img{
-  transform:scale(1.035);
-  filter:brightness(1) contrast(1.04);
-}
-@media (max-width: 980px){
-  .hero-foto-card img{height:500px;}
-  .casal-foto img{height:460px;}
-}
-@media (max-width: 768px){
-  .convite-arte{min-height:560px;background-position:center;}
-  .hero{padding:64px 16px 34px;}
-  .hero-foto-card{padding:14px;border-radius:26px;}
-  .hero-foto-card img{height:420px;border-radius:20px;}
-  .casal-foto{padding:14px;border-radius:22px;}
-  .casal-foto img{height:390px;border-radius:18px;}
-  .local-card{min-height:320px;background-position:center;}
-  .mapa-container,.mapa-container iframe{min-height:320px;}
-  .card img{height:190px;border-radius:14px;}
-}
-@media (max-width: 480px){
-  .convite-box{transform:translateY(38px);}
-  .hero-foto-card img{height:340px;}
-  .casal-foto img{height:330px;}
-  .local-card{min-height:260px;}
-  .mapa-container,.mapa-container iframe{min-height:260px;}
-  .card img{height:170px;}
-}
-
 </style>
 </head>
 
@@ -1058,7 +975,7 @@ footer{
   <div class="hero-box">
     <div class="hero-foto-wrap">
       <div class="hero-foto-card">
-        <img src="imagens/casal.jpeg" alt="Renan e Laislla">
+        <img src="imagens/casal-topo.jpg" alt="Renan e Laislla">
       </div>
     </div>
 
@@ -1100,7 +1017,7 @@ footer{
       <h2>O CASAL</h2>
       <div class="casal-grid">
         <div class="casal-foto">
-          <img src="imagens/casal2.jpeg" alt="Renan e Laislla">
+          <img src="imagens/casal-1.jpg" alt="Renan e Laislla">
         </div>
         <div class="texto">
           <strong>Cada detalhe desse dia foi pensado com muito amor</strong>
@@ -1203,26 +1120,26 @@ const firebaseConfig = {
 const LISTA_ID = "renan-laislla-cha-cozinha";
 
 const presentesOriginais = [
-  { nome:"Vasilhas plásticas e potes herméticos", ativo:true, ordem:1, categoria:"Organização", foto:"imagens/potes-hermeticos.foto1.png", descricao:"Conjunto com potes de vários tamanhos para mantimentos." },
-  { nome:"Assadeiras de vidro", ativo:true, ordem:2, categoria:"Panelas & Formas", foto:"imagens/assadeiras-vidro.jpg", descricao:"Assadeiras práticas para forno e receitas do dia a dia." },
-  { nome:"Forma de bolo", ativo:true, ordem:3, categoria:"Panelas & Formas", foto:"imagens/forma-bolo.jpg", descricao:"Forma clássica para bolos caseiros e especiais." },
-  { nome:"Forma de pudim", ativo:true, ordem:4, categoria:"Panelas & Formas", foto:"imagens/forma-pudim.jpg", descricao:"Perfeita para sobremesas e pudins." },
-  { nome:"Utensílios em silicone", ativo:true, ordem:5, categoria:"Utensílios", foto:"imagens/utensilios-silicone.jpg", descricao:"Kit com colher, espátula e pegador." },
-  { nome:"Bule de café", ativo:true, ordem:6, categoria:"Mesa & Servir", foto:"imagens/bule-cafe.jpg", descricao:"Bule elegante para servir café com charme." },
-  { nome:"Leiteira", ativo:true, ordem:7, categoria:"Panelas & Formas", foto:"imagens/leiteira.jpg", descricao:"Item útil para aquecer leite e molhos." },
-  { nome:"Escorredor de macarrão", ativo:true, ordem:8, categoria:"Limpeza", foto:"imagens/escorredor-macarrao.jpg", descricao:"Peça prática para escorrer massas e legumes." },
-  { nome:"Porta-condimentos e temperos", ativo:true, ordem:9, categoria:"Organização", foto:"imagens/porta-temperos.jpg", descricao:"Organização linda para os temperos da cozinha." },
-  { nome:"Panos de prato", ativo:true, ordem:10, categoria:"Limpeza", foto:"imagens/panos-prato.jpg", descricao:"Kit com panos úteis para o dia a dia." },
-  { nome:"Espremedor de batata", ativo:true, ordem:11, categoria:"Preparação", foto:"imagens/espremedor-batata.jpg", descricao:"Facilita receitas e acompanhamentos." },
-  { nome:"Espremedor de alho", ativo:true, ordem:12, categoria:"Preparação", foto:"imagens/espremedor-alho.jpg", descricao:"Pequeno e indispensável na cozinha." },
-  { nome:"Ralador de queijo", ativo:true, ordem:13, categoria:"Preparação", foto:"imagens/ralador-queijo.jpg", descricao:"Ralador prático para queijo, legumes e mais." },
-  { nome:"Tábua de corte", ativo:true, ordem:14, categoria:"Preparação", foto:"imagens/tabua-corte.jpg", descricao:"Base essencial para o preparo dos alimentos." },
-  { nome:"Jarra para água e sucos", ativo:true, ordem:15, categoria:"Mesa & Servir", foto:"imagens/jarra-sucos.jpg", descricao:"Jarra bonita para servir bebidas." },
-  { nome:"Escorredor de louça", ativo:true, ordem:16, categoria:"Limpeza", foto:"imagens/escorredor-louca.jpg", descricao:"Essencial para organizar a pia." },
-  { nome:"Concha", ativo:true, ordem:17, categoria:"Utensílios", foto:"imagens/concha.jpg", descricao:"Perfeita para sopas, feijão e molhos." },
-  { nome:"Colher de pau", ativo:true, ordem:18, categoria:"Utensílios", foto:"imagens/colher-pau.jpg", descricao:"Clássica e indispensável para cozinhar." },
-  { nome:"Açucareiro", ativo:true, ordem:19, categoria:"Mesa & Servir", foto:"imagens/acucareiro.jpg", descricao:"Açucareiro delicado para café e chá." },
-  { nome:"Peneira", ativo:true, ordem:20, categoria:"Preparação", foto:"imagens/peneira.jpg", descricao:"Item básico para receitas e coados." }
+  { nome:"Vasilhas plásticas e potes herméticos", ativo:true, ordem:1, categoria:"Organização", foto:"imagens/foto1.png", descricao:"Conjunto com potes de vários tamanhos para mantimentos." },
+  { nome:"Assadeiras de vidro", ativo:true, ordem:2, categoria:"Panelas & Formas", foto:"imagens/foto2.png", descricao:"Assadeiras práticas para forno e receitas do dia a dia." },
+  { nome:"Forma de bolo", ativo:true, ordem:3, categoria:"Panelas & Formas", foto:"imagens/foto3.png", descricao:"Forma clássica para bolos caseiros e especiais." },
+  { nome:"Forma de pudim", ativo:true, ordem:4, categoria:"Panelas & Formas", foto:"imagens/foto4.png", descricao:"Perfeita para sobremesas e pudins." },
+  { nome:"Utensílios em silicone", ativo:true, ordem:5, categoria:"Utensílios", foto:"imagens/foto5.png", descricao:"Kit com colher, espátula e pegador." },
+  { nome:"Bule de café", ativo:true, ordem:6, categoria:"Mesa & Servir", foto:"imagens/foto6.png", descricao:"Bule elegante para servir café com charme." },
+  { nome:"Leiteira", ativo:true, ordem:7, categoria:"Panelas & Formas", foto:"imagens/foto7.png", descricao:"Item útil para aquecer leite e molhos." },
+  { nome:"Escorredor de macarrão", ativo:true, ordem:8, categoria:"Limpeza", foto:"imagens/foto8.png", descricao:"Peça prática para escorrer massas e legumes." },
+  { nome:"Porta-condimentos e temperos", ativo:true, ordem:9, categoria:"Organização", foto:"imagens/foto9.png", descricao:"Organização linda para os temperos da cozinha." },
+  { nome:"Panos de prato", ativo:true, ordem:10, categoria:"Limpeza", foto:"imagens/foto10.png", descricao:"Kit com panos úteis para o dia a dia." },
+  { nome:"Espremedor de batata", ativo:true, ordem:11, categoria:"Preparação", foto:"imagens/foto11.png", descricao:"Facilita receitas e acompanhamentos." },
+  { nome:"Espremedor de alho", ativo:true, ordem:12, categoria:"Preparação", foto:"imagens/foto12.png", descricao:"Pequeno e indispensável na cozinha." },
+  { nome:"Ralador de queijo", ativo:true, ordem:13, categoria:"Preparação", foto:"imagens/foto13.png", descricao:"Ralador prático para queijo, legumes e mais." },
+  { nome:"Tábua de corte", ativo:true, ordem:14, categoria:"Preparação", foto:"imagens/foto14.png", descricao:"Base essencial para o preparo dos alimentos." },
+  { nome:"Jarra para água e sucos", ativo:true, ordem:15, categoria:"Mesa & Servir", foto:"imagens/foto15.png", descricao:"Jarra bonita para servir bebidas." },
+  { nome:"Escorredor de louça", ativo:true, ordem:16, categoria:"Limpeza", foto:"imagens/foto16.png", descricao:"Essencial para organizar a pia." },
+  { nome:"Concha", ativo:true, ordem:17, categoria:"Utensílios", foto:"imagens/foto17.png", descricao:"Perfeita para sopas, feijão e molhos." },
+  { nome:"Colher de pau", ativo:true, ordem:18, categoria:"Utensílios", foto:"imagens/foto18.png", descricao:"Clássica e indispensável para cozinhar." },
+  { nome:"Açucareiro", ativo:true, ordem:19, categoria:"Mesa & Servir", foto:"imagens/foto19.png", descricao:"Açucareiro delicado para café e chá." },
+  { nome:"Peneira", ativo:true, ordem:20, categoria:"Preparação", foto:"imagens/foto20.png", descricao:"Item básico para receitas e coados." }
 ];
 
 let presentes = [...presentesOriginais];
