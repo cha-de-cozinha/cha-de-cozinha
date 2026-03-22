@@ -854,7 +854,7 @@ footer{
 }
 
 
-/* ===== melhorias premium + admin ===== */
+/* ===== melhorias premium ===== */
 .nome-reserva{
   display:flex;
   align-items:center;
@@ -902,55 +902,6 @@ footer{
   width:auto;
   flex:1 1 auto;
 }
-.btn-liberar{
-  background:linear-gradient(135deg,#d8d2c7,#c8c1b5) !important;
-  color:#3f4f45 !important;
-  box-shadow:none !important;
-}
-.admin-bar{
-  position:sticky;
-  bottom:12px;
-  z-index:9999;
-  width:min(1120px, calc(100% - 24px));
-  margin:0 auto 14px;
-  display:none;
-}
-.admin-bar-inner{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  padding:14px 16px;
-  border-radius:18px;
-  background:rgba(63,79,69,.94);
-  color:#fff;
-  box-shadow:0 16px 34px rgba(0,0,0,.22);
-}
-.admin-bar strong{
-  font-size:14px;
-}
-.admin-mini{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  align-items:center;
-}
-.admin-mini button{
-  border:none;
-  border-radius:999px;
-  padding:10px 16px;
-  font-weight:700;
-  cursor:pointer;
-}
-.admin-ativar{
-  background:linear-gradient(135deg,var(--dourado),var(--dourado-escuro));
-  color:#fff;
-}
-.admin-sair{
-  background:#fff;
-  color:#3f4f45;
-}
 .toast-wrap{
   position:fixed;
   right:16px;
@@ -990,8 +941,7 @@ footer{
 @media(max-width:700px){
   .toast-wrap{left:14px; right:14px; bottom:14px;}
   .toast{min-width:unset; max-width:unset;}
-  .admin-bar{width:calc(100% - 20px)}
-}
+  }
 
 </style>
 </head>
@@ -1143,17 +1093,7 @@ footer{
       <button class="btn" id="btnConfirmarEscolha" onclick="confirmarEscolha()">Confirmar</button>
       <button class="btn-secundario" onclick="fecharModalNome()">Cancelar</button>
     </div>
-    <p class="modal-ajuda">Seu nome ficará visível apenas no presente que você reservar.</p>
-  </div>
-</div>
-
-<div class="admin-bar" id="adminBar">
-  <div class="admin-bar-inner">
-    <strong id="adminStatus">Modo admin desativado</strong>
-    <div class="admin-mini">
-      <button class="admin-ativar" id="btnAdminToggle" onclick="alternarAdmin()">Ativar admin</button>
-      <button class="admin-sair" id="btnAdminSair" onclick="sairAdmin()" style="display:none;">Sair do admin</button>
-    </div>
+    <p class="modal-ajuda">Após confirmar, essa escolha não poderá ser alterada pelo convidado.</p>
   </div>
 </div>
 
@@ -1178,7 +1118,6 @@ const firebaseConfig = {
 };
 
 const LISTA_ID = "renan-laislla-cha-cozinha";
-const ADMIN_PASSWORD = "cha2026";
 
 const presentesOriginais = [
   { nome:"Vasilhas plásticas e potes herméticos", ativo:true, ordem:1, categoria:"Organização", foto:"imagens/potes-hermeticos.jpg", descricao:"Conjunto com potes de vários tamanhos para mantimentos." },
@@ -1214,7 +1153,6 @@ let db = null;
 let docRef = null;
 let realtimeAtivo = false;
 let salvandoEscolha = false;
-let adminAtivo = sessionStorage.getItem("cha_admin_ativo") === "1";
 
 function normalizarTexto(t){
   return (t || "").toLowerCase().trim();
@@ -1258,24 +1196,6 @@ function mostrarToast(msg, tipo="ok"){
     el.style.transform = "translateY(8px)";
     setTimeout(() => el.remove(), 220);
   }, 2600);
-}
-
-function atualizarAdminUI(){
-  const adminBar = document.getElementById("adminBar");
-  const status = document.getElementById("adminStatus");
-  const btnToggle = document.getElementById("btnAdminToggle");
-  const btnSair = document.getElementById("btnAdminSair");
-
-  adminBar.style.display = "block";
-  if (adminAtivo) {
-    status.textContent = "Modo admin ativado — você pode liberar presentes";
-    btnToggle.style.display = "none";
-    btnSair.style.display = "inline-block";
-  } else {
-    status.textContent = "Modo admin desativado";
-    btnToggle.style.display = "inline-block";
-    btnSair.style.display = "none";
-  }
 }
 
 function atualizarStatusSync(){
@@ -1432,7 +1352,7 @@ function renderPresentes(reset = false){
         ` : `<div class="escolhido-por"></div>`}
         <div class="card-acoes">
           ${jaEscolhido ? "" : `<button type="button" onclick='abrirModalNome(${JSON.stringify(item.nome)})'>Escolher presente</button>`}
-          ${(jaEscolhido && adminAtivo) ? `<button type="button" class="btn-liberar" onclick='liberarPresente(${JSON.stringify(item.nome)})'>Desfazer escolha</button>` : ""}
+          
         </div>
       </div>
     `;
@@ -1508,6 +1428,9 @@ async function confirmarEscolha(){
     return;
   }
 
+  const avisoFinal = window.confirm("Depois de confirmar, essa escolha não poderá ser alterada pelo convidado. Deseja continuar?");
+  if (!avisoFinal) return;
+
   ultimoNome = nome;
   localStorage.setItem("cha_nome_convidado", nome);
   setBotaoConfirmar(true);
@@ -1519,7 +1442,7 @@ async function confirmarEscolha(){
     pagina = 0;
     atualizarListaEscolhidos();
     renderPresentes(true);
-    mostrarToast(`Presente reservado com sucesso: ${reservado}`, "ok");
+    mostrarToast(`Presente reservado com sucesso: ${reservado}. Após confirmar, a escolha não pode ser alterada pelo convidado.`, "ok");
   } catch (error) {
     if (error && error.message === "JA_ESCOLHIDO") {
       fecharModalNome();
@@ -1533,71 +1456,6 @@ async function confirmarEscolha(){
   } finally {
     setBotaoConfirmar(false);
   }
-}
-
-async function liberarPresente(nomePresente){
-  if (!adminAtivo) {
-    mostrarToast("Ative o modo admin primeiro.", "err");
-    return;
-  }
-
-  const confirmar = window.confirm(`Deseja liberar novamente o presente "${nomePresente}"?`);
-  if (!confirmar) return;
-
-  try {
-    if (db && docRef) {
-      await runTransaction(db, async (transaction) => {
-        const snap = await transaction.get(docRef);
-        const data = snap.exists() ? (snap.data() || {}) : {};
-        const escolhas = data.escolhas || {};
-
-        delete escolhas[nomePresente];
-
-        transaction.set(docRef, {
-          escolhas,
-          atualizadoEm: new Date().toISOString()
-        }, { merge: true });
-
-        escolhasCache = escolhas;
-        localStorage.setItem("cha_escolhas_com_nome", JSON.stringify(escolhasCache));
-      });
-    } else {
-      const escolhas = carregarEscolhas();
-      delete escolhas[nomePresente];
-      salvarEscolhasLocal(escolhas);
-    }
-
-    atualizarListaEscolhidos();
-    renderPresentes(true);
-    mostrarToast("Presente liberado novamente.", "ok");
-  } catch (error) {
-    console.error(error);
-    mostrarToast("Não foi possível liberar este presente.", "err");
-  }
-}
-
-function alternarAdmin(){
-  const senha = prompt("Digite a senha do admin:");
-  if (senha === null) return;
-
-  if (senha !== ADMIN_PASSWORD) {
-    mostrarToast("Senha incorreta.", "err");
-    return;
-  }
-
-  adminAtivo = true;
-  sessionStorage.setItem("cha_admin_ativo", "1");
-  atualizarAdminUI();
-  renderPresentes(true);
-  mostrarToast("Modo admin ativado.", "ok");
-}
-
-function sairAdmin(){
-  adminAtivo = false;
-  sessionStorage.removeItem("cha_admin_ativo");
-  atualizarAdminUI();
-  renderPresentes(true);
-  mostrarToast("Modo admin desativado.", "ok");
 }
 
 document.getElementById("busca").addEventListener("input", function(){
@@ -1671,14 +1529,10 @@ window.abrirModalNome = abrirModalNome;
 window.fecharModalNome = fecharModalNome;
 window.confirmarEscolha = confirmarEscolha;
 window.abrirConvite = abrirConvite;
-window.alternarAdmin = alternarAdmin;
-window.sairAdmin = sairAdmin;
-window.liberarPresente = liberarPresente;
 
 preencherFiltroCategoria();
 atualizarListaEscolhidos();
 renderPresentes(true);
-atualizarAdminUI();
 atualizarStatusSync();
 iniciarFirebase();
 </script>
