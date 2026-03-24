@@ -1310,7 +1310,7 @@ const presentesOriginais = [
 let presentes = [...presentesOriginais];
 let presentesOriginal = [...presentesOriginais].sort((a,b) => a.ordem - b.ordem);
 let pagina = 0;
-const porPagina = 999;
+const porPagina = 15;
 let presentePendente = null;
 let escolhasCache = JSON.parse(localStorage.getItem("cha_escolhas_com_nome") || "{}");
 let ultimoNome = localStorage.getItem("cha_nome_convidado") || "";
