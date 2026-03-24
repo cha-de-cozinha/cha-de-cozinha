@@ -1310,7 +1310,7 @@ const presentesOriginais = [
 let presentes = [...presentesOriginais];
 let presentesOriginal = [...presentesOriginais].sort((a,b) => a.ordem - b.ordem);
 let pagina = 0;
-const porPagina = 12;
+const porPagina = 999;
 let presentePendente = null;
 let escolhasCache = JSON.parse(localStorage.getItem("cha_escolhas_com_nome") || "{}");
 let ultimoNome = localStorage.getItem("cha_nome_convidado") || "";
@@ -1364,12 +1364,15 @@ function mostrarToast(msg, tipo="ok"){
 }
 
 function atualizarStatusSync(){
+  const caixaEscolhidos = document.querySelector(".lista-escolhidos");
+  if (!caixaEscolhidos) return;
+
   let el = document.getElementById("statusSync");
   if (!el) {
     el = document.createElement("div");
     el.id = "statusSync";
     el.className = "status-sync";
-    document.querySelector(".lista-escolhidos").appendChild(el);
+    caixaEscolhidos.appendChild(el);
   }
   el.textContent = realtimeAtivo
     ? "Lista sincronizada em tempo real para todos os convidados."
@@ -1425,6 +1428,8 @@ function preencherFiltroCategoria(){
 
 function atualizarListaEscolhidos(){
   const ul = document.getElementById("listaEscolhidos");
+  if (!ul) return;
+
   const escolhas = carregarEscolhas();
   const itens = Object.entries(escolhas).sort((a,b) => a[0].localeCompare(b[0]));
 
@@ -1524,7 +1529,7 @@ function renderPresentes(reset = false){
   }).join("");
 
   document.getElementById("verMais").style.display =
-    fim >= listaFiltrada.length ? "none" : "inline-block";
+    listaFiltrada.length <= porPagina || fim >= listaFiltrada.length ? "none" : "inline-block";
 }
 
 function abrirModalNome(nomePresente){
