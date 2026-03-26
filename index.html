@@ -1,3 +1,4 @@
+
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
@@ -1040,6 +1041,155 @@ footer{
 .hero-data-luxo .separador{
   opacity:.5;
 }
+
+/* ===== CARD PIX FIXO ===== */
+.card-pix-fixo{
+  border:1px solid rgba(201,164,108,.34);
+  background:linear-gradient(180deg,#fffaf2 0%, #fff 100%);
+  box-shadow:0 18px 42px rgba(201,164,108,.16);
+}
+.card-pix-fixo .categoria-chip{
+  background:#f5ead0;
+  color:#8f6b2c;
+}
+.pix-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin:2px 0 14px;
+  padding:8px 14px;
+  border-radius:999px;
+  background:#efe3c7;
+  color:#8f6b2c;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+}
+.card-pix-fixo .desc-presente{min-height:auto;}
+.card-pix-fixo .pix-mini{
+  margin:12px 0 16px;
+  color:#6b5e53;
+  font-size:13px;
+}
+.btn-pix-card{
+  width:100%;
+  border:none;
+  border-radius:30px;
+  padding:14px 18px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  color:#fff;
+  background:linear-gradient(135deg,#2f7d4f,#37a866);
+  box-shadow:0 12px 22px rgba(47,125,79,.22);
+  transition:transform .2s ease, filter .2s ease;
+}
+.btn-pix-card:hover{transform:translateY(-2px);filter:brightness(1.03);}
+
+/* ===== MODAL PIX LIVRE ===== */
+.modal-pix{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.84);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:2147483647;
+  padding:18px;
+}
+.modal-pix-box{
+  width:100%;
+  max-width:460px;
+  background:#fff;
+  border-radius:24px;
+  padding:28px;
+  box-shadow:var(--sombra-forte);
+  text-align:center;
+  position:relative;
+}
+.modal-pix-fechar{
+  position:absolute;
+  top:10px;
+  right:14px;
+  border:none;
+  background:none;
+  font-size:28px;
+  cursor:pointer;
+  color:#7b6f63;
+}
+.modal-pix-box h3{margin:0 0 8px;color:#3f4f45;font-size:32px;}
+.modal-pix-box p{margin:0 0 14px;color:#6b5e53;}
+.pix-input{
+  width:100%;
+  padding:14px 16px;
+  border-radius:14px;
+  border:1px solid #ddd6cb;
+  font-size:18px;
+  text-align:center;
+  margin:8px 0 14px;
+}
+.pix-sugestoes{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.pix-sugestoes button{
+  border:none;
+  border-radius:999px;
+  padding:10px 14px;
+  background:#f3ede5;
+  color:#6b5e53;
+  font-weight:700;
+  cursor:pointer;
+}
+.pix-resultado{
+  display:none;
+  margin-top:16px;
+  padding-top:16px;
+  border-top:1px solid #ece5db;
+}
+.pix-resultado img{
+  width:220px;
+  max-width:100%;
+  display:block;
+  margin:0 auto 14px;
+  border-radius:18px;
+  background:#fff;
+  border:1px solid #eee2d2;
+  padding:10px;
+}
+.pix-copia{
+  width:100%;
+  min-height:86px;
+  border:1px solid #ddd6cb;
+  border-radius:14px;
+  padding:12px;
+  resize:none;
+  font-size:13px;
+  color:#4d433b;
+  margin-bottom:12px;
+}
+.pix-botoes{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.pix-botoes button{
+  border:none;
+  border-radius:30px;
+  padding:12px 18px;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:700;
+}
+.btn-gerar-pix{background:linear-gradient(135deg,#2f7d4f,#37a866);color:#fff;}
+.btn-copiar-pix{background:#efe3c7;color:#7b5f29;}
+.btn-limpar-pix{background:#dfe6df;color:#3f4f45;}
+
 </style>
 </head>
 
@@ -1192,7 +1342,37 @@ footer{
   </div>
 </div>
 
+
+<div class="modal-pix" id="modalPixLivre">
+  <div class="modal-pix-box">
+    <button type="button" class="modal-pix-fechar" onclick="fecharModalPixLivre()">×</button>
+    <h3 id="pixLivreTitulo">Ajude também com qualquer quantia</h3>
+    <p id="pixLivreDescricao">Além do presente que você vai levar, se quiser dar uma forcinha com qualquer valor, vai ajudar muito na casa nova e em outros itens da casa também 💛</p>
+    <input type="text" id="valorPixLivre" class="pix-input" placeholder="Digite o valor. Ex: 50,00">
+    <div class="pix-sugestoes">
+      <button type="button" onclick="preencherValorPixLivre('30,00')">R$ 30</button>
+      <button type="button" onclick="preencherValorPixLivre('50,00')">R$ 50</button>
+      <button type="button" onclick="preencherValorPixLivre('100,00')">R$ 100</button>
+      <button type="button" onclick="preencherValorPixLivre('150,00')">R$ 150</button>
+    </div>
+    <div class="modal-acoes">
+      <button class="btn btn-gerar-pix" type="button" onclick="gerarPixLivre()">Gerar Pix</button>
+      <button class="btn-secundario" type="button" onclick="fecharModalPixLivre()">Cancelar</button>
+    </div>
+    <div class="pix-resultado" id="pixLivreResultado">
+      <p id="pixLivreResumo">Faça o pagamento com o QR Code ou copie o código Pix abaixo.</p>
+      <img id="pixLivreQr" alt="QR Code Pix">
+      <textarea id="pixLivreCopiaCola" class="pix-copia" readonly></textarea>
+      <div class="pix-botoes">
+        <button type="button" class="btn-copiar-pix" onclick="copiarPixLivre()">Copiar código Pix</button>
+        <button type="button" class="btn-limpar-pix" onclick="limparPixLivre()">Gerar outro valor</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="toast-wrap" id="toastWrap"></div>
+
 
 <footer>
   Feito com carinho para esse dia especial ✨
@@ -1213,6 +1393,38 @@ const firebaseConfig = {
 };
 
 const LISTA_ID = "renan-laislla-cha-cozinha";
+
+const PIX_CHAVE = "gosteieufalo@gmail.com";
+const PIX_NOME = "RENAN E LAISLLA";
+const PIX_CIDADE = "SAO PAULO";
+const FOTO_PIX_FIXO = "data:image/svg+xml;utf8," + encodeURIComponent(`
+  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'>
+    <defs>
+      <linearGradient id='bg' x1='0' y1='0' x2='1' y2='1'>
+        <stop offset='0%' stop-color='#f8efdf'/>
+        <stop offset='100%' stop-color='#ead8b9'/>
+      </linearGradient>
+      <linearGradient id='card' x1='0' y1='0' x2='1' y2='1'>
+        <stop offset='0%' stop-color='#ffffff'/>
+        <stop offset='100%' stop-color='#f5ead0'/>
+      </linearGradient>
+    </defs>
+    <rect width='800' height='800' fill='url(#bg)'/>
+    <rect x='110' y='160' rx='42' ry='42' width='580' height='480' fill='url(#card)' stroke='#d4b37b' stroke-width='8'/>
+    <circle cx='400' cy='290' r='72' fill='#d9b87d'/>
+    <path d='M358 290h84M400 248v84' stroke='#fff' stroke-width='18' stroke-linecap='round'/>
+    <text x='400' y='430' text-anchor='middle' font-family='Arial' font-size='38' font-weight='700' fill='#7b5f29'>Contribuição</text>
+    <text x='400' y='478' text-anchor='middle' font-family='Arial' font-size='34' fill='#7b6f63'>livre via Pix</text>
+    <text x='400' y='560' text-anchor='middle' font-family='Arial' font-size='26' fill='#8c7c68'>Ajude com qualquer valor</text>
+  </svg>
+`);
+const PRESENTE_PIX_FIXO = {
+  nome: "Ajude também com qualquer quantia",
+  categoria: "Contribuição",
+  foto: FOTO_PIX_FIXO,
+  descricao: "Além do presente que você vai levar, se quiser dar uma forcinha com qualquer valor, vai ajudar muito na casa nova e em outros itens da casa também 💛"
+};
+
 
 const presentesOriginais = [
   { nome:"Vasilhas plásticas e potes herméticos", ativo:true, ordem:1, categoria:"Organização", foto:"imagens/foto1.png", descricao:"Conjunto com potes de vários tamanhos para mantimentos." },
@@ -1350,6 +1562,145 @@ function escaparHtml(str){
     .replaceAll("'","&#39;");
 }
 
+
+function normalizarValorPix(valorTexto){
+  const limpo = String(valorTexto || "")
+    .replace(/\s+/g, "")
+    .replace(/R\$/gi, "")
+    .replace(/\./g, "")
+    .replace(",", ".");
+  const numero = Number(limpo);
+  return Number.isFinite(numero) && numero > 0 ? numero : null;
+}
+
+function formatarMoeda(valor){
+  return Number(valor || 0).toLocaleString("pt-BR", { style:"currency", currency:"BRL" });
+}
+
+function crc16(payload){
+  let crc = 0xFFFF;
+  for (let i = 0; i < payload.length; i++) {
+    crc ^= payload.charCodeAt(i) << 8;
+    for (let j = 0; j < 8; j++) {
+      crc = (crc & 0x8000) ? (crc << 1) ^ 0x1021 : crc << 1;
+    }
+  }
+  return (crc & 0xFFFF).toString(16).toUpperCase().padStart(4, "0");
+}
+
+function normalizarPixTexto(texto){
+  return String(texto || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^A-Za-z0-9 ]/g, "")
+    .toUpperCase()
+    .trim();
+}
+
+function gerarPixPayload({ chave, nome, cidade, valor }){
+  function campo(id, valorCampo){
+    const tamanho = valorCampo.length.toString().padStart(2, "0");
+    return id + tamanho + valorCampo;
+  }
+
+  const valorFormatado = valor ? Number(valor).toFixed(2) : "";
+  const payloadSemCRC =
+    campo("00", "01") +
+    campo("26", campo("00", "BR.GOV.BCB.PIX") + campo("01", chave)) +
+    campo("52", "0000") +
+    campo("53", "986") +
+    (valorFormatado ? campo("54", valorFormatado) : "") +
+    campo("58", "BR") +
+    campo("59", normalizarPixTexto(nome).substring(0, 25)) +
+    campo("60", normalizarPixTexto(cidade).substring(0, 15)) +
+    campo("62", "0503***");
+
+  const crc = crc16(payloadSemCRC + "6304");
+  return payloadSemCRC + "6304" + crc;
+}
+
+function renderCardPixFixo(){
+  const nomeSeguro = escaparHtml(PRESENTE_PIX_FIXO.nome);
+  const descricaoSegura = escaparHtml(PRESENTE_PIX_FIXO.descricao);
+  const categoriaSegura = escaparHtml(PRESENTE_PIX_FIXO.categoria);
+
+  return `
+    <div class="card card-pix-fixo">
+      <img src="${PRESENTE_PIX_FIXO.foto}" alt="${nomeSeguro}">
+      <span class="categoria-chip">${categoriaSegura}</span>
+      <div class="pix-tag">Pix livre</div>
+      <h3>${nomeSeguro}</h3>
+      <div class="desc-presente">${descricaoSegura}</div>
+      <div class="pix-mini">Esse card fica sempre liberado para todo mundo contribuir quantas vezes quiser.</div>
+      <div class="card-acoes">
+        <button type="button" class="btn-pix-card" onclick="abrirModalPixLivre()">Contribuir com Pix</button>
+      </div>
+    </div>
+  `;
+}
+
+function abrirModalPixLivre(){
+  document.getElementById("pixLivreTitulo").innerText = PRESENTE_PIX_FIXO.nome;
+  document.getElementById("pixLivreDescricao").innerText = PRESENTE_PIX_FIXO.descricao;
+  document.getElementById("pixLivreResultado").style.display = "none";
+  document.getElementById("valorPixLivre").value = "";
+  document.getElementById("modalPixLivre").style.display = "flex";
+  setTimeout(() => document.getElementById("valorPixLivre").focus(), 50);
+}
+
+function fecharModalPixLivre(){
+  document.getElementById("modalPixLivre").style.display = "none";
+}
+
+function preencherValorPixLivre(valor){
+  document.getElementById("valorPixLivre").value = valor;
+}
+
+function gerarPixLivre(){
+  const valor = normalizarValorPix(document.getElementById("valorPixLivre").value);
+
+  if (!valor) {
+    mostrarToast("Digite um valor válido para gerar o Pix.", "err");
+    return;
+  }
+
+  const payload = gerarPixPayload({
+    chave: PIX_CHAVE,
+    nome: PIX_NOME,
+    cidade: PIX_CIDADE,
+    valor
+  });
+
+  document.getElementById("pixLivreResumo").innerText =
+    `Pronto 💛 Faça o pagamento de ${formatarMoeda(valor)} com o QR Code ou copie o código Pix abaixo.`;
+  document.getElementById("pixLivreQr").src =
+    "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(payload);
+  document.getElementById("pixLivreCopiaCola").value = payload;
+  document.getElementById("pixLivreResultado").style.display = "block";
+}
+
+async function copiarPixLivre(){
+  const campo = document.getElementById("pixLivreCopiaCola");
+  if (!campo.value) {
+    mostrarToast("Gere o Pix primeiro para copiar o código.", "err");
+    return;
+  }
+  try {
+    await navigator.clipboard.writeText(campo.value);
+    mostrarToast("Código Pix copiado com sucesso.", "ok");
+  } catch (error) {
+    campo.select();
+    document.execCommand("copy");
+    mostrarToast("Código Pix copiado.", "ok");
+  }
+}
+
+function limparPixLivre(){
+  document.getElementById("valorPixLivre").value = "";
+  document.getElementById("pixLivreResultado").style.display = "none";
+  document.getElementById("valorPixLivre").focus();
+}
+
 function mostrarToast(msg, tipo="ok"){
   const wrap = document.getElementById("toastWrap");
   const el = document.createElement("div");
@@ -1416,7 +1767,7 @@ function nomeDeQuemEscolheu(nomePresente){
 }
 
 function preencherFiltroCategoria(){
-  const categorias = [...new Set(presentesOriginais.map(item => item.categoria))];
+  const categorias = [...new Set([PRESENTE_PIX_FIXO.categoria, ...presentesOriginais.map(item => item.categoria)])];
   const select = document.getElementById("filtroCategoria");
   categorias.forEach(categoria => {
     const option = document.createElement("option");
@@ -1480,10 +1831,21 @@ function renderPresentes(reset = false){
   const cont = document.getElementById("listaPresentes");
   const listaFiltrada = obterPresentesFiltrados();
   const fim = (pagina + 1) * porPagina;
+  const busca = normalizarTexto(document.getElementById("busca").value);
+  const categoria = document.getElementById("filtroCategoria").value;
 
   if (reset) cont.innerHTML = "";
 
-  if (listaFiltrada.length === 0) {
+  const mostrarPixFixo =
+    (categoria === "todas" || categoria === PRESENTE_PIX_FIXO.categoria) &&
+    (
+      busca === "" ||
+      normalizarTexto(PRESENTE_PIX_FIXO.nome).includes(busca) ||
+      normalizarTexto(PRESENTE_PIX_FIXO.categoria).includes(busca) ||
+      normalizarTexto(PRESENTE_PIX_FIXO.descricao).includes(busca)
+    );
+
+  if (listaFiltrada.length === 0 && !mostrarPixFixo) {
     cont.innerHTML = `
       <div class="card" style="grid-column:1/-1;text-align:center;">
         <h3>Nenhum presente encontrado</h3>
@@ -1494,7 +1856,12 @@ function renderPresentes(reset = false){
     return;
   }
 
-  cont.innerHTML = listaFiltrada.slice(0, fim).map(item => {
+  let html = "";
+  if (mostrarPixFixo) {
+    html += renderCardPixFixo();
+  }
+
+  html += listaFiltrada.slice(0, fim).map(item => {
     const nomeEscolhido = nomeDeQuemEscolheu(item.nome);
     const jaEscolhido = !!nomeEscolhido;
     const nomeSeguro = escaparHtml(item.nome);
@@ -1522,11 +1889,12 @@ function renderPresentes(reset = false){
         ` : `<div class="escolhido-por"></div>`}
         <div class="card-acoes">
           ${jaEscolhido ? "" : `<button type="button" onclick='abrirModalNome(${JSON.stringify(item.nome)})'>Escolher presente</button>`}
-          
         </div>
       </div>
     `;
   }).join("");
+
+  cont.innerHTML = html;
 
   document.getElementById("verMais").style.display =
     listaFiltrada.length <= porPagina || fim >= listaFiltrada.length ? "none" : "inline-block";
@@ -1644,6 +2012,8 @@ document.getElementById("ordenar").addEventListener("change", function(e){
 
   if (tipo === "az") {
     base.sort((a, b) => a.nome.localeCompare(b.nome));
+  } else {
+    base.sort((a, b) => (a.ordem || 9999) - (b.ordem || 9999));
   }
 
   presentes = base;
@@ -1664,8 +2034,19 @@ document.getElementById("modalNome").addEventListener("click", function(e){
   if (e.target.id === "modalNome") fecharModalNome();
 });
 
+document.getElementById("modalPixLivre").addEventListener("click", function(e){
+  if (e.target.id === "modalPixLivre") fecharModalPixLivre();
+});
+
+document.getElementById("valorPixLivre").addEventListener("keydown", function(e){
+  if (e.key === "Enter") gerarPixLivre();
+});
+
 document.addEventListener("keydown", function(e){
-  if (e.key === "Escape") fecharModalNome();
+  if (e.key === "Escape") {
+    fecharModalNome();
+    fecharModalPixLivre();
+  }
 });
 
 const data = new Date("2026-05-02T13:00:00").getTime();
@@ -1699,6 +2080,12 @@ window.abrirModalNome = abrirModalNome;
 window.fecharModalNome = fecharModalNome;
 window.confirmarEscolha = confirmarEscolha;
 window.abrirConvite = abrirConvite;
+window.abrirModalPixLivre = abrirModalPixLivre;
+window.fecharModalPixLivre = fecharModalPixLivre;
+window.preencherValorPixLivre = preencherValorPixLivre;
+window.gerarPixLivre = gerarPixLivre;
+window.copiarPixLivre = copiarPixLivre;
+window.limparPixLivre = limparPixLivre;
 
 preencherFiltroCategoria();
 atualizarListaEscolhidos();
