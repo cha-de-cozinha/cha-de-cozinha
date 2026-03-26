@@ -1101,12 +1101,15 @@ footer{
 .modal-pix-box{
   width:100%;
   max-width:460px;
+  max-height:90vh;
+  overflow-y:auto;
   background:#fff;
   border-radius:24px;
   padding:28px;
   box-shadow:var(--sombra-forte);
   text-align:center;
   position:relative;
+  -webkit-overflow-scrolling:touch;
 }
 .modal-pix-fechar{
   position:absolute;
@@ -1161,6 +1164,7 @@ footer{
   border:1px solid #eee2d2;
   padding:10px;
 }
+.pix-resultado{padding-bottom:4px;}
 .pix-copia{
   width:100%;
   min-height:86px;
@@ -1177,6 +1181,9 @@ footer{
   gap:10px;
   flex-wrap:wrap;
   justify-content:center;
+}
+.pix-botoes button{
+  flex:1 1 180px;
 }
 .pix-botoes button{
   border:none;
@@ -1394,7 +1401,7 @@ const firebaseConfig = {
 
 const LISTA_ID = "renan-laislla-cha-cozinha";
 
-const PIX_CHAVE = "gosteieufalo@gmail.com";
+const PIX_CHAVE = "30038963850";
 const PIX_NOME = "RENAN E LAISLLA";
 const PIX_CIDADE = "SAO PAULO";
 const FOTO_PIX_FIXO = "data:image/svg+xml;utf8," + encodeURIComponent(`
@@ -1834,10 +1841,12 @@ function renderPresentes(reset = false){
   const busca = normalizarTexto(document.getElementById("busca").value);
   const categoria = document.getElementById("filtroCategoria").value;
 
-  if (reset) cont.innerHTML = "";
-
   const mostrarPixFixo =
-    (categoria === "todas" || categoria === PRESENTE_PIX_FIXO.categoria) &&
+    (
+      categoria === "todas" ||
+      categoria === PRESENTE_PIX_FIXO.categoria ||
+      categoria === "Contribuição"
+    ) &&
     (
       busca === "" ||
       normalizarTexto(PRESENTE_PIX_FIXO.nome).includes(busca) ||
@@ -1847,21 +1856,22 @@ function renderPresentes(reset = false){
 
   if (listaFiltrada.length === 0 && !mostrarPixFixo) {
     cont.innerHTML = `
-      <div class="card" style="grid-column:1/-1;text-align:center;">
+      <div class="card" style="grid-column:1/-1; text-align:center;">
         <h3>Nenhum presente encontrado</h3>
-        <p>Tente mudar a busca ou o filtro.</p>
+        <div class="desc-presente" style="min-height:auto;">Tente mudar a busca ou selecionar outra categoria.</div>
       </div>
     `;
     document.getElementById("verMais").style.display = "none";
     return;
   }
 
-  let html = "";
+  const cards = [];
+
   if (mostrarPixFixo) {
-    html += renderCardPixFixo();
+    cards.push(renderCardPixFixo());
   }
 
-  html += listaFiltrada.slice(0, fim).map(item => {
+  listaFiltrada.slice(0, fim).forEach(item => {
     const nomeEscolhido = nomeDeQuemEscolheu(item.nome);
     const jaEscolhido = !!nomeEscolhido;
     const nomeSeguro = escaparHtml(item.nome);
@@ -1869,35 +1879,26 @@ function renderPresentes(reset = false){
     const categoriaSegura = escaparHtml(item.categoria);
     const nomePessoaSeguro = escaparHtml(nomeEscolhido);
 
-    return `
+    cards.push(`
       <div class="card">
-        <img src="${item.foto}" alt="${nomeSeguro}" onerror="this.onerror=null;this.src='${fallbackSvg(item.nome)}'">
+        <img src="${item.foto}" alt="${nomeSeguro}" loading="lazy" onerror="this.src='${fallbackSvg(item.nome)}'">
         <span class="categoria-chip">${categoriaSegura}</span>
         <h3>${nomeSeguro}</h3>
         <div class="desc-presente">${descricaoSegura}</div>
-        <div class="estado ${jaEscolhido ? "estado-escolhido" : "estado-disponivel"}">
-          ${jaEscolhido ? "Já escolhido" : "Disponível"}
-        </div>
-        ${jaEscolhido ? `
-          <div class="nome-reserva">
-            <div class="avatar">${iniciais(nomeEscolhido)}</div>
-            <div>
-              <div class="label">Escolhido por</div>
-              <div class="nome">${nomePessoaSeguro}</div>
-            </div>
-          </div>
-        ` : `<div class="escolhido-por"></div>`}
+        ${jaEscolhido
+          ? `<div class="nome-reserva"><div class="avatar">${iniciais(nomeEscolhido)}</div><div><div class="label">Escolhido por</div><div class="nome">${nomePessoaSeguro}</div></div></div>`
+          : `<div class="estado estado-disponivel">Disponível</div><div class="escolhido-por"></div>`}
         <div class="card-acoes">
           ${jaEscolhido ? "" : `<button type="button" onclick='abrirModalNome(${JSON.stringify(item.nome)})'>Escolher presente</button>`}
         </div>
       </div>
-    `;
-  }).join("");
+    `);
+  });
 
-  cont.innerHTML = html;
+  cont.innerHTML = cards.join("");
 
-  document.getElementById("verMais").style.display =
-    listaFiltrada.length <= porPagina || fim >= listaFiltrada.length ? "none" : "inline-block";
+  const totalRenderizado = listaFiltrada.slice(0, fim).length;
+  document.getElementById("verMais").style.display = totalRenderizado < listaFiltrada.length ? "inline-block" : "none";
 }
 
 function abrirModalNome(nomePresente){
@@ -2080,6 +2081,12 @@ window.abrirModalNome = abrirModalNome;
 window.fecharModalNome = fecharModalNome;
 window.confirmarEscolha = confirmarEscolha;
 window.abrirConvite = abrirConvite;
+window.abrirModalPixLivre = abrirModalPixLivre;
+window.fecharModalPixLivre = fecharModalPixLivre;
+window.preencherValorPixLivre = preencherValorPixLivre;
+window.gerarPixLivre = gerarPixLivre;
+window.copiarPixLivre = copiarPixLivre;
+window.limparPixLivre = limparPixLivre;
 window.abrirModalPixLivre = abrirModalPixLivre;
 window.fecharModalPixLivre = fecharModalPixLivre;
 window.preencherValorPixLivre = preencherValorPixLivre;
