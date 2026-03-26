@@ -1266,7 +1266,7 @@ footer{
   <div class="encontro-texto">
 
   ⚠️ <strong>Importante:</strong> esta é uma festa surpresa — o casal não sabe de nada! Contamos com a discrição de todos para preservar a magia desse momento tão especial.<br>
-    Sua presença é o que realmente importa… e fará toda a diferença nesse momento único. ✨.
+    Sinta-se à vontade para escolher <strong>um ou mais presentes</strong>. Ao reservar, seu nome ficará registrado no item escolhido.
 </div>
 </div>
 
@@ -1354,7 +1354,7 @@ footer{
   <div class="modal-pix-box">
     <button type="button" class="modal-pix-fechar" onclick="fecharModalPixLivre()">×</button>
     <h3 id="pixLivreTitulo">Ajude também com qualquer quantia</h3>
-    <p id="pixLivreDescricao">Além do presente que você escolher, se quiser dar uma forcinha com qualquer valor, vai ajudar muito na nossa casa nova e em outros itens que ainda faltam 💛</p>
+    <p id="pixLivreDescricao">Além do presente que você vai levar, se quiser dar uma forcinha com qualquer valor, vai ajudar muito na casa nova e em outros itens da casa também 💛</p>
     <input type="text" id="valorPixLivre" class="pix-input" placeholder="Digite o valor. Ex: 50,00">
     <div class="pix-sugestoes">
       <button type="button" onclick="preencherValorPixLivre('30,00')">R$ 30</button>
@@ -1404,38 +1404,7 @@ const LISTA_ID = "renan-laislla-cha-cozinha";
 const PIX_CHAVE = "30038963850";
 const PIX_NOME = "RENAN E LAISLLA";
 const PIX_CIDADE = "SAO PAULO";
-const FOTO_PIX_FIXO = "data:image/svg+xml;utf8," + encodeURIComponent(`
-  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'>
-    <defs>
-      <linearGradient id='bg' x1='0' y1='0' x2='1' y2='1'>
-        <stop offset='0%' stop-color='#fbf4e9'/>
-        <stop offset='100%' stop-color='#ecdcc4'/>
-      </linearGradient>
-      <linearGradient id='fur' x1='0' y1='0' x2='1' y2='1'>
-        <stop offset='0%' stop-color='#f6efe4'/>
-        <stop offset='100%' stop-color='#dcc4a0'/>
-      </linearGradient>
-      <linearGradient id='card' x1='0' y1='0' x2='1' y2='1'>
-        <stop offset='0%' stop-color='#fffefb'/>
-        <stop offset='100%' stop-color='#f5ead7'/>
-      </linearGradient>
-    </defs>
-    <rect width='800' height='800' fill='url(#bg)'/>
-    <circle cx='400' cy='310' r='170' fill='url(#fur)' stroke='#c9a56d' stroke-width='10'/>
-    <path d='M285 190 L340 88 L390 200 Z' fill='#e8d4b0' stroke='#c9a56d' stroke-width='10' stroke-linejoin='round'/>
-    <path d='M515 190 L460 88 L410 200 Z' fill='#e8d4b0' stroke='#c9a56d' stroke-width='10' stroke-linejoin='round'/>
-    <path d='M319 153 L342 115 L362 160 Z' fill='#f3c8cc'/>
-    <path d='M481 153 L458 115 L438 160 Z' fill='#f3c8cc'/>
-    <ellipse cx='337' cy='302' rx='20' ry='28' fill='#3f4f45'/>
-    <ellipse cx='463' cy='302' rx='20' ry='28' fill='#3f4f45'/>
-    <ellipse cx='400' cy='344' rx='26' ry='20' fill='#d88f98'/>
-    <path d='M387 358 Q400 373 413 358' fill='none' stroke='#6b5e53' stroke-width='8' stroke-linecap='round'/>
-    <path d='M364 344 h-84 M361 362 h-80 M436 344 h84 M439 362 h80' stroke='#8c7c68' stroke-width='5' stroke-linecap='round'/>
-    <rect x='125' y='498' rx='36' ry='36' width='550' height='176' fill='url(#card)' stroke='#d4b37b' stroke-width='8'/>
-    <text x='400' y='566' text-anchor='middle' font-family='Arial' font-size='40' font-weight='700' fill='#7b5f29'>Pix livre</text>
-    <text x='400' y='614' text-anchor='middle' font-family='Arial' font-size='28' fill='#6b5e53'>Ajude com qualquer valor</text>
-  </svg>
-`);
+const FOTO_PIX_FIXO = "imagens/gato.jpeg";
 const PRESENTE_PIX_FIXO = {
   nome: "Ajude também com qualquer quantia",
   categoria: "Contribuição",
@@ -1649,7 +1618,6 @@ function renderCardPixFixo(){
       <div class="pix-tag">Pix livre</div>
       <h3>${nomeSeguro}</h3>
       <div class="desc-presente">${descricaoSegura}</div>
-      <div class="pix-mini">Esse card fica sempre liberado para todo mundo contribuir quantas vezes quiser.</div>
       <div class="card-acoes">
         <button type="button" class="btn-pix-card" onclick="abrirModalPixLivre()">Contribuir com Pix</button>
       </div>
