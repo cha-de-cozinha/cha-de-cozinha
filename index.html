@@ -1408,21 +1408,32 @@ const FOTO_PIX_FIXO = "data:image/svg+xml;utf8," + encodeURIComponent(`
   <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'>
     <defs>
       <linearGradient id='bg' x1='0' y1='0' x2='1' y2='1'>
-        <stop offset='0%' stop-color='#f8efdf'/>
-        <stop offset='100%' stop-color='#ead8b9'/>
+        <stop offset='0%' stop-color='#fbf4e9'/>
+        <stop offset='100%' stop-color='#ecdcc4'/>
+      </linearGradient>
+      <linearGradient id='fur' x1='0' y1='0' x2='1' y2='1'>
+        <stop offset='0%' stop-color='#f6efe4'/>
+        <stop offset='100%' stop-color='#dcc4a0'/>
       </linearGradient>
       <linearGradient id='card' x1='0' y1='0' x2='1' y2='1'>
-        <stop offset='0%' stop-color='#ffffff'/>
-        <stop offset='100%' stop-color='#f5ead0'/>
+        <stop offset='0%' stop-color='#fffefb'/>
+        <stop offset='100%' stop-color='#f5ead7'/>
       </linearGradient>
     </defs>
     <rect width='800' height='800' fill='url(#bg)'/>
-    <rect x='110' y='160' rx='42' ry='42' width='580' height='480' fill='url(#card)' stroke='#d4b37b' stroke-width='8'/>
-    <circle cx='400' cy='290' r='72' fill='#d9b87d'/>
-    <path d='M358 290h84M400 248v84' stroke='#fff' stroke-width='18' stroke-linecap='round'/>
-    <text x='400' y='430' text-anchor='middle' font-family='Arial' font-size='38' font-weight='700' fill='#7b5f29'>Contribuição</text>
-    <text x='400' y='478' text-anchor='middle' font-family='Arial' font-size='34' fill='#7b6f63'>livre via Pix</text>
-    <text x='400' y='560' text-anchor='middle' font-family='Arial' font-size='26' fill='#8c7c68'>Ajude com qualquer valor</text>
+    <circle cx='400' cy='310' r='170' fill='url(#fur)' stroke='#c9a56d' stroke-width='10'/>
+    <path d='M285 190 L340 88 L390 200 Z' fill='#e8d4b0' stroke='#c9a56d' stroke-width='10' stroke-linejoin='round'/>
+    <path d='M515 190 L460 88 L410 200 Z' fill='#e8d4b0' stroke='#c9a56d' stroke-width='10' stroke-linejoin='round'/>
+    <path d='M319 153 L342 115 L362 160 Z' fill='#f3c8cc'/>
+    <path d='M481 153 L458 115 L438 160 Z' fill='#f3c8cc'/>
+    <ellipse cx='337' cy='302' rx='20' ry='28' fill='#3f4f45'/>
+    <ellipse cx='463' cy='302' rx='20' ry='28' fill='#3f4f45'/>
+    <ellipse cx='400' cy='344' rx='26' ry='20' fill='#d88f98'/>
+    <path d='M387 358 Q400 373 413 358' fill='none' stroke='#6b5e53' stroke-width='8' stroke-linecap='round'/>
+    <path d='M364 344 h-84 M361 362 h-80 M436 344 h84 M439 362 h80' stroke='#8c7c68' stroke-width='5' stroke-linecap='round'/>
+    <rect x='125' y='498' rx='36' ry='36' width='550' height='176' fill='url(#card)' stroke='#d4b37b' stroke-width='8'/>
+    <text x='400' y='566' text-anchor='middle' font-family='Arial' font-size='40' font-weight='700' fill='#7b5f29'>Pix livre</text>
+    <text x='400' y='614' text-anchor='middle' font-family='Arial' font-size='28' fill='#6b5e53'>Ajude com qualquer valor</text>
   </svg>
 `);
 const PRESENTE_PIX_FIXO = {
@@ -1842,17 +1853,10 @@ function renderPresentes(reset = false){
   const categoria = document.getElementById("filtroCategoria").value;
 
   const mostrarPixFixo =
-    (
-      categoria === "todas" ||
-      categoria === PRESENTE_PIX_FIXO.categoria ||
-      categoria === "Contribuição"
-    ) &&
-    (
-      busca === "" ||
-      normalizarTexto(PRESENTE_PIX_FIXO.nome).includes(busca) ||
-      normalizarTexto(PRESENTE_PIX_FIXO.categoria).includes(busca) ||
-      normalizarTexto(PRESENTE_PIX_FIXO.descricao).includes(busca)
-    );
+    busca === "" ||
+    normalizarTexto(PRESENTE_PIX_FIXO.nome).includes(busca) ||
+    normalizarTexto(PRESENTE_PIX_FIXO.categoria).includes(busca) ||
+    normalizarTexto(PRESENTE_PIX_FIXO.descricao).includes(busca);
 
   if (listaFiltrada.length === 0 && !mostrarPixFixo) {
     cont.innerHTML = `
